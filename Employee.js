@@ -28,7 +28,7 @@ function compareIntervals(i1, i2) {
 
 
 
-// -------------- setting up mock info ----------------
+// -------------- setting up mock data ----------------
 
 let aliceWeeklyAvail = []
 let bobWeeklyAvail = []
