@@ -60,7 +60,7 @@ for (let i = 0; i < 7; i++) {
   caitlynWeeklyShifts.push(null)
   dariusWeeklyShifts.push(null)
 }
-aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has a different schedule on Sunday
+aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availability on Sunday
 
 aliceWeeklyShifts[0] = new TimeInterval(8, 15)
 bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
