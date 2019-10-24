@@ -1,0 +1,41 @@
+<!-- sign up page -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+ <head>
+ 	<meta charset="utf-8">
+    <title>Sign Up</title>
+    <!-- CSS File here-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- JS File here-->
+    <script type="text/javascript" src="signup.js"></script>
+ </head>
+
+ <body>
+    <div id="header_box">
+      <h1>
+        <center>Time to Work</center>
+      </h1>
+    </div>
+    <div name="signupform" class="signup_box">
+    	<form>
+    		<p><h2>SignUp</h2></p>
+    		<p>Email</p>
+    		<input type="text" name="email" id="email" placeholder="Enter Email Address">
+    		<p>Password</p>
+    		<input type="password" name="pword" id="pw" placeholder="∙∙∙∙∙∙∙∙∙">
+    		<p>Confirm Password</p>
+    		<input type="password" name="cpword" id="cpw" placeholder="∙∙∙∙∙∙∙∙∙">
+    		<p>Last Name</p>
+    		<input type="text" name="lastname" id="lastname" placeholder="Enter Your Last Name">
+    		<p>First Name</p>
+    		<input type="text" name="firstname" id="firstname" placeholder="Enter Your First Name">
+    		<p></p>
+    		<input type="button" name="Sign Up" value="Sign Up" onclick="checkPwMatch();">
+    		<input type="button" name="Back" value="Back" onclick="location.href = 'index.html';">
+    	</form>
+    </div>
+    
+</body>
