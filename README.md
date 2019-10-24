@@ -9,4 +9,4 @@ and use email = "admin" amd password = "admin" to login as admin user; if email 
 <li>Sign Up Page:
 for any of the input is empty, it will pop up the window to remain user to enter the info; if the email not contain "@", pop up window will say that is invalid email address; if the password and confirm password not match, also pop up window to alert unmatch password; if all info is ok, pop up succuessful sign up and auto return to the log in page.</li>
 
-</ul>>
+</ul>
