@@ -1,6 +1,7 @@
 'use strict';
 
 let allEmployees = []
+let allEmployers = []
 
 
 class Employee {
@@ -13,7 +14,16 @@ class Employee {
     this.shifts = shifts
   }
 }
-
+class Employer {
+	constructor(name, password, storeName, openTime, closeTime){
+		this.name = name
+		this.userID = allEmployers.length
+		this.password = password
+		this.storeName = storeName
+		this.openTime = openTime
+		this.closeTime = closeTime
+	}
+}
 class TimeInterval {
   constructor(start, end) {
     this.start = start
