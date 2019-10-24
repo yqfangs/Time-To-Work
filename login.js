@@ -13,7 +13,7 @@ function checkEmailPwMatch(){
 		//pop up to notice log in success
 		alert("Login Successfully as regular user");
 		//point to next page
-		//window.location = ".html";
+		window.location = "dashboard.html";
 		return true;
 	}
 	//correcy email and password for admin
