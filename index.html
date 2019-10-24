@@ -5,7 +5,10 @@
  <head>
  	<meta charset="utf-8">
     <title>Time to Work</title>
+    <!-- CSS File here-->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- JS File here-->
+    <script type="text/javascript" src="login.js"></script>
  </head>
 
 <body>
@@ -14,17 +17,17 @@
         <center>Time to Work</center>
       </h1>
     </div>
-    <div class="login_box">
+    <div name="loginform" class="login_box">
     	<form>
     		<p><h2>LogIn</h2></p>
     		<p>Email</p>
-    		<input type="text" name="Email" placeholder="Enter Email Address">
+    		<input type="text" name="email" id="email" splaceholder="Enter Email Address">
     		<p>Password</p>
-    		<input type="password" name="password" placeholder="∙∙∙∙∙∙∙∙∙">
+    		<input type="password" name="pword" id="pw" placeholder="∙∙∙∙∙∙∙∙∙">
     		<a href="#" class="link">Forget Password</a>
     		<p></p>
     		<input type="button" name="Sign Up" value="Sign Up">
-    		<input type="button" name="Log In" value="Log In">
+    		<input type="button" name="Log In" value="Log In" onclick="checkMatch()">
     	</form>
     </div>
     
