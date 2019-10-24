@@ -1,3 +1,5 @@
+<!-- log in page -->
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -19,15 +21,15 @@
     </div>
     <div name="loginform" class="login_box">
     	<form>
-    		<p><h2>LogIn</h2></p>
+    		<p><h2>Log In</h2></p>
     		<p>Email</p>
-    		<input type="text" name="email" id="email" splaceholder="Enter Email Address">
+    		<input type="text" name="email" id="email" placeholder="Enter Email Address">
     		<p>Password</p>
     		<input type="password" name="pword" id="pw" placeholder="∙∙∙∙∙∙∙∙∙">
     		<a href="#" class="link">Forget Password</a>
     		<p></p>
-    		<input type="button" name="Sign Up" value="Sign Up">
-    		<input type="button" name="Log In" value="Log In" onclick="checkMatch()">
+    		<input type="button" name="Sign Up" value="Sign Up" onclick="location.href = 'signup.html';" >
+    		<input type="button" name="Log In" value="Log In" onclick="checkEmailPwMatch()">
     	</form>
     </div>
     

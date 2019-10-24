@@ -1,8 +1,8 @@
 "use strict";
 
 const log = console.log;
-log("aaa");
-function checkMatch(){
+
+function checkEmailPwMatch(){
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("pw").value;
 	//correcy email and password for user
