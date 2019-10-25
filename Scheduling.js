@@ -91,7 +91,7 @@ const scheduleTable = document.querySelector("#scheduleTable")
 const modalConfirmButton = document.querySelector("#modalConfirmButton")
 
 availTable.addEventListener("click", modalLoadSelected)
-scheduleTable.addEventListener("click", updateShift)
+scheduleTable.addEventListener("click", scheduleTableEvent)
 modalConfirmButton.addEventListener("click", addShift)
 
 function modalLoadSelected(e) {
@@ -101,30 +101,59 @@ function modalLoadSelected(e) {
   }
 }
 
+function scheduleTableEvent(e) {
+  if (e.target.classList.contains("scheduleSubmitButton")) {
+    updateShift(e)
+  }
+  else if (e.target.classList.contains("scheduleRemoveButton")) {
+    removeShift(e)
+  }
+}
+
+
 function updateShift(e) {
   e.preventDefault()
-  if (e.target.classList.contains("scheduleSubmitButton"))  {
-    const end = Number(e.target.previousElementSibling.value)
-    const start = Number(e.target.previousElementSibling.previousElementSibling.previousElementSibling.value)
-    if (!checkStartEnd(start, end)) {
-      console.log(start, end)
-      alert("Please enter valid inputs!")
-      return
-    }
-    const name = e.target.parentElement.parentElement.parentElement.previousElementSibling.innerText.trim()
-    const employeeCell = e.target.parentElement.parentElement.parentElement.parentElement.parentElement
-    let employee = null
 
-    for (let i = 0; i < allEmployees.length; i++) {
-      if (allEmployees[i].name == name) {
-        employee = allEmployees[i]
-        employee.shifts[dayOfWeek] = new TimeInterval(start, end)
-        break;
-      }
-    }
-
-    updateScheduleTable(employee, employeeCell)
+  const end = Number(e.target.previousElementSibling.value)
+  const start = Number(e.target.previousElementSibling.previousElementSibling.previousElementSibling.value)
+  if (!checkStartEnd(start, end)) {
+    console.log(start, end)
+    alert("Please enter valid inputs!")
+    return
   }
+  const name = e.target.parentElement.parentElement.parentElement.previousElementSibling.innerText.trim()
+  const employeeCell = e.target.parentElement.parentElement.parentElement.parentElement.parentElement
+  let employee = null
+
+  for (let i = 0; i < allEmployees.length; i++) {
+    if (allEmployees[i].name == name) {
+      employee = allEmployees[i]
+      employee.shifts[dayOfWeek] = new TimeInterval(start, end)
+      break;
+    }
+  }
+
+  updateScheduleTable(employee, employeeCell)
+
+}
+
+
+function removeShift(e) {
+  e.preventDefault()
+
+  const nameButton = e.target.parentElement.parentElement.parentElement.previousElementSibling
+  const name = nameButton.innerText.trim()
+  let employee = null
+
+  for (let i = 0; i < allEmployees.length; i++) {
+    if (allEmployees[i].name == name) {
+      employee = allEmployees[i]
+      break;
+    }
+  }
+
+  employee.shifts[dayOfWeek] = null
+  removeShiftFromTable(employee)
 }
 
 
@@ -132,6 +161,7 @@ function addShift(e) {
   e.preventDefault()
   if (e.target.id == "modalConfirmButton") {
     const name = e.target.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerText.trim().split(" ")[1]
+    let employee = null
 
     for (let i = 0; i < allEmployees.length; i++) {
       if (allEmployees[i].name == name) {
@@ -140,7 +170,8 @@ function addShift(e) {
       }
     }
 
-    
+    employee.shifts[dayOfWeek] = employee.availability[dayOfWeek]
+    addShiftToTable(employee)
 
   }
 }
@@ -168,4 +199,19 @@ function updateScheduleTable(employee, cell) {
     currCell = currCell.nextElementSibling
     i++
   }
+}
+
+
+function addShiftToTable(employee) {
+  const displayRow = document.querySelector(`#${employee.name}ShiftRow`)
+  const hideRow = document.querySelector(`#${employee.name}AvailRow`)
+  displayRow.className = ""
+  hideRow.className = "d-none"
+}
+
+function removeShiftFromTable(employee) {
+  const hideRow = document.querySelector(`#${employee.name}ShiftRow`)
+  const displayRow = document.querySelector(`#${employee.name}AvailRow`)
+  displayRow.className = ""
+  hideRow.className = "d-none"
 }
