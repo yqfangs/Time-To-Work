@@ -78,6 +78,9 @@ pwSubmit.addEventListener('click', checkPwMatch);
 
 const passwordModal = document.querySelector('#passwordBody');
 
+const uploadPicture = document.querySelector('#uploadPicture');
+uploadPicture.addEventListener('submit', changeProfilePic);
+
 function requestChangePassword(e){
   e.preventDefault();
   if (e.target.classList.contains('changePassword')){
@@ -85,6 +88,7 @@ function requestChangePassword(e){
   }
 }
 function checkPwMatch(e){
+  e.preventDefault();
   console.log('Checking');
   var signuppassword = document.getElementById("newPassword").value;
   var confirmpw = document.getElementById("cnewPassword").value;
@@ -114,4 +118,13 @@ function successChange(){
   document.getElementById('changePWFooter').innerHTML = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
 }
 
+function changeProfilePic(e){
+  e.preventDefault();
+  console.log('hiiii');
+  var file = document.getElementById("myPic").files[0];
+  document.getElementById("pic").src = file.name;
 
+}
+function domProfileChange(filename){
+  
+}
