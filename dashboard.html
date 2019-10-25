@@ -5,22 +5,115 @@
 <html lang="en">
 
  <head>
+ 	<!-- CSS File here-->
  	<meta charset="utf-8">
-    <title>Time to Work: Dashboard</title>
-    <!-- CSS File here-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- JS File here-->
-    <!-- <script type="text/javascript" src="dashboard.js"></script> -->
+    <script type="text/javascript" src="dashboard.js"></script>
+    <title>Time to Work: Dashboard</title>
  </head>
 
-<!-- sidebar -->
- <div class="sidebar">
-  <a href="profile.html">Profile</a>
-  <a href="#">Scheduling</a>
-  <a href="#">Submit Available Time</a>
-  <a href="#" onclick="location.href = 'index.html';">Sign Out</a>
-</div>
+ <body>
+	<!-- sidebar -->
+	 <div class="sidebar">
+	 	<a href="dashboard.html">Dashboard</a>
+	  <a href="profile.html">Profile</a>
+	  <a href="#">Scheduling</a>
+	  <a href="#">Submit Available Time</a>
+	  <a href="#" onclick="location.href = 'index.html';">Sign Out</a>
+	</div>
 
-<!-- calendar -->
-<div class="calendar">
-</div>
+	<!-- calendar -->
+	<div class='container col-8 justify-content-center' style='margin-top: 50px'>
+      <center><h3>Weekly Schedule</h3></center>
+      <center><h5>2019.10.21 - 2019.10.27</h5></center>
+      <table id='WeeklyScheduleTable' class='table'>
+        <tr>
+          <th></th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+        </tr>
+        <tr>
+          <th scope="row">Alice</th>
+          <td id='MondayTime' class='dayCell'>12-18</td>
+          <td id='TuesdayTime' class='dayCell'></td>
+          <td id='WednesdayTime' class='dayCell'>12-18</td>
+          <td id='ThursdayTime' class='dayCell'></td>
+          <td id='FridayTime' class='dayCell'>18-25</td>
+          <td id='SaturdayTime' class='dayCell'>15-21</td>
+          <td id='SundayTime' class='dayCell'>18-24</td>
+        </tr>
+        <tr>
+          <th scope="row">Bob</th>
+          <td id='MondayTime' class='dayCell'>18-24</td>
+          <td id='TuesdayTime' class='dayCell'>12-18</td>
+          <td id='WednesdayTime' class='dayCell'></td>
+          <td id='ThursdayTime' class='dayCell'>12-18</td>
+          <td id='FridayTime' class='dayCell'>12-18</td>
+          <td id='SaturdayTime' class='dayCell'>12-18</td>
+          <td id='SundayTime' class='dayCell'>15-21</td>
+        </tr>
+        <tr>
+          <th scope="row">Caitlyn</th>
+          <td id='MondayTime' class='dayCell'></td>
+          <td id='TuesdayTime' class='dayCell'>15-21</td>
+          <td id='WednesdayTime' class='dayCell'>18-24</td>
+          <td id='ThursdayTime' class='dayCell'>15-21</td>
+          <td id='FridayTime' class='dayCell'>15-21</td>
+          <td id='SaturdayTime' class='dayCell'></td>
+          <td id='SundayTime' class='dayCell'>12-18</td>
+        </tr>
+        <tr>
+          <th scope="row">Darius</th>
+          <td id='MondayTime' class='dayCell'>15-21</td>
+          <td id='TuesdayTime' class='dayCell'>18-24</td>
+          <td id='WednesdayTime' class='dayCell'>15-21</td>
+          <td id='ThursdayTime' class='dayCell'>18-24</td>
+          <td id='FridayTime' class='dayCell'></td>
+          <td id='SaturdayTime' class='dayCell'>18-25</td>
+          <td id='SundayTime' class='dayCell'></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class='container col-8 justify-content-center' style='margin-top: 50px'>
+      <center><h3>Working Hour Summary</h3></center>
+      <table id='WorkingHourTable' class='table'>
+        <tr>
+          <th></th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <th scope="row">Hour</th>
+          <td id='MondayHour' class='dayCell'>6h</td>
+          <td id='TuesdayHour' class='dayCell'></td>
+          <td id='WednesdayHour' class='dayCell'>6h</td>
+          <td id='ThursdayHour' class='dayCell'></td>
+          <td id='FridayHour' class='dayCell'>7h</td>
+          <td id='SaturdayHour' class='dayCell'>6h</td>
+          <td id='SundayHour' class='dayCell'>6h</td>
+          <td id='TotalHour' class='dayCell'><script type="text/javascript">CheckTotalHour()</script></td>
+        </tr>
+       </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ </body>
+</html>

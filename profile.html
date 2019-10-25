@@ -30,12 +30,12 @@
 								<label>Name: </label>
 							</div>
 							<div class="col-4">
-								<p>Alice </p>
+								<p>user </p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-5 infoHeader">
-								<label>User ID: </label>
+								<label>User: </label>
 							</div>
 							<div class="col-4">
 								<p>0</p>
@@ -46,7 +46,15 @@
 								<label>Email: </label>
 							</div>
 							<div class="col-4">
-								<p>Alice@mail.com </p>
+								<p>user@mail.com </p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-5 infoHeader">
+								<label>Phone: </label>
+							</div>
+							<div class="col-4">
+								<p> 12345678 </p>
 							</div>
 						</div>
 						<div class="row">
@@ -72,10 +80,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         </button>
       </div>
-      <div class="modal-body">
-        Your request is sent to the admin.
+      <div class="modal-body" id="passwordBody">
+        	<form id='newPasswordForm'>
+        		<label> New Password: </label>
+ 				<input id='newPassword' class="form-control" type="password" placeholder="Enter your new password">
+ 				<label> Confirm Password: </label>
+ 				<input id='cnewPassword' class="form-control" type="password" placeholder="Confirm your new password">
+ 			</form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id='changePWFooter'>
+      	<button id='changePWSubmit' type="button" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
