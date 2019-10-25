@@ -24,7 +24,7 @@ function checkEmailPwMatch(){
 		//pop up to notice log in success
 		alert("Login Successfully as Admin User");
 		//point to next page
-		//window.location = ".html";
+		window.location = "admin.html";
 		return true;
 	}
 	//not enter email
