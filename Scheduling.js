@@ -4,13 +4,14 @@ let allEmployees = []
 
 
 class Employee {
-  constructor(name, password, position, availability, shifts) {
+  constructor(name, password, position, phone) {
     this.name = name
     this.userID = allEmployees.length
     this.password = password
     this.position = position
-    this.availability = availability
-    this.shifts = shifts
+    this.phone = phone
+    this.availability = []
+    this.shifts = []
   }
 }
 
