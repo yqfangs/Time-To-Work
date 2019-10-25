@@ -1,15 +1,17 @@
 'use strict';
 
-// ------------ from Employee.js --------------
 let allEmployees = []
 
+
 class Employee {
-  constructor(name, password, position, availability) {
+  constructor(name, email, password, position, availability, shifts) {
     this.name = name
+    this.email = email
     this.userID = allEmployees.length
     this.password = password
     this.position = position
     this.availability = availability
+    this.shifts = shifts
   }
 }
 
@@ -27,20 +29,47 @@ function compareIntervals(i1, i2) {
 }
 
 
+// returns if the start and end time are valid for an interval (call before creating the interval)
+function checkStartEnd(s, e) {
+  if (s >= 8 && e <= 24 && s < e) {
+    return true
+  }
+  return false
+}
+
 
 // -------------- setting up mock info ----------------
 
 let aliceWeeklyAvail = []
 let bobWeeklyAvail = []
+let caitlynWeeklyAvail = []
+let dariusWeeklyAvail = []
+
+let aliceWeeklyShifts = []
+let bobWeeklyShifts = []
+let caitlynWeeklyShifts = []
+let dariusWeeklyShifts = []
+
 
 for (let i = 0; i < 7; i++) {
   aliceWeeklyAvail.push(new TimeInterval(8, 15))
   bobWeeklyAvail.push(new TimeInterval(9, 16))
+  caitlynWeeklyAvail.push(new TimeInterval(8, 15))
+  dariusWeeklyAvail.push(new TimeInterval(9, 16))
+  aliceWeeklyShifts.push(null)
+  bobWeeklyShifts.push(null)
+  caitlynWeeklyShifts.push(null)
+  dariusWeeklyShifts.push(null)
 }
-aliceWeeklyAvail[6] = new TimeInterval(8, 12)
+aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availability on Sunday
 
-allEmployees.push(new Employee('Alice', '123', 'waitress', aliceWeeklyAvail))
-allEmployees.push(new Employee('Bob', '123', 'cook', bobWeeklyAvail))
+aliceWeeklyShifts[0] = new TimeInterval(8, 15)
+bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
+
+allEmployees.push(new Employee('Alice', 'Alice@mail.com', '123', 'waitress', aliceWeeklyAvail, aliceWeeklyShifts))
+allEmployees.push(new Employee('Bob', 'Bob@mail.com', '123', 'cook', bobWeeklyAvail, bobWeeklyShifts))
+allEmployees.push(new Employee('Caitlyn', 'Caitlyn', '123', 'cook', caitlynWeeklyAvail, caitlynWeeklyShifts))
+allEmployees.push(new Employee('Darius', 'Darius', '123', 'supervisor', dariusWeeklyAvail, dariusWeeklyShifts))
 
 
 
@@ -82,18 +111,14 @@ function submitNewAvail(e) {
   e.preventDefault()
 
   if (e.target.id == 'submitAvailButton') {
-    const start = startTimeInput.value
-    const end = endTimeInput.value
-    const selectedInterval = allEmployees[loginID].availability[currentlySelected]
-    if (start != "" && end != "" && !isNaN(start) && !isNaN(end) && Number(start) < Number(end) && Number(start) >= 0 && Number(end) <= 24) {
-      selectedInterval.start = Number(start)
-      selectedInterval.end = Number(end)
-      selectedInterval.duration = end - start
+    const start = Number(startTimeInput.value)
+    const end = Number(endTimeInput.value)
+
+    if (checkStartEnd(Number(start), Number(end)) {
+      allEmployees[loginID].availability[currentlySelected] = new TimeInterval(start, end)
       addNewAvailToTable(start, end)
     }
     else {
-      console.log(start)
-      console.log(end)
       alert("Please enter a valid input!")
     }
   }
