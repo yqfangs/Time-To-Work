@@ -2,6 +2,16 @@
 
 const log = console.log;
 
+function forgetPW(){
+	var email = document.getElementById("email").value;
+	if(email == null || email == ""){
+		alert("Enter your email first")
+		return false;
+	}
+	alert(`Password reset request already sent to your email : ${email}`)
+	document.getElementById("email").value = "";
+	return true;
+}
 function checkEmailPwMatch(){
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("pw").value;
@@ -24,7 +34,7 @@ function checkEmailPwMatch(){
 		//pop up to notice log in success
 		alert("Login Successfully as Admin User");
 		//point to next page
-		//window.location = ".html";
+		window.location = "admin.html";
 		return true;
 	}
 	//not enter email
@@ -43,6 +53,5 @@ function checkEmailPwMatch(){
 		document.getElementById("pw").value = "";
 		alert("Login Fail: email and password are not match, plase try again")
 		return false;
-
 	}
 }
