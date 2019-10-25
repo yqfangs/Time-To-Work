@@ -72,11 +72,46 @@ allEmployees.push(new Employee('Darius', '123', 'supervisor', dariusWeeklyAvail,
 const changePW = document.querySelector('#personalInfo');
 changePW.addEventListener('click', requestChangePassword);
 
+const newPW = document.querySelector('#newPasswordForm');
+const pwSubmit = document.querySelector('#changePWSubmit');
+pwSubmit.addEventListener('click', checkPwMatch);
+
+const passwordModal = document.querySelector('#passwordBody');
+
 function requestChangePassword(e){
   e.preventDefault();
   if (e.target.classList.contains('changePassword')){
     console.log('change password');
   }
+}
+function checkPwMatch(e){
+  console.log('Checking');
+  var signuppassword = document.getElementById("newPassword").value;
+  var confirmpw = document.getElementById("cnewPassword").value;
+
+  if(signuppassword == null || signuppassword == ""){
+    alert("Please enter your password");
+    return false;
+  }
+  if(confirmpw == null || confirmpw == ""){
+    alert("Please enter your confirm password");
+    return false;
+  }
+  //password not match
+  if(signuppassword != confirmpw){
+    document.getElementById("pw").value = "";
+    document.getElementById("cpw").value = "";
+    alert("Please make sure your password and confirm password are matching");
+    return false;
+  }
+  //otherwise is valide sign up
+  successChange();
+  //point to the log in page
+}
+
+function successChange(){
+  passwordModal.innerHTML = '<p>Your request has been sent to the admin.</p>';
+  document.getElementById('changePWFooter').innerHTML = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
 }
 
 
