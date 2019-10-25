@@ -88,9 +88,11 @@ const selectAvailModal = document.querySelector("#selectAvailModal")
 const availTable = document.querySelector("#availTable")
 const modalTitle = document.querySelector("#modalTitle")
 const scheduleTable = document.querySelector("#scheduleTable")
+const modalConfirmButton = document.querySelector("#modalConfirmButton")
 
 availTable.addEventListener("click", modalLoadSelected)
 scheduleTable.addEventListener("click", updateShift)
+modalConfirmButton.addEventListener("click", addShift)
 
 function modalLoadSelected(e) {
   e.preventDefault()
@@ -124,6 +126,25 @@ function updateShift(e) {
     updateScheduleTable(employee, employeeCell)
   }
 }
+
+
+function addShift(e) {
+  e.preventDefault()
+  if (e.target.id == "modalConfirmButton") {
+    const name = e.target.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerText.trim().split(" ")[1]
+
+    for (let i = 0; i < allEmployees.length; i++) {
+      if (allEmployees[i].name == name) {
+        employee = allEmployees[i]
+        break;
+      }
+    }
+
+    
+
+  }
+}
+
 
 function updateScheduleTable(employee, cell) {
   let i = 1
