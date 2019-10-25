@@ -21,6 +21,22 @@ h2 {
 	position: relative;
 }
 
+h3 {
+	fo
+}
+
+table {
+  border: 2px solid #ffffff;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+th, td {
+  width: 12.5%;
+  border-left: 2px solid #ffffff;
+}
+
+
 #header_box {
 	background-color: #FFFFFF;
 	height: 100px;
