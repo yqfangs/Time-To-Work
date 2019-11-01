@@ -1,15 +1,30 @@
 'use strict';
 
-let allEmployers = []
+const allEmployers = []
+const allEmployees = []
 
+class TimeInterval {
+  constructor(start, end) {
+    this.start = start
+    this.end = end
+    this.duration = end - start
+  }
+}
 
 class Employer {
-	constructor(name, password, storeName, openTime, closeTime){
+	constructor(name, password, email, companyName){
 		this.name = name
 		this.userID = allEmployers.length
+		this.email = email
 		this.password = password
-		this.storeName = storeName
-		this.openTime = openTime
-		this.closeTime = closeTime
+		this.companyName = companyName
+	}
+}
+class Company {
+	constructor(name, openingTime){
+		this.name = name
+		this.employers = []
+		this.employees = []
+		this.openingTime = openingTime
 	}
 }
