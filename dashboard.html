@@ -14,8 +14,6 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" type="text/css" href="dashboard.css">
     <link rel="stylesheet" type="text/css" href="sidebar.css">
-    <!-- JS File here-->
-    <script type="text/javascript" src="dashboard.js"></script>
     <title>Time to Work: Dashboard</title>
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -57,6 +55,7 @@
 		      <center><h3>Weekly Schedule</h3></center>
 		      <center><h5>2019.10.21 - 2019.10.27</h5></center>
 		      <table id='WeeklyScheduleTable' class='table'>
+		      	<tbody>
 		        <tr>
 		          <th></th>
 		          <th>Mon</th>
@@ -67,7 +66,7 @@
 		          <th>Sat</th>
 		          <th>Sun</th>
 		        </tr>
-		        <tr>
+<!-- 		        <tr>
 		          <th scope="row">Alice</th>
 		          <td id='MondayTime' class='dayCell'>12-18</td>
 		          <td id='TuesdayTime' class='dayCell'></td>
@@ -106,13 +105,15 @@
 		          <td id='FridayTime' class='dayCell'></td>
 		          <td id='SaturdayTime' class='dayCell'>18-25</td>
 		          <td id='SundayTime' class='dayCell'></td>
-		        </tr>
+		        </tr> -->
+		    	</tbody>
 		      </table>
 		    </div>
 
 		    <div class='shcedulebox' class='container col-8 justify-content-center'>
 		      <center><h3>Working Hour Summary</h3></center>
 		      <table id='WorkingHourTable' class='table'>
+		      	<tbody>
 		        <tr>
 		          <th></th>
 		          <th>Mon</th>
@@ -124,23 +125,26 @@
 		          <th>Sun</th>
 		          <th>Total</th>
 		        </tr>
-		        <tr>
+		        <!-- <tr>
 		          <th scope="row">Hour</th>
-		          <td id='MondayHour' class='dayCell'>6h</td>
+		          <td id='MondayHour' class='dayCell'></td>
 		          <td id='TuesdayHour' class='dayCell'></td>
-		          <td id='WednesdayHour' class='dayCell'>6h</td>
+		          <td id='WednesdayHour' class='dayCell'></td>
 		          <td id='ThursdayHour' class='dayCell'></td>
-		          <td id='FridayHour' class='dayCell'>7h</td>
-		          <td id='SaturdayHour' class='dayCell'>6h</td>
-		          <td id='SundayHour' class='dayCell'>6h</td>
-		          <td id='TotalHour' class='dayCell'><script type="text/javascript">CheckTotalHour()</script></td>
-		        </tr>
+		          <td id='FridayHour' class='dayCell'></td>
+		          <td id='SaturdayHour' class='dayCell'></td>
+		          <td id='SundayHour' class='dayCell'></td> -->
+		          <!-- <td id='TotalHour' class='dayCell'><script type="text/javascript">CheckTotalHour()</script></td> -->
+		        <!-- </tr> -->
+		    	</tbody>
 		       </table>
 		    </div>
 		</div>
 	
 	</div>
 
+	<!-- JS File here-->
+    <script type="text/javascript" src="dashboard.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
