@@ -8,34 +8,65 @@
  	<meta charset="utf-8">
     <title>Sign Up</title>
     <!-- CSS File here-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- JS File here-->
     <script type="text/javascript" src="signup.js"></script>
  </head>
 
  <body>
+
+    <!---- Main Page Header ---->
     <div id="header_box">
       <h1>
         <center>Time to Work</center>
       </h1>
     </div>
-    <div name="signupform" class="signup_box">
-    	<form>
-    		<p><h2>SignUp</h2></p>
-    		<p>Email</p>
-    		<input type="text" name="email" id="email" placeholder="Enter Email Address">
-    		<p>Password</p>
-    		<input type="password" name="pword" id="pw" placeholder="∙∙∙∙∙∙∙∙∙">
-    		<p>Confirm Password</p>
-    		<input type="password" name="cpword" id="cpw" placeholder="∙∙∙∙∙∙∙∙∙">
-    		<p>Last Name</p>
-    		<input type="text" name="lastname" id="lastname" placeholder="Enter Your Last Name">
-    		<p>First Name</p>
-    		<input type="text" name="firstname" id="firstname" placeholder="Enter Your First Name">
-    		<p></p>
-    		<input type="button" name="Sign Up" value="Sign Up" onclick="checkPwMatch();">
-    		<input type="button" name="Back" value="Back" onclick="location.href = 'index.html';">
-    	</form>
+
+    <!---- Sign Up Box ---->
+    <div>
+        <div id="signup">
+            <div class="container">
+                <div id="signup-row" class="row justify-content-center align-items-center">
+                    <div id="signup-column" class="col-md-6">
+                        <div id="signup-box" class="col-md-12">
+                            <form id="signup-form" class="form" action="" method="post">
+                                <h3 class="text-center text-info">Sign Up</h3>
+                                <div class="form-group">
+                                    <label for="email" class="text-info">Email:</label><br>
+                                    <input type="text" name="username" id="email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="text-info">Password:</label><br>
+                                    <input type="password" name="password" id="pw" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="text-info">Confirm Password:</label><br>
+                                    <input type="password" name="cpassword" id="cpw" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="text-info">Last Name:</label><br>
+                                    <input type="text" name="lastname" id="lastname" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstname" class="text-info">First Name:</label><br>
+                                    <input type="text" name="firstname" id="firstname" class="form-control">
+                                </div>
+                                <div class="text-right">
+                                    <input type="button" name="signup" class="btn btn-info btn-md" value="Sign up" onclick="checkPwMatch();">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>

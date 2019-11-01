@@ -12,18 +12,9 @@ body {
 
 h1 {
 	color: #355E88;
-	margin: 0px 10px; 
 	position: relative;
-	top: 10px;
+	top: 30px;
 }
-
-h2 {
-	font-size: 40px;
-	margin-top: 10px;
-	margin-left: 30%;
-	position: relative;
-}
-
 
 
 #header_box {
@@ -32,71 +23,43 @@ h2 {
 	font-size: 30px;
 }
 
-
-.login_box {
-	font-size: 20px;
-	background-color: #FFFFFF;
-	margin-top: 80px;
-	padding: 20px 20px;
-	width: 350px;
-	height: 350px;
-	border-radius: 10px;
-	box-shadow: 0 5px 10px rgba(0,0,0,.2);
-	margin-left: 30%;
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #FFFFFF;
+  background-color: #e6ecf0;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  border-radius: 10px;
 }
 
-.login_box input[type="button"]{
-	border: none;
-	outline: none;
-	height: 30px;
-	font-size: 15px;
-	color: white;
-	background: black;
-	margin-top: 20px;
-	margin-right: 100px;
-	cursor: pointer;
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
 }
 
-.login_box input[type="button"]:hover{
-	background: grey;
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
 }
 
-.signup_box {
-	font-size: 15px;
-	background-color: #FFFFFF;
-	margin-top: 80px;
-	padding: 20px 20px;
-	width: 350px;
-	height: auto;
-	border-radius: 10px;
-	box-shadow: 0 5px 10px rgba(0,0,0,.2);
-	margin-left: 30%;
+
+#signup .container #signup-row #signup-column #signup-box {
+  margin-top: 50px;
+  max-width: 600px;
+  min-width: 400px;
+  height: 550px;
+  border: 1px solid #FFFFFF;
+  background-color: #e6ecf0;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  border-radius: 10px;
 }
 
-.signup_box input[type="button"]{
-	border: none;
-	outline: none;
-	height: 30px;
-	font-size: 15px;
-	color: white;
-	background: black;
-	margin-top: 20px;
-	margin-right: 100px;
-	cursor: pointer;
+#signup .container #signup-row #signup-column #signup-box #signup-form {
+  padding: 20px;
 }
 
-.signup_box input[type="button"]:hover{
-	background: grey;
+#signup .container #signup-row #signup-column #signup-box #signup-form #register-link {
+  margin-top: -85px;
 }
-
-.link{
-	font-size: 10px;
-}
-
-.min-width{
-	min-width: 72px;
-}
-
 
 
 
