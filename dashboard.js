@@ -2,13 +2,15 @@
 const log = console.log;
 
 const allEmployees = []
+const allEmployers = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
 
 class Employee {
-  constructor(name, password, position, phone) {
+  constructor(name, password, company, position, phone) {
     this.name = name
     this.userID = allEmployees.length
     this.password = password
+    this.company = company
     this.position = position
     this.phone = phone
     this.availability = []
@@ -24,14 +26,18 @@ class TimeInterval {
   }
 }
 
+//import {Employer, Company} from './Employer.js';
 // -------------- setting up mock info ----------------
 
-const current_id = 0; //store the current log in id
+allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
+allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'));
+allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
+allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
 
-allEmployees.push(new Employee('Alice', '123', 'waitress', '121345678'));
-allEmployees.push(new Employee('Bob', '123', 'cook', '123456798'));
-allEmployees.push(new Employee('Caitlyn', '123', 'cook', '1236879089'));
-allEmployees.push(new Employee('Darius', '123', 'supervisor', '7896751673'));
+allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', 'company1'));
+
+const current_user = allEmployers[0]; //store the current user log in id
+console.log(allEmployers[0]);
 
 for (let i = 0; i < 7; i++) {
   allEmployees[0].availability.push(new TimeInterval(8, 15))
@@ -48,8 +54,19 @@ allEmployees[1].shifts[1] = new TimeInterval(9, 16) //Alice and Bob has schedule
 
 const scheduleTable = document.querySelector('#WeeklyScheduleTable');
 const hourTable = document.querySelector('#WorkingHourTable');
+const sidebar = document.querySelector('#sidebar');
+window.addEventListener('load', modifySideBar(current_user));
 window.addEventListener("load", loadSchedule);
-window.addEventListener('load', loadHourTable(current_id));
+window.addEventListener('load', loadHourTable(current_user));
+
+function modifySideBar(user){
+	if(user instanceof Employee){
+
+	}else if(user instanceof Employer){
+
+	}
+
+}
 
 function loadSchedule(){
 	for(var i = 0; i < allEmployees.length; i++){
@@ -73,9 +90,12 @@ function loadSchedule(){
 
 }
 
-function loadHourTable(id){
-	const employee = allEmployees[id];
-	const row = document.createElement('tr');
+function loadHourTable(user){
+	if(user instanceof Employer){
+		const schedulebox = document.querySelector('#workinghour');
+		schedulebox.style.visibility = "hidden";
+	}else{ 
+		const row = document.createElement('tr');
 	const rowHead = document.createElement('th');
 	rowHead.setAttribute('scope', 'row');
 	rowHead.appendChild(document.createTextNode('Hour'));
@@ -99,4 +119,6 @@ function loadHourTable(id){
 	row.appendChild(totalData);
 
 	hourTable.appendChild(row);
+
+	}
 }

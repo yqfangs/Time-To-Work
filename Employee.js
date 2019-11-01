@@ -4,8 +4,9 @@ let allEmployees = []
 
 
 class Employee {
-  constructor(name, password, position, phone) {
+  constructor(name, password, email, position, phone) {
     this.name = name
+    this.email = email
     this.userID = allEmployees.length
     this.password = password
     this.position = position
