@@ -38,7 +38,7 @@
 
       <!-- Content -->
       <div id="content">
-        <div class="shcedulebox" class="container col-8">
+        <div class="container col-11">
           <h4>Monday Schedule</h4>
           <br>
           <table class="table" id="scheduleTable">
@@ -61,9 +61,10 @@
               <td>22</td>
               <td>23</td>
               <td>24</td>
+            <!--
             </tr>
             <tr id="AliceShiftRow">
-              <td class="padandmax" >
+              <td class="dropdownCell" >
                 <div class="dropdown">
                   <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
                     Alice
@@ -100,124 +101,10 @@
               <td></td>
               <td></td>
             </tr>
-            <tr id="BobShiftRow">
-              <td class="padandmax">
-                <div class="dropdown">
-                  <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                    Bob
-                  </button>
-                  <div class="dropdown-menu">
-                    <form>
-                      <div class="form-group col">
-                        <label>Start Time</label>
-                        <input type="number" class="form-control form-control-sm scheduleStartTimeInput" placeholder="9">
-                        <label>End Time</label>
-                        <input type="number" class="form-control form-control-sm scheduleEndTimeInput" placeholder="16">
-                        <button class="btn btn-primary btn-sm scheduleSubmitButton" type="button" style="margin-top: 5px;">Update</button>
-                        <button class="btn btn-danger btn-sm scheduleRemoveButton" type="button" style="margin-top: 5px;">Remove</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </td>
-              <td></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-
-            <tr class="d-none" id="CaitlynShiftRow">
-              <td class="padandmax" >
-                <div class="dropdown">
-                  <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                    Caitlyn
-                  </button>
-                  <div class="dropdown-menu">
-                    <form>
-                      <div class="form-group col">
-                        <label>Start Time</label>
-                        <input type="number" class="form-control form-control-sm scheduleStartTimeInput" placeholder="8">
-                        <label>End Time</label>
-                        <input type="number" class="form-control form-control-sm scheduleEndTimeInput" placeholder="15">
-                        <button class="btn btn-primary btn-sm scheduleSubmitButton" type="button" style="margin-top: 5px;">Update</button>
-                        <button class="btn btn-danger btn-sm scheduleRemoveButton" type="button" style="margin-top: 5px;">Remove</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr class="d-none" id="DariusShiftRow">
-              <td class="padandmax">
-                <div class="dropdown">
-                  <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                    Darius
-                  </button>
-                  <div class="dropdown-menu">
-                    <form>
-                      <div class="form-group col">
-                        <label>Start Time</label>
-                        <input type="number" class="form-control form-control-sm scheduleStartTimeInput" placeholder="9">
-                        <label>End Time</label>
-                        <input type="number" class="form-control form-control-sm scheduleEndTimeInput" placeholder="16">
-                        <button class="btn btn-primary btn-sm scheduleSubmitButton" type="button" class="mtop">Update</button>
-                        <button class="btn btn-danger btn-sm scheduleRemoveButton" type="button" class="mtop">Remove</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </td>
-              <td></td>
-              <td class='table-warning'></td>
-              <td class='table-warning'></td>
-              <td class='table-warning'></td>
-              <td class='table-warning'></td>
-              <td class='table-warning'></td>
-              <td class='table-warning'></td>
-              <td class='table-warning'></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+          -->
           </table>
         </div>
-        <div class="shcedulebox" class="container col-8">
+        <div  class="container col-11">
           <h4>Availability</h4>
           <br>
           <table class="table" id="AvailTable">
@@ -241,80 +128,9 @@
               <td>23</td>
               <td>24</td>
             </tr>
-            <tr class="d-none" id="AliceAvailRow">
-              <td class="padandmax">
-                <button class="btn btn-default btn-block selectAvailButton" data-toggle="modal" data-target="#selectAvailModal">
-                  Alice
-                </button>
-              </td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-            </tr>
-            <tr class="d-none" id="BobAvailRow">
-              <td class="pad4">
-                <button class="btn btn-default btn-block selectAvailButton" data-toggle="modal" data-target="#selectAvailModal">
-                  Bob
-                </button>
-              </td>
-              <td class='table-secondary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-primary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-            </tr>
-            <tr id="CaitlynAvailRow">
-              <td class="padandmax">
-                <button class="btn btn-default btn-block selectAvailButton" data-toggle="modal" data-target="#selectAvailModal">
-                  Caitlyn
-                </button>
-              </td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-success'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-              <td class='table-secondary'></td>
-            </tr>
+            <!--
             <tr id="DariusAvailRow">
-              <td class="pad4">
+              <td class="dropdownCell">
                 <button class="btn btn-default btn-block selectAvailButton" data-toggle="modal" data-target="#selectAvailModal">
                   Darius
                 </button>
@@ -337,18 +153,19 @@
               <td class='table-secondary'></td>
               <td class='table-secondary'></td>
             </tr>
+          -->
           </table>
         </div>
         <div class="modal fade" id="selectAvailModal">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h6 clas="modal-title" id="modalTitle">Add _ to schedule</h6>
+                <h6 clas="modal-title" id="modalTitle"></h6>
               </div>
-              <div class="modal-body">
-                <form>
-
-                </form>
+              <div class="modal-body" id="modalBody">
+                <p></p>
+                <p></p>
+                <p></p>
               </div>
               <div class="modal-footer">
                 <button class="btn btn-primary" type="button" id="modalConfirmButton" data-dismiss="modal">Confirm</button>

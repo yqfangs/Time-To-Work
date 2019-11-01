@@ -7,13 +7,8 @@ td {
   margin-top: 50px;
 }
 
-.padamdmax{
-  padding: 4px; 
+
+.dropdownCell{
+  padding: 4px !important;
   max-width: 85px;
-}
-
-.pad4{
-  padding: 4px; 
-}
-
 }

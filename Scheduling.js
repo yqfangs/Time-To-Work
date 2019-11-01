@@ -1,5 +1,13 @@
 'use strict';
 
+// const imp = require('./Employee.js')
+//
+// const Employee = imp.Employee
+// const allEmployees = imp.allEmployees
+// const compareIntervals = imp.fns.compareIntervals
+// const checkStartEnd = imp.fns.checkStartEnd
+// const totalHours = imp.fns.totalHours
+
 let allEmployees = []
 
 
@@ -37,6 +45,19 @@ function checkStartEnd(s, e) {
   return false
 }
 
+// returns the total number of hours in an array of Intervals
+function totalHours(intArray) {
+  let sum = 0
+  for (const interval of intArray) {
+    if (interval != null) {
+      sum += interval.duration
+    }
+  }
+  return sum
+}
+
+
+
 
 // -------------- setting up mock info ----------------
 
@@ -66,10 +87,19 @@ aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availabilit
 aliceWeeklyShifts[0] = new TimeInterval(8, 15)
 bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
 
-allEmployees.push(new Employee('Alice', '123', 'waitress', aliceWeeklyAvail, aliceWeeklyShifts))
-allEmployees.push(new Employee('Bob', '123', 'cook', bobWeeklyAvail, bobWeeklyShifts))
-allEmployees.push(new Employee('Caitlyn', '123', 'cook', caitlynWeeklyAvail, caitlynWeeklyShifts))
-allEmployees.push(new Employee('Darius', '123', 'supervisor', dariusWeeklyAvail, dariusWeeklyShifts))
+allEmployees.push(new Employee('Alice', '123', 'waitress', '000'))
+allEmployees.push(new Employee('Bob', '123', 'cook', '001'))
+allEmployees.push(new Employee('Caitlyn', '123', 'cook', '002'))
+allEmployees.push(new Employee('Darius', '123', 'supervisor', '003'))
+
+allEmployees[0].availability = aliceWeeklyAvail
+allEmployees[1].availability = bobWeeklyAvail
+allEmployees[2].availability = caitlynWeeklyAvail
+allEmployees[3].availability = dariusWeeklyAvail
+allEmployees[0].shifts = aliceWeeklyShifts
+allEmployees[1].shifts = bobWeeklyShifts
+allEmployees[2].shifts = caitlynWeeklyShifts
+allEmployees[3].shifts = dariusWeeklyShifts
 
 
 
@@ -88,17 +118,32 @@ const colours = {
 const selectAvailModal = document.querySelector("#selectAvailModal")
 const availTable = document.querySelector("#availTable")
 const modalTitle = document.querySelector("#modalTitle")
+const modalBody = document.querySelector("#modalBody")
 const scheduleTable = document.querySelector("#scheduleTable")
 const modalConfirmButton = document.querySelector("#modalConfirmButton")
+const body = document.querySelector("body")
 
 availTable.addEventListener("click", modalLoadSelected)
 scheduleTable.addEventListener("click", scheduleTableEvent)
 modalConfirmButton.addEventListener("click", addShift)
+window.addEventListener("load", loadData)
 
 function modalLoadSelected(e) {
   e.preventDefault()
   if (e.target.classList.contains("selectAvailButton")) {
-    modalTitle.innerText = `Add ${e.target.innerText} to Schedule`
+    let employee = null
+    for (const emp of allEmployees) {
+      if (emp.name == e.target.innerText.trim()) {
+        employee = emp
+        break
+      }
+    }
+
+    modalTitle.innerText = `Add ${employee.name} to Schedule`
+    modalBody.firstElementChild.innerText = `Availability: ${employee.availability[dayOfWeek].start} - ${employee.availability[dayOfWeek].end}`
+    modalBody.firstElementChild.nextElementSibling.innerText = `Currently scheduled hours: ${totalHours(employee.shifts)}`
+    modalBody.firstElementChild.nextElementSibling.nextElementSibling.innerText = `Position: ${employee.position}`
+
   }
 }
 
@@ -178,25 +223,109 @@ function addShift(e) {
 }
 
 
+function loadData(e) {
+  //e.preventDefault()
+
+  for (const employee of allEmployees) {
+    const shiftTr = document.createElement("tr")
+    const availTr = document.createElement("tr")
+    shiftTr.id = `${employee.name}ShiftRow`
+    availTr.id = `${employee.name}AvailRow`
+
+    shiftTr.innerHTML = `
+      <td class="dropdownCell" >
+        <div class="dropdown">
+          <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+            ${employee.name}
+          </button>
+          <div class="dropdown-menu">
+            <form>
+              <div class="form-group col">
+                <label>Start Time</label>
+                <input type="number" class="form-control form-control-sm scheduleStartTimeInput" placeholder="${employee.availability[dayOfWeek].start}">
+                <label>End Time</label>
+                <input type="number" class="form-control form-control-sm scheduleEndTimeInput" placeholder="${employee.availability[dayOfWeek].end}">
+                <button class="btn btn-primary btn-sm scheduleSubmitButton" type="button" style="margin-top: 5px;">Update</button>
+                <button class="btn btn-danger btn-sm scheduleRemoveButton" type="button" style="margin-top: 5px;">Remove</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </td>`
+
+    availTr.innerHTML = `
+      <td class="dropdownCell">
+        <button class="btn btn-default btn-block selectAvailButton" data-toggle="modal" data-target="#selectAvailModal">
+          ${employee.name}
+        </button>
+      </td>`
+
+    for (let i = 8; i <= 24; i++) {
+      shiftTr.appendChild(document.createElement("td"))
+      availTr.appendChild(document.createElement("td"))
+    }
+
+    if (employee.shifts[dayOfWeek] == null) {
+      shiftTr.className = "d-none"
+      updateAvailTable(employee, availTr.firstElementChild)
+    }
+    else {
+      availTr.className = "d-none"
+      updateScheduleTable(employee, shiftTr.firstElementChild)
+    }
+    scheduleTable.appendChild(shiftTr)
+    availTable.appendChild(availTr)
+  }
+
+}
+
+
 function updateScheduleTable(employee, cell) {
   let i = 1
   let currCell = cell.nextElementSibling
 
   // moves to the cell of start time while erasing existing colour
-  while (i < employee.shifts[dayOfWeek].start+1-timeOpen) {
+  if (employee.shifts[dayOfWeek] != null) {
+    while (i < employee.shifts[dayOfWeek].start+1-timeOpen) {
+      currCell.className = "";
+      currCell = currCell.nextElementSibling
+      i++
+    }
+
+    while (i < employee.shifts[dayOfWeek].end+1-timeOpen) {
+      currCell.className = colours[employee.position]   // assigns corresponding colour to their position
+      currCell = currCell.nextElementSibling
+      i++
+    }
+  }
+
+  while (i < timeClosed-timeOpen+2) {
     currCell.className = "";
     currCell = currCell.nextElementSibling
     i++
   }
+}
 
-  while (i < employee.shifts[dayOfWeek].end+1-timeOpen) {
+
+function updateAvailTable(employee, cell) {
+  let i = 1
+  let currCell = cell.nextElementSibling
+
+  // moves to the cell of start time while colouring grey
+  while (i < employee.availability[dayOfWeek].start+1-timeOpen) {
+    currCell.className = "table-secondary";
+    currCell = currCell.nextElementSibling
+    i++
+  }
+
+  while (i < employee.availability[dayOfWeek].end+1-timeOpen) {
     currCell.className = colours[employee.position]   // assigns corresponding colour to their position
     currCell = currCell.nextElementSibling
     i++
   }
 
-  while (i < timeClosed-timeOpen) {
-    currCell.className = "";
+  while (i < timeClosed-timeOpen+2) {
+    currCell.className = "table-secondary";
     currCell = currCell.nextElementSibling
     i++
   }
@@ -206,6 +335,7 @@ function updateScheduleTable(employee, cell) {
 function addShiftToTable(employee) {
   const displayRow = document.querySelector(`#${employee.name}ShiftRow`)
   const hideRow = document.querySelector(`#${employee.name}AvailRow`)
+  updateScheduleTable(employee, displayRow.firstElementChild)
   displayRow.className = ""
   hideRow.className = "d-none"
 }
@@ -213,6 +343,7 @@ function addShiftToTable(employee) {
 function removeShiftFromTable(employee) {
   const hideRow = document.querySelector(`#${employee.name}ShiftRow`)
   const displayRow = document.querySelector(`#${employee.name}AvailRow`)
+  updateScheduleTable(employee, hideRow.firstElementChild)
   displayRow.className = ""
   hideRow.className = "d-none"
 }

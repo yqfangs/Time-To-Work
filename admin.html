@@ -9,21 +9,21 @@
     <title>Admin</title>
     <!-- CSS File here-->
     <link rel="stylesheet" type="text/css" href="admin_style.css">
-    <!-- JS File here-->
     <!-- <script type="text/javascript" src="admin.js"></script> -->
  </head>
 
  <body>
-    <h1>Admin Menu</h1>
+    <h1>Admin Page</h1>
     <h2>Current Users</h2>
     <form id='userAddForm'>
        <input id='firstName' type ="text" placeholder='First Name'>
        <input id='lastName' type ="text" placeholder='Last Name'>
        <input id='email' type="text" placeholder='Email'>
        <input id='phoneNum' type="text" placeholder="Phone Number">
-       <input id='kind' type="text" placeholder="Employee or Employer">
+       <input id='type' type="text" placeholder="Employee or Employer">
        <input type="submit" value="Add User">
     </form>
+
 
     <!-- <form id='userDeleteForm'>
        <input id='NametoDelete' type='text' placeholder='User Name'>
@@ -34,53 +34,17 @@
       <tbody>
          <tr> 
             <th>User Id</th>
-            <!-- <th>First Name</th>
-            <th>Last Name</th> -->
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Email</th>
-            <!-- <th>Phone Number</th> -->
+            <th>Phone Number</th>
             <th>Employee or Employer</th>
-         </tr>
-         <tr>
-         <td>
-               0
-            </td>
-            <td>
-               cindylin@gmail.com
-            </td>
-            <td>
-               Employer
-            </td>
-         </tr>
-         <tr>
-            <td>
-               1
-            </td>                 
-            <td>
-               Jinlee@gmail.com
-            </td>
-            <td>
-               Employee
-            </td>
+            <th>Information</th>
          </tr>
       </tbody>
     </table>
-
-    <h2>Check User Info</h2>
- 	<form id='userInfoForm'>
- 		<input id='userInfoId' type="text" placeholder="User Id">
- 		<input type="submit" value="Get User info">
- 	</form>
-
- 	<div id=userInfo>
- 		<p>User Id: <span>0</span></p>
- 		<p>First Name: <span>Cindy</span></p>
- 		<p>Last Name: <span>Lin</span></p>
- 		<p>Email: <span>cindylin@gmail.com</span></p>
-      <p>Phone #: <span>0000000000</span></p>
-      <p>Employee or Employer: <span>Employer</span></p>
-      <button class="btn_delete">Delete User</button>
-      <button class="btn_change">Change User Info</button>
- 	</div>
+   <!-- JS File here-->
+   <script type="text/javascript" src="admin.js"></script>
  </body>
  
  
