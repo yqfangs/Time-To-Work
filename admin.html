@@ -15,19 +15,20 @@
  <body>
     <h1>Admin Page</h1>
     <h2>Current Users</h2>
-    <form id='userAddForm'>
+    <form id='employerAddForm'>
        <input id='firstName' type ="text" placeholder='First Name'>
        <input id='lastName' type ="text" placeholder='Last Name'>
        <input id='email' type="text" placeholder='Email'>
        <input id='phoneNum' type="text" placeholder="Phone Number">
-       <input id='type' type="text" placeholder="Employee or Employer">
-       <input type="submit" value="Add User">
+       <input id='company' type="text" placeholder="Company">
+
+       <input type="submit" value="Add Employer">
     </form>
 
 
-    <!-- <form id='userDeleteForm'>
-       <input id='NametoDelete' type='text' placeholder='User Name'>
-       <input type="submit" value="Delete User">
+    <!-- <form id='employerDeleteForm'>
+       <input id='NametoDelete' type='text' placeholder='Employer Name'>
+       <input type="submit" value="Delete Employer">
     </form> -->
     <br>
     <table id='userTable'>
@@ -38,7 +39,8 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone Number</th>
-            <th>Employee or Employer</th>
+            <th>Company</th>
+            <th>Type</th>
             <th>Information</th>
          </tr>
       </tbody>

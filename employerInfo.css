@@ -16,7 +16,7 @@ h1 {
 	position: relative;
 	
 }
-#userInfo{
+#employerInfo{
 	font-size: 30px;
 	color: #355E88; 
     font-style: oblique;
@@ -24,14 +24,14 @@ h1 {
     border-style: dotted;
 	position: relative;
 }
-#userInfo p {
+#employerInfo p {
     font-weight: bold;
 	text-align: center;
 	font-size: 18px;
 	color:darkslategrey;
 }
 
-#userInfo span {
+#employerInfo span {
 	font-weight: normal;
 	color: #666;
 }

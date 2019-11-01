@@ -2,12 +2,13 @@
 let allUsers = [] // database fetch
 let numOfUsers = allUsers.length
 class User {
-    constructor(First, Last, Email, PhoneNum, type) {
+    constructor(First, Last, Email, PhoneNum, Company, Type) {
         this.first = First
         this.last = Last
         this.email = Email
         this.phoneNum = PhoneNum
-        this.type = type
+        this.company = Company
+        this.type = Type
         this.password = '000000'
 
         this.userId = numOfUsers
@@ -36,8 +37,9 @@ function displayUserInfo(user) {
     userInfo[1].value = user.last
     userInfo[2].value = user.email
     userInfo[3].value = user.phoneNum
-    userInfo[4].value = user.type
-    userInfo[5].value = user.password
+    userInfo[4].value = user.company
+    userInfo[5].value = user.type
+    userInfo[6].value = user.password
 }
 
 function deleteUser(e) {
@@ -68,12 +70,9 @@ function saveUserInfo(e) {
 }
 
 
-
-
-
     /// mock data
-    allUsers.push(new User('Cindy', 'Lin', 'cindylin@gmail.com', '0000000000', 'Employer'))
-    allUsers.push(new User('Jin', 'Lee', 'Jinlee@gmail.com', '1111111111', 'Employee'))
+    allUsers.push(new User('Cindy', 'Lin', 'cindylin@gmail.com', '0000000000', 'Google', 'Employee'))
+    allUsers.push(new User('Jin', 'Lee', 'Jinlee@gmail.com', '1111111111', 'Amazon', 'Employee'))
     displayUserInfo(getUserObject())
     console.log(getUserObject())
     btnDelete.addEventListener('click', deleteUser)

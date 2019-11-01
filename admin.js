@@ -4,24 +4,25 @@ const log = console.log;
 let allUsers = []
 let numOfUsers = allUsers.length
 class User {
-    constructor(First, Last, Email, PhoneNum, type) {
+    constructor(First, Last, Email, PhoneNum, Company, Type) {
         this.first = First
         this.last = Last
         this.email = Email
         this.phoneNum = PhoneNum
-        this.type = type
+        this.company = Company
+        this.type = Type
         this.password = '000000'
 
         this.userId = numOfUsers
         numOfUsers++;
     }
 }
-const userAddForm = document.getElementById('userAddForm')
+const employerAddForm = document.getElementById('employerAddForm')
 const userTable = document.getElementById('userTable')
-console.log(document.getElementById('userAddForm'))
-userAddForm.addEventListener('submit', addNewUser)
+console.log(document.getElementById('employerAddForm'))
+employerAddForm.addEventListener('submit', addNewEmployer)
 
-function addNewUser(e) {
+function addNewEmployer(e) {
     e.preventDefault()
     if (check()) {
         const user = new User(
@@ -29,7 +30,8 @@ function addNewUser(e) {
             document.querySelector('#lastName').value,
             document.querySelector('#email').value,
             document.querySelector('#phoneNum').value,
-            document.querySelector('#type').value
+            document.querySelector('#company').value,
+            'Employer'
         )
 
         allUsers.push(user)
@@ -59,13 +61,16 @@ function addUserToUserTable(user) {
     const userLast = document.createElement('td')
     const userEmail = document.createElement('td')
     const userPhone= document.createElement('td')
+    const userCompany = document.createElement('td')
     const userType = document.createElement('td')
     const userInfo = document.createElement('td')
+
     const userIdText = document.createTextNode(user.userId)
     const userFnText = document.createTextNode(user.first)
     const userLnText = document.createTextNode(user.last)
     const userEmailText = document.createTextNode(user.email)
     const userPhoneText = document.createTextNode(user.phoneNum)
+    const userCompanyText = document.createTextNode(user.company)
     const userTypeText = document.createTextNode(user.type)
     const userInfoBut = document.createElement('button')
     userInfoBut.classList.add('checkInfoBut')
@@ -78,6 +83,7 @@ function addUserToUserTable(user) {
     userLast.appendChild(userLnText)
     userEmail.appendChild(userEmailText)
     userPhone.appendChild(userPhoneText)
+    userCompany.appendChild(userCompanyText)
     userType.appendChild(userTypeText)
     userInfo.appendChild(userInfoBut)
 
@@ -86,6 +92,7 @@ function addUserToUserTable(user) {
     tableRow.appendChild(userLast)
     tableRow.appendChild(userEmail)
     tableRow.appendChild(userPhone)
+    tableRow.appendChild(userCompany)
     tableRow.appendChild(userType)
     tableRow.appendChild(userInfo)
 
@@ -98,11 +105,11 @@ function check() {
     var lastName = document.querySelector('#lastName').value
     var userEmail = document.querySelector('#email').value
     var userPhoneNum = document.querySelector('#phoneNum').value
-    var userType = document.querySelector('#type').value
+    var userCompany = document.querySelector('#company').value
 
     //empty inputs
 
-    if ((firstName && lastName && userEmail && userPhoneNum && userType) == "") {
+    if ((firstName && lastName && userEmail && userPhoneNum && userCompany) == "") {
         alert("Please fill in the form")
         return false
     }
@@ -118,17 +125,18 @@ function check() {
         alert("Please enter valid phone number")
         return false
     }
+     
 
-    if (userType != "Employee" && userType != "Employer") {
-        alert("Please enter the correct type")
-        return false
-    }
+    // if (userType != "Employee" && userType != "User") {
+    //     alert("Please enter the correct type")
+    //     return false
+    // }
 
     return true
 }
 
 /// mock data
-allUsers.push(new User('Cindy', 'Lin', 'cindylin@gmail.com', '0000000000', 'Employer'))
-allUsers.push(new User('Jin', 'Lee', 'Jinlee@gmail.com', '1111111111', 'Employee'))
+allUsers.push(new User('Cindy', 'Lin', 'cindylin@gmail.com', '0000000000', 'Google', 'Employee'))
+allUsers.push(new User('Jin', 'Lee', 'Jinlee@gmail.com', '1111111111', 'Amazon', 'Employee'))
 addUserToUserTable(allUsers[0])
 addUserToUserTable(allUsers[1])
