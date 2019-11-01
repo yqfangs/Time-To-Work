@@ -16,6 +16,14 @@ h1 {
 	position: relative;
 	top: 10px;
 }
+#userInfo{
+	font-size: 30px;
+	color: #355E88; 
+    font-style: oblique;
+    text-align: center;
+    border-style: dotted;
+	position: relative;
+}
 #userInfo p {
     font-weight: bold;
 	text-align: center;
@@ -29,6 +37,7 @@ h1 {
 }
 .btn_delete {
 	font-size: 15px;
+	color:aliceblue;
 	background-color:slategray;
     margin-top: 20px;
 	padding: 10px 10px;
@@ -36,12 +45,12 @@ h1 {
 	height: auto;
 	border-radius: 10px;
 	box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    margin-left: 35%;
     position: relative;
 }
 
 .btn_save {
 	font-size: 15px;
+	color:aliceblue;
 	background-color:slategray;
     margin-top: 20px;
 	padding: 10px 10px;

@@ -70,7 +70,7 @@ function addUserToUserTable(user) {
     const userInfoBut = document.createElement('button')
     userInfoBut.classList.add('checkInfoBut')
     userInfoBut.onclick = onDetailsClick;
-    const butText = document.createTextNode('details')
+    const butText = document.createTextNode('modify info')
 
     userInfoBut.appendChild(butText)
     userId.appendChild(userIdText)
@@ -127,8 +127,8 @@ function check() {
     return true
 }
 
-
+/// mock data
 allUsers.push(new User('Cindy', 'Lin', 'cindylin@gmail.com', '0000000000', 'Employer'))
-allUsers.push(new User('Jin', 'Lee', 'Jinlee@gmai.com', '1111111111', 'Employee'))
+allUsers.push(new User('Jin', 'Lee', 'Jinlee@gmail.com', '1111111111', 'Employee'))
 addUserToUserTable(allUsers[0])
 addUserToUserTable(allUsers[1])
