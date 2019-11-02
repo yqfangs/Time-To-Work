@@ -1,11 +1,12 @@
 'use strict';
 
 class Employer {
-	constructor(name, password, email, companyName){
+	constructor(name, password, email, phone, companyName){
 		this.name = name
 		this.password = password
 		this.userID = allEmployers.length
 		this.email = email
+		this.phone = phone
 		this.companyName = companyName
 	}
 }

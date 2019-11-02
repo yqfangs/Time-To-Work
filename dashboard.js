@@ -34,7 +34,7 @@ allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'
 allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
 allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
 
-allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', 'company1'));
+allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
 
 const current_user = allEmployees[0]; //store the current user log in id
 console.log(allEmployers[0]);
@@ -61,7 +61,7 @@ window.addEventListener('load', loadHourTable(current_user));
 
 function modifySideBar(user){
 	if(user instanceof Employee){
-
+		sidebar.
 	}else if(user instanceof Employer){
 
 	}
