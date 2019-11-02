@@ -25,7 +25,7 @@ h2 {
     color:darkslategrey;
 }
 
-#userAddForm {
+#employerAddForm {
     padding: 10px;
     text-align: center;
 
@@ -35,11 +35,6 @@ h2 {
     width: 80%;
     text-align: center;
 }
-
-#userDeleteForm {  
-    padding: 10px;
-}
-
 table
         {
             border-collapse: collapse;
