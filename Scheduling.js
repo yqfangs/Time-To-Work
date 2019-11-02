@@ -12,8 +12,9 @@ let allEmployees = []
 
 
 class Employee {
-  constructor(name, password, position, phone) {
+  constructor(name, password, email, position, phone) {
     this.name = name
+    this.email = email
     this.userID = allEmployees.length
     this.password = password
     this.position = position
@@ -87,10 +88,10 @@ aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availabilit
 aliceWeeklyShifts[0] = new TimeInterval(8, 15)
 bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
 
-allEmployees.push(new Employee('Alice', '123', 'waitress', '000'))
-allEmployees.push(new Employee('Bob', '123', 'cook', '001'))
-allEmployees.push(new Employee('Caitlyn', '123', 'cook', '002'))
-allEmployees.push(new Employee('Darius', '123', 'supervisor', '003'))
+allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '000'))
+allEmployees.push(new Employee('Bob', '123', 'cook', 'bob@mail.com', '001'))
+allEmployees.push(new Employee('Caitlyn', '123', 'cook', 'caitlyn@mail.com', '002'))
+allEmployees.push(new Employee('Darius', '123', 'supervisor', 'darius@mail.com', '003'))
 
 allEmployees[0].availability = aliceWeeklyAvail
 allEmployees[1].availability = bobWeeklyAvail
