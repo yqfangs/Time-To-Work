@@ -2,6 +2,10 @@
 
 const log = console.log;
 
+const loginButton = document.querySelector("#loginButton");
+
+loginButton.addEventListener("click", checkEmailPwMatch);
+
 function forgetPW(){
 	var email = document.getElementById("email").value;
 	if(email == null || email == ""){
@@ -12,7 +16,9 @@ function forgetPW(){
 	document.getElementById("email").value = "";
 	return true;
 }
-function checkEmailPwMatch(){
+function checkEmailPwMatch(e){
+	e.preventDefault()
+
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("pw").value;
 	//correcy email and password for user
