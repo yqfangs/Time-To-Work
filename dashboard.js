@@ -5,26 +5,26 @@ const allEmployees = []
 const allEmployers = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
 
-class Employee {
-  constructor(name, password, company, position, phone) {
-    this.name = name
-    this.userID = allEmployees.length
-    this.password = password
-    this.company = company
-    this.position = position
-    this.phone = phone
-    this.availability = []
-    this.shifts = []
-  }
-}
+// class Employee {
+//   constructor(name, password, company, position, phone) {
+//     this.name = name
+//     this.userID = allEmployees.length
+//     this.password = password
+//     this.company = company
+//     this.position = position
+//     this.phone = phone
+//     this.availability = []
+//     this.shifts = []
+//   }
+// }
 
-class TimeInterval {
-  constructor(start, end) {
-    this.start = start
-    this.end = end
-    this.duration = end - start
-  }
-}
+// class TimeInterval {
+//   constructor(start, end) {
+//     this.start = start
+//     this.end = end
+//     this.duration = end - start
+//   }
+// }
 
 //import {Employer, Company} from './Employer.js';
 // -------------- setting up mock info ----------------
@@ -36,7 +36,7 @@ allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor',
 
 allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', 'company1'));
 
-const current_user = allEmployers[0]; //store the current user log in id
+const current_user = allEmployees[0]; //store the current user log in id
 console.log(allEmployers[0]);
 
 for (let i = 0; i < 7; i++) {
@@ -105,7 +105,7 @@ function loadHourTable(user){
 		const tableData = document.createElement('td');
 		tableData.id = dayId[i];
 		tableData.className = 'dayCell';
-		const shift = employee.shifts[i];
+		const shift = user.shifts[i];
 		if(shift != undefined){
 			total += shift.duration;
 			tableData.appendChild(document.createTextNode(shift.duration));
