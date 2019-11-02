@@ -5,28 +5,6 @@ const allEmployees = []
 const allEmployers = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
 
-// class Employee {
-//   constructor(name, password, company, position, phone) {
-//     this.name = name
-//     this.userID = allEmployees.length
-//     this.password = password
-//     this.company = company
-//     this.position = position
-//     this.phone = phone
-//     this.availability = []
-//     this.shifts = []
-//   }
-// }
-
-// class TimeInterval {
-//   constructor(start, end) {
-//     this.start = start
-//     this.end = end
-//     this.duration = end - start
-//   }
-// }
-
-//import {Employer, Company} from './Employer.js';
 // -------------- setting up mock info ----------------
 
 allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
@@ -58,15 +36,6 @@ const sidebar = document.querySelector('#sidebar');
 window.addEventListener('load', modifySideBar(current_user));
 window.addEventListener("load", loadSchedule);
 window.addEventListener('load', loadHourTable(current_user));
-
-function modifySideBar(user){
-	if(user instanceof Employee){
-		sidebar.
-	}else if(user instanceof Employer){
-
-	}
-
-}
 
 function loadSchedule(){
 	for(var i = 0; i < allEmployees.length; i++){

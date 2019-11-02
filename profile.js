@@ -1,72 +1,32 @@
 'use strict';
 
-let allEmployees = []
+const allEmployees = []
+const allEmployers = []
 
+// -------------- setting up mock info ----------------
 
-class Employee {
-  constructor(name, password, position, availability, shifts) {
-    this.name = name
-    this.userID = allEmployees.length
-    this.password = password
-    this.position = position
-    this.availability = availability
-    this.shifts = shifts
-  }
-}
+allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
+allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'));
+allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
+allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
 
-class TimeInterval {
-  constructor(start, end) {
-    this.start = start
-    this.end = end
-    this.duration = end - start
-  }
-}
+allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
 
-// returns true if TimeInterval i1 contains i2, false otherwise
-function compareIntervals(i1, i2) {
-  return (i1.start <= i2.start && i1.end >= i2.end)
-}
-
-
-// returns if the start and end time are valid for an interval (call before creating the interval)
-function checkStartEnd(s, e) {
-  if (s >= 8 && e <= 24 && s < e) {
-    return true
-  }
-  return false
-}
-
-let aliceWeeklyAvail = []
-let bobWeeklyAvail = []
-let caitlynWeeklyAvail = []
-let dariusWeeklyAvail = []
-
-let aliceWeeklyShifts = []
-let bobWeeklyShifts = []
-let caitlynWeeklyShifts = []
-let dariusWeeklyShifts = []
-
+const current_user = allEmployees[0]; //store the current user
+console.log(allEmployers[0]);
 
 for (let i = 0; i < 7; i++) {
-  aliceWeeklyAvail.push(new TimeInterval(8, 15))
-  bobWeeklyAvail.push(new TimeInterval(9, 16))
-  caitlynWeeklyAvail.push(new TimeInterval(8, 15))
-  dariusWeeklyAvail.push(new TimeInterval(9, 16))
-  aliceWeeklyShifts.push(null)
-  bobWeeklyShifts.push(null)
-  caitlynWeeklyShifts.push(null)
-  dariusWeeklyShifts.push(null)
+  allEmployees[0].availability.push(new TimeInterval(8, 15))
+  allEmployees[1].availability.push(new TimeInterval(9, 16))
+  allEmployees[2].availability.push(new TimeInterval(8, 15))
+  allEmployees[3].availability.push(new TimeInterval(9, 16))
 }
-aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availability on Sunday
 
-aliceWeeklyShifts[0] = new TimeInterval(8, 15)
-bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
-
-allEmployees.push(new Employee('Alice', '123', 'waitress', aliceWeeklyAvail, aliceWeeklyShifts))
-allEmployees.push(new Employee('Bob', '123', 'cook', bobWeeklyAvail, bobWeeklyShifts))
-allEmployees.push(new Employee('Caitlyn', '123', 'cook', caitlynWeeklyAvail, caitlynWeeklyShifts))
-allEmployees.push(new Employee('Darius', '123', 'supervisor', dariusWeeklyAvail, dariusWeeklyShifts))
-
+allEmployees[0].shifts[0] = new TimeInterval(8, 15)
+allEmployees[0].shifts[2] = new TimeInterval(12, 20)
+allEmployees[0].shifts[3] = new TimeInterval(9, 17)
+allEmployees[0].shifts[6] = new TimeInterval(16, 24)
+allEmployees[1].shifts[1] = new TimeInterval(9, 16)
 
 
 const changePW = document.querySelector('#personalInfo');
@@ -80,6 +40,31 @@ const passwordModal = document.querySelector('#passwordBody');
 
 const uploadPicture = document.querySelector('#uploadPicture');
 uploadPicture.addEventListener('submit', changeProfilePic);
+
+const sidebar = document.querySelector('#sidebar');
+window.addEventListener('load', modifySideBar(current_user));
+
+const personalInfo = document.querySelector('#personalInfo');
+window.addEventListener('load', loadPersonalInfo(current_user));
+
+function loadPersonalInfo(user){
+  const userInfo = [user.name, user.userID, user.email, user.phone, user.position];
+  console.log(userInfo);
+  const infoList = personalInfo.children;
+  console.log(infoList);
+  for(var i = 0; i < 5; i++){
+    const info = document.createElement('div');
+    info.className = 'col-3';
+    const p = document.createElement('p');
+    if(userInfo[i] != undefined){
+    const text = document.createTextNode(userInfo[i]);
+    p.appendChild(text);
+    info.appendChild(p);
+    infoList[i].appendChild(info);
+    }
+  }
+  
+}
 
 function requestChangePassword(e){
   e.preventDefault();
@@ -103,8 +88,8 @@ function checkPwMatch(e){
   }
   //password not match
   if(signuppassword != confirmpw){
-    document.getElementById("pw").value = "";
-    document.getElementById("cpw").value = "";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("cnewPassword").value = "";
     alert("Please make sure your password and confirm password are matching");
     return false;
   }
@@ -114,17 +99,14 @@ function checkPwMatch(e){
 }
 
 function successChange(){
-  passwordModal.innerHTML = '<p>Your request has been sent to the admin.</p>';
+  passwordModal.innerHTML = '<p>Your password has been changed!</p>';
   document.getElementById('changePWFooter').innerHTML = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
 }
 
 function changeProfilePic(e){
   e.preventDefault();
-  console.log('hiiii');
   var file = document.getElementById("myPic").files[0];
   document.getElementById("pic").src = file.name;
 
 }
-function domProfileChange(filename){
-  
-}
+
