@@ -39,68 +39,67 @@
       </nav>
       <!-- Content -->
       <div id="content">
-        <div class='shcedulebox' class='container col-8 justify-content-center'>
-              <h3>Current Availability</h3>
-              <table id='AvailabilityTable' class='table'>
-                <tr>
-                  <th></th>
-                  <th>Monday</th>
-                  <th>Tuesday</th>
-                  <th>Wednesday</th>
-                  <th>Thursday</th>
-                  <th>Friday</th>
-                  <th>Saturday</th>
-                  <th>Sunday</th>
-                </tr>
-                <tr id='availRow'>
-                  <th scope="row">Time</th>
-                  <td id='MondayAvail' class='dayCell'></td>
-                  <td id='TuesdayAvail' class='dayCell'></td>
-                  <td id='WednesdayAvail' class='dayCell'></td>
-                  <td id='ThursdayAvail' class='dayCell'></td>
-                  <td id='FridayAvail' class='dayCell'></td>
-                  <td id='SaturdayAvail' class='dayCell'></td>
-                  <td id='SundayAvail' class='dayCell'></td>
-                </tr>
-              </table>
-            </div>
+        <div class='container col-11 justify-content-center'>
+          <h3>Current Availability</h3>
+          <table id='AvailabilityTable' class='table'>
+            <tr>
+              <th></th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+              <th>Saturday</th>
+              <th>Sunday</th>
+            </tr>
+            <tr id='availRow'>
+              <th scope="row">Time</th>
+              <td id='MondayAvail' class='dayCell'></td>
+              <td id='TuesdayAvail' class='dayCell'></td>
+              <td id='WednesdayAvail' class='dayCell'></td>
+              <td id='ThursdayAvail' class='dayCell'></td>
+              <td id='FridayAvail' class='dayCell'></td>
+              <td id='SaturdayAvail' class='dayCell'></td>
+              <td id='SundayAvail' class='dayCell'></td>
+            </tr>
+          </table>
+        </div>
 
-            <div class='shcedulebox' class='container col-8'>
-              <div class='row col-8'>
-                <div class='col'>
-                <div class='dropdown'>
-                  <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" class='min-width'>
-                    Mon
-                  </button>
-                  <div class="dropdown-menu" id='dropdownDiv'>
-                    <button class='dropdown-item' id='MonButton'>Mon</button>
-                    <button class='dropdown-item' id='TueButton'>Tue</button>
-                    <button class='dropdown-item' id='WedButton'>Wed</button>
-                    <button class='dropdown-item' id='ThuButton'>Thu</button>
-                    <button class='dropdown-item' id='FriButton'>Fri</button>
-                    <button class='dropdown-item' id='SatButton'>Sat</button>
-                    <button class='dropdown-item' id='MonButton'>Sun</button>
-                  </div>
+        <div class='container col-11'>
+          <div class='row justify-content-start'>
+            <div class='col-2 d-flex justify-content-center'>
+              <div class='dropdown'>
+                <br>
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" class='min-width'>
+                  Mon
+                </button>
+                <div class="dropdown-menu" id='dropdownDiv'>
+                  <button class='dropdown-item' id='MonButton'>Mon</button>
+                  <button class='dropdown-item' id='TueButton'>Tue</button>
+                  <button class='dropdown-item' id='WedButton'>Wed</button>
+                  <button class='dropdown-item' id='ThuButton'>Thu</button>
+                  <button class='dropdown-item' id='FriButton'>Fri</button>
+                  <button class='dropdown-item' id='SatButton'>Sat</button>
+                  <button class='dropdown-item' id='MonButton'>Sun</button>
                 </div>
               </div>
-              <div class='col'>
-                <span>From</span>
-              </div>
-              <div class='col-2'>
-                <input id='startTime' type='text' placeholder='8'>
-              </div>
-              <div class='col'>
-                <span>To</span>
-              </div>
-              <div class='col-2'>
-                <input id='endTime' type='text' placeholder='15'>
-              </div>
-              <div class='col'>
-                <button class='btn btn-primary' id='submitAvailButton'>Submit</button>
-              </div>
             </div>
+            <form class='col-3'>
+              <div class='form-group inputForm'>
+                <label>From</label>
+                <input id='startTime' type='number' class='form-control form-control-sm'>
+                <br>
+                <label>To</label>
+                <input id='endTime' type='number' class='form-control form-control-sm'>
+                <br>
+                <div class='d-flex justify-content-end'>
+                  <button class='btn btn-primary justify-content-right' id='submitAvailButton'>Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
 
 
     <script type="text/javascript" src="TimeAvail.js"></script>

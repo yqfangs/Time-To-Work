@@ -107,6 +107,7 @@ let currentlySelected = 0
 const currentUser = allEmployees[0]
 
 const availTable = document.querySelector('#AvailabilityTable')
+const availRow = document.querySelector('#availRow')
 const dropdownDiv = document.querySelector('#dropdownDiv')
 const submitAvailButton = document.querySelector('#submitAvailButton')
 const startTimeInput = document.querySelector('#startTime')
@@ -114,6 +115,7 @@ const endTimeInput = document.querySelector('#endTime')
 
 dropdownDiv.addEventListener('click', changeSelected)
 submitAvailButton.addEventListener('click', submitNewAvail)
+window.addEventListener('load', loadAvailTable)
 
 function changeSelected(e) {
   e.preventDefault()
@@ -139,7 +141,7 @@ function submitNewAvail(e) {
     const start = Number(startTimeInput.value)
     const end = Number(endTimeInput.value)
 
-    if (checkStartEnd(Number(start), Number(end)) {
+    if (checkStartEnd(Number(start), Number(end))) {
       currentUser.availability[currentlySelected] = new TimeInterval(start, end)
       addNewAvailToTable(start, end)
     }
@@ -147,10 +149,18 @@ function submitNewAvail(e) {
       alert("Please enter a valid input!")
     }
   }
+}
+
+  function loadAvailTable(e) {
+    let curr = availRow.firstElementChild.nextElementSibling
+    for (let i = 0; i < 7; i++) {
+      curr.innerText = `${currentUser.availability[i].start} - ${currentUser.availability[i].end}`
+      curr = curr.nextElementSibling
+    }
+    startTimeInput.placeholder = currentUser.availability[0].start
+    endTimeInput.placeholder = currentUser.availability[0].end
+  }
 
   function addNewAvailToTable(start, end) {
     availTable.firstElementChild.lastElementChild.children[currentlySelected+1].innerText = start + '-' + end
   }
-
-
-}

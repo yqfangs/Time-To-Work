@@ -9,9 +9,14 @@ table {
 
 th, td {
   width: 12.5%;
-  border-left: 2px solid #f0f0f0;
+  border-bottom: 2px solid #ffffff;
 }
 
 #startTime, #endTime{
   width: 100%;
+}
+
+.inputForm {
+  min-width: 70px;
+  max-width: 150px;
 }
