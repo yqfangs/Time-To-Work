@@ -70,10 +70,10 @@ a, a:hover, a:focus {
     border-bottom: 1px solid #996699;
 }
 
-#sidebar ul p {
+/*#sidebar ul p {
     color: #fff;
     padding: 10px;
-}
+}*/
 
 #sidebar ul li a {
     padding: 10px;
@@ -89,6 +89,14 @@ a, a:hover, a:focus {
     color: #fff;
     background: #6d7fcc;
 }
+
+.disabled a{
+    color: #A9A9A9 !important;
+}
+.disabled a:hover{
+    background: #CC99CC !important;
+}
+
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
