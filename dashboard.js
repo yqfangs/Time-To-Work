@@ -5,28 +5,6 @@ const allEmployees = []
 const allEmployers = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
 
-// class Employee {
-//   constructor(name, password, company, position, phone) {
-//     this.name = name
-//     this.userID = allEmployees.length
-//     this.password = password
-//     this.company = company
-//     this.position = position
-//     this.phone = phone
-//     this.availability = []
-//     this.shifts = []
-//   }
-// }
-
-// class TimeInterval {
-//   constructor(start, end) {
-//     this.start = start
-//     this.end = end
-//     this.duration = end - start
-//   }
-// }
-
-//import {Employer, Company} from './Employer.js';
 // -------------- setting up mock info ----------------
 
 allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
@@ -60,10 +38,19 @@ window.addEventListener("load", loadSchedule);
 window.addEventListener('load', loadHourTable(current_user));
 
 function modifySideBar(user){
+	console.log('imhere')
 	if(user instanceof Employee){
-		sidebar.
+		console.log('employee');
+		const schedule = document.querySelector('#scheduling')
+		const scheduleA = schedule.firstElementChild
+		scheduleA.removeAttribute('href');
+		schedule.className = 'disabled';
 	}else if(user instanceof Employer){
-
+		console.log('employer');
+		const time = document.querySelector('#timeavail');
+		const timeA = time.firstElementChild
+		timeA.removeAttribute('href');
+		time.className = 'disabled';
 	}
 
 }
