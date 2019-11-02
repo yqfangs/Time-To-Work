@@ -16,9 +16,15 @@ class Employee {
     this.shifts = []
   }
 
-  findCompanyByName(companyName) {
+
+  /*
+    This function returns the company object with name equal to the
+    companyName attribute.
+    Returns -1 if such a company does not exist
+  */
+  getCompany() {
   	for(let comp of allCompanies){
-  		if(comp.name == companyName){
+  		if(comp.name == this.companyName){
   			return comp
   		}
   	}
@@ -47,6 +53,19 @@ function checkStartEnd(s, e) {
   }
   return false
 }
+
+
+// returns the total number of hours in an array of Intervals
+function totalHours(intArray) {
+  let sum = 0
+  for (const interval of intArray) {
+    if (interval != null) {
+      sum += interval.duration
+    }
+  }
+  return sum
+}
+
 
 
 // -------------- setting up mock info ----------------
