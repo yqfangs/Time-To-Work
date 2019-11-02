@@ -1,8 +1,5 @@
 'use strict';
 
-
-allCompanies = []
-
 class Employer {
 	constructor(name, password, email, phone, companyName){
 		this.name = name
@@ -14,19 +11,20 @@ class Employer {
 	}
 
 	/*
-    This function returns the company object with name equal to the
-    companyName attribute.
-    Returns -1 if such a company does not exist
-  */
-  getCompany() {
-  	for(let comp of allCompanies){
-  		if(comp.name == this.companyName){
-  			return comp
+		This funciton finds the company object by the given company name (string).
+		Returns the corresponding company object on success.
+		Returns -1 if the employee of given name does not exist.
+	*/
+	findCompanyByName(companyName){
+  		for(let comp of allCompanies){
+  			if(comp.name == companyName){
+  				return comp
+  			}
   		}
+  		return -1
   	}
-  	return -1
-  }
 }
+
 
 class Company {
 	constructor(name, openHours){
