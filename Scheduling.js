@@ -89,9 +89,9 @@ aliceWeeklyShifts[0] = new TimeInterval(8, 15)
 bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
 
 allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '000'))
-allEmployees.push(new Employee('Bob', '123', 'cook', 'bob@mail.com', '001'))
-allEmployees.push(new Employee('Caitlyn', '123', 'cook', 'caitlyn@mail.com', '002'))
-allEmployees.push(new Employee('Darius', '123', 'supervisor', 'darius@mail.com', '003'))
+allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '001'))
+allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '002'))
+allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '003'))
 
 allEmployees[0].availability = aliceWeeklyAvail
 allEmployees[1].availability = bobWeeklyAvail
@@ -144,6 +144,7 @@ function modalLoadSelected(e) {
     modalBody.firstElementChild.innerText = `Availability: ${employee.availability[dayOfWeek].start} - ${employee.availability[dayOfWeek].end}`
     modalBody.firstElementChild.nextElementSibling.innerText = `Currently scheduled hours: ${totalHours(employee.shifts)}`
     modalBody.firstElementChild.nextElementSibling.nextElementSibling.innerText = `Position: ${employee.position}`
+
 
   }
 }
