@@ -24,12 +24,12 @@ allEmployees.push(darius);
 
 allEmployers.push(employer1);
 
-alice.findCompanyByName(alice.companyName).employees.push(alice);
-bob.findCompanyByName(bob.companyName).employees.push(bob);
-caitlyn.findCompanyByName(caitlyn.companyName).employees.push(caitlyn);
-darius.findCompanyByName(darius.companyName).employees.push(darius);
+alice.getCompany().employees.push(alice);
+bob.getCompany().employees.push(bob);
+caitlyn.getCompany().employees.push(caitlyn);
+darius.getCompany().employees.push(darius);
 
-employer1.findCompanyByName(employer1.companyName).employers.push(employer1);
+employer1.getCompany().employers.push(employer1);
 
 const current_user = allEmployers[0]; //store the current user log in id
 
@@ -54,7 +54,7 @@ window.addEventListener("load", loadSchedule(current_user));
 window.addEventListener('load', loadHourTable(current_user));
 
 function loadSchedule(user){
-	const companyEmployee = user.findCompanyByName(user.companyName).employees;
+	const companyEmployee = user.getCompany().employees;
 	for(var i = 0; i < companyEmployee.length; i++){
 		const row = document.createElement('tr');
 		const rowHead = document.createElement('th');
@@ -80,7 +80,7 @@ function loadHourTable(user){
 	if(user instanceof Employer){
 		const schedulebox = document.querySelector('#workinghour');
 		schedulebox.style.visibility = "hidden";
-	}else{ 
+	}else{
 		const row = document.createElement('tr');
 	const rowHead = document.createElement('th');
 	rowHead.setAttribute('scope', 'row');
