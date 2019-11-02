@@ -117,6 +117,9 @@ dropdownDiv.addEventListener('click', changeSelected)
 submitAvailButton.addEventListener('click', submitNewAvail)
 window.addEventListener('load', loadAvailTable)
 
+const sidebar = document.querySelector('#sidebar');
+window.addEventListener('load', modifySideBar(currentUser));
+
 function changeSelected(e) {
   e.preventDefault()
   if (e.target.classList.contains('dropdown-item')) {

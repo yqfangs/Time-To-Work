@@ -4,13 +4,14 @@
 
 
 class Employee {
-  constructor(name, password, email, position, phone) {
+  constructor(name, password, email, position, phone, companyName) {
     this.name = name
     this.email = email
     this.userID = allEmployees.length
     this.password = password
     this.position = position
     this.phone = phone
+    this.company = companyName
     this.availability = []
     this.shifts = []
   }

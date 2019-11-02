@@ -3,19 +3,19 @@ const log = console.log;
 
 const allEmployees = []
 const allEmployers = []
+const allCompanies = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
 
 // -------------- setting up mock info ----------------
 
-allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
-allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'));
-allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
-allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
+allCompanies.push(new Company('company1', new TimeInterval(8, 24)))
+allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678', 'company1'));
+allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798', 'company2'));
+allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089', 'company1'));
+allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673', 'company1'));
 
 allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
-
 const current_user = allEmployees[0]; //store the current user log in id
-console.log(allEmployers[0]);
 
 for (let i = 0; i < 7; i++) {
   allEmployees[0].availability.push(new TimeInterval(8, 15))
