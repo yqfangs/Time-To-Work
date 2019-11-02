@@ -94,6 +94,8 @@ function checkPwMatch(e){
     return false;
   }
   //otherwise is valide sign up
+
+  current_user.password = signuppassword;
   successChange();
   //point to the log in page
 }

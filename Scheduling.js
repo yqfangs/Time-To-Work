@@ -9,6 +9,7 @@
 // const totalHours = imp.fns.totalHours
 
 let allEmployees = []
+const allEmployers = []
 
 
 class Employee {
@@ -93,6 +94,8 @@ allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '001'))
 allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '002'))
 allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '003'))
 
+allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
+
 allEmployees[0].availability = aliceWeeklyAvail
 allEmployees[1].availability = bobWeeklyAvail
 allEmployees[2].availability = caitlynWeeklyAvail
@@ -102,6 +105,7 @@ allEmployees[1].shifts = bobWeeklyShifts
 allEmployees[2].shifts = caitlynWeeklyShifts
 allEmployees[3].shifts = dariusWeeklyShifts
 
+const current_user = allEmployers[0]
 
 
 
@@ -128,6 +132,9 @@ availTable.addEventListener("click", modalLoadSelected)
 scheduleTable.addEventListener("click", scheduleTableEvent)
 modalConfirmButton.addEventListener("click", addShift)
 window.addEventListener("load", loadData)
+
+const sidebar = document.querySelector('#sidebar');
+window.addEventListener('load', modifySideBar(current_user));
 
 function modalLoadSelected(e) {
   e.preventDefault()
