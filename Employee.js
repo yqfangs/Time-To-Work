@@ -1,7 +1,7 @@
 'use strict';
 
 // let allEmployees = []
-
+const allCompanies = []
 
 class Employee {
   constructor(name, password, email, position, phone, companyName) {
@@ -11,11 +11,20 @@ class Employee {
     this.password = password
     this.position = position
     this.phone = phone
-    this.company = companyName
+    this.companyName = companyName
     this.availability = []
     this.shifts = []
   }
-}
+
+  findCompanyByName(companyName) {
+  	for(let comp of allCompanies){
+  		if(comp.name == companyName){
+  			return comp
+  		}
+  	}
+  	return -1
+  }
+ }
 
 class TimeInterval {
   constructor(start, end) {
