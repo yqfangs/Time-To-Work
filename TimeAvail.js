@@ -106,11 +106,12 @@ let currentlySelected = 0
 // the id of employee currently logged in
 // const currentUser = current_user
 const currentUser = alice   // this should be current_user, but logging in as
-                            // an employer (default) will not have access to this page 
+                            // an employer (default) will not have access to this page
 
 const availTable = document.querySelector('#AvailabilityTable')
 const availRow = document.querySelector('#availRow')
 const dropdownDiv = document.querySelector('#dropdownDiv')
+const title = document.querySelector('#title')
 const submitAvailButton = document.querySelector('#submitAvailButton')
 const startTimeInput = document.querySelector('#startTime')
 const endTimeInput = document.querySelector('#endTime')
@@ -166,6 +167,8 @@ function submitNewAvail(e) {
 }
 
   function loadAvailTable(e) {
+    title.innerText = `${currentUser.name}'s ${title.innerText}`
+
     let curr = availRow.firstElementChild.nextElementSibling
     for (let i = 0; i < 7; i++) {
       let availStart = 0
