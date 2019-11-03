@@ -63,4 +63,8 @@ alice.shifts[3] = new TimeInterval(9, 17)
 alice.shifts[6] = new TimeInterval(16, 24)
 bob.shifts[1] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
 
-const current_user = allEmployers[0]; //store the current user log in id
+const current_user = employer1; //store the currently logged in user
+// other predefined employee substitutes for employer1: alice, bob, caitlyn, darius
+// i.e. can log in as any of the four employees above. E.g.
+
+// const current_user = alice;
