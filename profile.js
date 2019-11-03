@@ -3,30 +3,6 @@
 // const allEmployees = []
 // const allEmployers = []
 
-// -------------- setting up mock info ----------------
-
-// allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
-// allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'));
-// allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
-// allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
-
-// allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
-
-// const current_user = allEmployees[0]; //store the current user
-
-for (let i = 0; i < 7; i++) {
-  allEmployees[0].availability.push(new TimeInterval(8, 15))
-  allEmployees[1].availability.push(new TimeInterval(9, 16))
-  allEmployees[2].availability.push(new TimeInterval(8, 15))
-  allEmployees[3].availability.push(new TimeInterval(9, 16))
-}
-
-allEmployees[0].shifts[0] = new TimeInterval(8, 15)
-allEmployees[0].shifts[2] = new TimeInterval(12, 20)
-allEmployees[0].shifts[3] = new TimeInterval(9, 17)
-allEmployees[0].shifts[6] = new TimeInterval(16, 24)
-allEmployees[1].shifts[1] = new TimeInterval(9, 16)
-
 
 const changePW = document.querySelector('#personalInfo');
 changePW.addEventListener('click', requestChangePassword);
@@ -47,6 +23,7 @@ const personalInfo = document.querySelector('#personalInfo');
 window.addEventListener('load', loadPersonalInfo(current_user));
 
 function loadPersonalInfo(user){
+  //load personal info from server
   const userInfo = [user.name, user.userID, user.email, user.phone, user.position];
   console.log(userInfo);
   const infoList = personalInfo.children;
@@ -94,6 +71,7 @@ function checkPwMatch(e){
   }
   //otherwise is valide sign up
 
+  //upload the change to the server
   current_user.password = signuppassword;
   successChange();
   //point to the log in page
@@ -107,6 +85,7 @@ function successChange(){
 function changeProfilePic(e){
   e.preventDefault();
   var file = document.getElementById("myPic").files[0];
+  //upload the change to the server
   document.getElementById("pic").src = file.name;
 
 }
