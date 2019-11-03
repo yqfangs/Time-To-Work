@@ -27,6 +27,7 @@ In admin page, you can add companies into the table which contains existing page
 <li><strong>Submit Availability Page: </strong>
 <ul>
 <li> Log in as an employee to gain access to this page on the side menu bar. </li>
+<li> The currentUser attribute should be the same as other pages. However, we changed it to an employee so that the page can be displayed normally. (currentUser is an employer by default) </li>
 <li> Select the day of week you wish to change available work time with the grey button. </li>
 <li> Input a valid interval of available work time and submit. </li>
 <li> Successful changes can be observed by inspecting the corresponding employee object in console. </li>

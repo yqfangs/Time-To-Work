@@ -103,8 +103,10 @@
 // integer 0 to 6 corresponding to day of a week currently selected by dropdown
 let currentlySelected = 0
 
-// // the id of employee currently logged in
-const currentUser = current_user
+// the id of employee currently logged in
+// const currentUser = current_user
+const currentUser = alice   // this should be current_user, but logging in as
+                            // an employer (default) will not have access to this page 
 
 const availTable = document.querySelector('#AvailabilityTable')
 const availRow = document.querySelector('#availRow')
