@@ -12,4 +12,6 @@ The sidebar has the same template for all views(html), however, the tab links wi
 It display an overview of the company's weekly schedule, which will only includes the employees in the current logged in user's company. </li>
 <li><strong>Profile:</strong>
 Enable the user to change his password on the userside. As well, user can modify his profile picture. For phase 1, if upload picture in the same directory will change the profile pic display on the current page. </li>
-</ul>
+
+<li><strong>Admin e</strong>
+In admin page, you can add companies into the table which contains existing pages. Every company has its name, opening time,closing time and a button which links to the pages showing employers' and employees' info. Admin has the authority to add employers of a company and there are two tables displaying the general information of current employers and employees. Amdmin can change every user's information by clicking on  the button 'modify info'. On the modifying information page, for any of the input is empty, it will pop up the window to remain user to enter the info; if the email not contain "@", pop up window will say that is invalid email address. And at the bottom of the page, we have two buttoms: one is deleter user, another one is save user info.

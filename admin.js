@@ -45,7 +45,7 @@ function addCompanyToCompanyTable(company) {
 
     appendAllAttributesToRow(attributes, tableRow);
 
-    appendButtonToRow(tableRow, 'modify info', ['btn', 'btn-info'], onDetailsClick);
+    appendButtonToRow(tableRow, 'details', ['btn', 'btn-info'], onDetailsClick);
 
     table.appendChild(tableRow)
 }

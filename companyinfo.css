@@ -26,6 +26,15 @@ h2 {
     position: relative;
     color:darkslategrey;
 }
+p{
+    top: 30px;
+	font-size:20px;
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    
+    color:darkslategrey;
+}
 #employerAddForm {
     padding: 10px;
     top: 30px;
