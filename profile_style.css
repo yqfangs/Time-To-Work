@@ -1,8 +1,12 @@
 /* Profile Style Sheet*/
 
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 body {
 	background-color: #e6ecf0;
-	margin-right: 100px;
+	margin-right: 70px;
+	font-size: 18px;
+	color: #355E88;
 }
 
 #changePassword{
@@ -10,11 +14,16 @@ body {
 }
 
 .profileHeader{
-	margin-top: 120px;
+	margin-top: 50px;
 }
 
 .profileInfoContainer{
 	margin-top: 50px;
+}
+
+.info{
+	font-size: 17px ;
+	color: #000;
 }
 
 .infoHeader{

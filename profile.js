@@ -1,19 +1,18 @@
 'use strict';
 
-const allEmployees = []
-const allEmployers = []
+// const allEmployees = []
+// const allEmployers = []
 
 // -------------- setting up mock info ----------------
 
-allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
-allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'));
-allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
-allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
+// allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '121345678'));
+// allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '123456798'));
+// allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '1236879089'));
+// allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '7896751673'));
 
-allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
+// allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
 
-const current_user = allEmployees[0]; //store the current user
-console.log(allEmployers[0]);
+// const current_user = allEmployees[0]; //store the current user
 
 for (let i = 0; i < 7; i++) {
   allEmployees[0].availability.push(new TimeInterval(8, 15))
@@ -54,7 +53,7 @@ function loadPersonalInfo(user){
   console.log(infoList);
   for(var i = 0; i < 5; i++){
     const info = document.createElement('div');
-    info.className = 'col-3';
+    info.className = 'col-3 info';
     const p = document.createElement('p');
     if(userInfo[i] != undefined){
     const text = document.createTextNode(userInfo[i]);
