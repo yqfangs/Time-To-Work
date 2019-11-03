@@ -1,6 +1,6 @@
 
-table {
-  table-layout: fixed;
+td {
+  width: 5%;
 }
 
 .container {
