@@ -8,41 +8,57 @@
    <meta charset="utf-8">
    <title>Admin</title>
    <!-- CSS File here-->
-   <link rel="stylesheet" type="text/css" href="admin_style.css">
-   <!-- Bootstrap CSS CDN -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   <link rel="stylesheet" type="text/css" href="companyinfo.css">
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   <!-- <script type="text/javascript" src="admin.js"></script> -->
+
 </head>
 
 <body>
-   <h1>Admin Page</h1>
-   <h2>Current Companies</h2>
-   <form id='companyAddForm'>
+   <h1>Company Information Page</h1>
+   <h2>Current Users</h2>
+   <form id='employerAddForm'>
       <input id='name' type="text" placeholder='Name'>
-      <input id='openingTime' type="number" placeholder='Opening Time'>
-      <input id='closingTime' type="number" placeholder='Closing Time'>
-      <input type="submit" value="Add Company">
+      <input id='email' type="text" placeholder='Email'>
+      <input id='company' type="text" placeholder="Company">
+
+      <input type="submit" value="Add Employer">
    </form>
 
+
    <br>
-   <table id='companyTable'>
+   <table id='employerTable'>
       <tbody>
          <tr>
+            <th>Employer Id</th>
             <th>Name</th>
-            <th>Opening Time</th>
-            <th>Closing Time</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Information</th>
+         </tr>
+      </tbody>
+   </table>
+   <br>
+   <table id='employeeTable'>
+      <tbody>
+         <tr>
+            <th>Employee Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Phone</th>
+            <th>Company Name</th>
             <th>Information</th>
          </tr>
       </tbody>
    </table>
    <!-- JS File here-->
-
    <script type="text/javascript" src="Employer.js"></script>
    <script type="text/javascript" src="Employee.js"></script>
    <script type="text/javascript" src="Company.js"></script>
    <script type="text/javascript" src="MockData.js"></script>
-   <script type="text/javascript" src="admin.js"></script>
+   <script type="text/javascript" src="companyInfo.js"></script>
+   
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"></script>

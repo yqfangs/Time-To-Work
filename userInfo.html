@@ -9,23 +9,33 @@
    <title>Modify user Information</title>
    <!-- CSS File here-->
    <link rel="stylesheet" type="text/css" href="userInfo.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
    <h1>Modify user Information</h1>
-   <div id=userInfo>
-      <p>User Id: <span></span></p>
-      <p>First Name: <input id = 'firstName' type ="text" placeholder=''></p>
-      <p>Last Name: <input id = 'lastName' type ="text" placeholder=''></p>
-      <p>Email: <input id = 'email' type ="text" placeholder=''></p>
-      <p>Phone #: <input id = 'phoneNum' type ="text" placeholder=''></p>
-      <p>Company: <input id = 'company' type ="text" placeholder=''></p>
-      <p>Type: <input id = 'type' type="text" placeholder=''></p>
-      <p>Password: <input id = 'pwd' type ="text" placeholder=''></p>
-      <button class="btn_delete">Delete user</button>
-      <button class="btn_save">Save user Info</button>
+   <div id='userInfo'>
+      <div class='infoContainer'>
+      </div>
+      <button class="btn_delete btn-info">Delete user</button>
+      <button class="btn_save btn-info">Save user Info</button>
    </div>
 
+   <script type="text/javascript" src="Employer.js"></script>
+   <script type="text/javascript" src="Employee.js"></script>
+   <script type="text/javascript" src="Company.js"></script>
+   <script type="text/javascript" src="MockData.js"></script>
    <script type="text/javascript" src="userInfo.js"></script>
+   
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+   crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+   integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+   crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+   crossorigin="anonymous"></script>
 
 </body>
