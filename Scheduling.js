@@ -8,7 +8,7 @@
 // const checkStartEnd = imp.fns.checkStartEnd
 // const totalHours = imp.fns.totalHours
 
-let allEmployees = []
+const allEmployees = []
 const allEmployers = []
 
 
@@ -109,14 +109,15 @@ const current_user = allEmployers[0]
 
 
 
-const dayOfWeek = 0
+let dayOfWeek = 0
 const timeOpen = 8
 const timeClosed = 24
 const colours = {
   "waiter": "table-success",
   "waitress": "table-success",
   "cook": "table-primary",
-  "supervisor": "table-warning"
+  "supervisor": "table-warning",
+  "cashier": "table-info"
 }
 
 
@@ -126,11 +127,12 @@ const modalTitle = document.querySelector("#modalTitle")
 const modalBody = document.querySelector("#modalBody")
 const scheduleTable = document.querySelector("#scheduleTable")
 const modalConfirmButton = document.querySelector("#modalConfirmButton")
-const body = document.querySelector("body")
+const dropdownDiv = document.querySelector("#dropdownDiv")
 
 availTable.addEventListener("click", modalLoadSelected)
 scheduleTable.addEventListener("click", scheduleTableEvent)
 modalConfirmButton.addEventListener("click", addShift)
+dropdownDiv.addEventListener("click", changeDayOfWeek)
 window.addEventListener("load", loadData)
 
 const sidebar = document.querySelector('#sidebar');
@@ -156,6 +158,25 @@ function modalLoadSelected(e) {
   }
 }
 
+
+function changeDayOfWeek(e) {
+  e.preventDefault()
+  if (e.target.classList.contains('dropdown-item')) {
+    dropdownDiv.previousElementSibling.innerText = e.target.innerText
+
+    let i = 0
+    for (; i < 7; i++) {
+      if (dropdownDiv.children[i] == e.target) {
+        dayOfWeek = i
+        break
+      }
+    }
+    removeAllTableRows()
+    loadData()
+  }
+}
+
+
 function scheduleTableEvent(e) {
   if (e.target.classList.contains("scheduleSubmitButton")) {
     updateShift(e)
@@ -172,7 +193,6 @@ function updateShift(e) {
   const end = Number(e.target.previousElementSibling.value)
   const start = Number(e.target.previousElementSibling.previousElementSibling.previousElementSibling.value)
   if (!checkStartEnd(start, end)) {
-    console.log(start, end)
     alert("Please enter valid inputs!")
     return
   }
@@ -282,8 +302,8 @@ function loadData(e) {
       availTr.className = "d-none"
       updateScheduleTable(employee, shiftTr.firstElementChild)
     }
-    scheduleTable.appendChild(shiftTr)
-    availTable.appendChild(availTr)
+    scheduleTable.firstElementChild.appendChild(shiftTr)
+    availTable.firstElementChild.appendChild(availTr)
   }
 
 }
@@ -355,4 +375,17 @@ function removeShiftFromTable(employee) {
   updateScheduleTable(employee, hideRow.firstElementChild)
   displayRow.className = ""
   hideRow.className = "d-none"
+}
+
+
+function removeAllTableRows() {
+  const headRow1 = scheduleTable.firstElementChild.firstElementChild
+  const headRow2 = availTable.firstElementChild.firstElementChild
+  while (headRow1.nextElementSibling != null) {
+    scheduleTable.firstElementChild.removeChild(headRow1.nextElementSibling)
+  }
+
+  while (headRow2.nextElementSibling != null) {
+    availTable.firstElementChild.removeChild(headRow2.nextElementSibling)
+  }
 }
