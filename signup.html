@@ -9,10 +9,10 @@
     <title>Sign Up</title>
     <!-- CSS File here-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!-- JS File here-->
-    <script type="text/javascript" src="signup.js"></script>
  </head>
 
  <body>
@@ -55,13 +55,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="company" class="text-info">Company:</label><br>
-                                    <input type="text" name="company" id="company" class="form-control">
+                                    <input type="text" name="company" id="company" class="form-control"><br>
                                 <div class="form-group">
-                                    <label for="position" class="text-info">Position:</label><br>
-                                    <input type="text" name="position" id="position" class="form-control">
-                                </div>
+                                    <label for="company" class="text-info">Position:</label>
+                                    <select class="browser-default custom-select" id="selectPosition">
+                                        <option selected value="none">Select Your Position</option>
+                                        <option value="waiter">Waiter</option>
+                                        <option value="waitress">Waitress</option>
+                                        <option value="cook">Cook</option>
+                                        <option value="supervisor">Supervisor</option>
+                                        <option value="cashier">Cashier</option>
+                                    </select>
+                                </div><br>
                                 <div class="text-right">
-                                    <center><input type="button" name="signup" class="btn btn-info btn-md" value="Sign Up" onclick="checkPwMatch();"></center>
+                                    <center><input type="button" name="signup" id="signupButton" class="btn btn-info btn-md" value="Sign Up"></center>
                                     <input type="button" name="back" class="btn btn-info btn-md" value="back" onclick="location.href = 'index.html';">
                                 </div>
                             </form>
@@ -71,6 +78,14 @@
             </div>
         </div>
     </div>
+
+
+<!-- JS File here-->
+<script type="text/javascript" src="Employee.js"></script>
+<script type="text/javascript" src="Employer.js"></script>
+<script type="text/javascript" src="Company.js"></script>
+<script type="text/javascript" src="MockData.js"></script>
+<script type="text/javascript" src="signup.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -1,7 +1,5 @@
 'use strict';
 
-// let allEmployees = []
-const allCompanies = []
 
 class Employee {
   constructor(name, password, email, position, phone, companyName) {

@@ -2,6 +2,7 @@
 
 const allEmployees = []
 const allEmployers = []
+const allCompanies = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
 
 // -------------- setting up mock info ----------------
