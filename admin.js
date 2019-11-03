@@ -12,7 +12,7 @@ function addNewCompany(e) {
             new TimeInterval(document.querySelector('#openingTime').value, document.querySelector('#closingTime').value)
         )
 
-        allCompany.push(company)
+        allCompanies.push(company)
 
         addCompanyToCompanyTable(company)
     }
