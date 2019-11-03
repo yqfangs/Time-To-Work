@@ -10,5 +10,24 @@ td {
 
 .dropdownCell{
   padding: 4px !important;
-  max-width: 85px;
+  max-width: 100px;
+  min-width: 100px;
+}
+
+h4 {
+  width: 200px;
+  margin-top: 5px;
+}
+
+.h4Div {
+  max-width: 200px;
+}
+
+th {
+  width: 5%
+}
+
+.nameHead {
+  max-width: 100px;
+  min-width: 100px;
 }
