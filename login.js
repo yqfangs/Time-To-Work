@@ -15,6 +15,7 @@ let currentUser;
   This function return -1 if the input for email and password is empty;
   return 0 if the email and password not match;
   return 1 if the email and password match;
+  Also this function will get data from server, but now we get data from MockData.js
 */
 function checkExist(employeeList, employerList){
 
@@ -92,7 +93,7 @@ function checkEmailPwMatch(e){
 		if(currentUser instanceof Employer){
 			userType = "Employer";
 		}
-		alert(`Login Successfully as ${userType}.\nName: ${currentUser.name}\nEmail: ${currentUser.email}\nuserID: ${currentUser.userID}`);
+		alert(`Login Successfully as ${userType}.\nName: ${currentUser.name}\nEmail: ${currentUser.email}\nuserID: ${currentUser.userID}\nCompany: ${currentUser.companyName}`);
 		//point to next page
 		window.location = "dashboard.html";
 		return true;
