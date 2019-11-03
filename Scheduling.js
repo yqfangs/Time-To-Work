@@ -8,10 +8,10 @@
 // const checkStartEnd = imp.fns.checkStartEnd
 // const totalHours = imp.fns.totalHours
 
-const allEmployees = []
-const allEmployers = []
+// const allEmployees = []
+// const allEmployers = []
 
-
+/*
 class Employee {
   constructor(name, password, email, position, phone) {
     this.name = name
@@ -58,60 +58,66 @@ function totalHours(intArray) {
   return sum
 }
 
+*/
 
 
 
-// -------------- setting up mock info ----------------
+// // -------------- setting up mock info ----------------
+//
+// let aliceWeeklyAvail = []
+// let bobWeeklyAvail = []
+// let caitlynWeeklyAvail = []
+// let dariusWeeklyAvail = []
+//
+// let aliceWeeklyShifts = []
+// let bobWeeklyShifts = []
+// let caitlynWeeklyShifts = []
+// let dariusWeeklyShifts = []
+//
+//
+// for (let i = 0; i < 7; i++) {
+//   aliceWeeklyAvail.push(new TimeInterval(8, 15))
+//   bobWeeklyAvail.push(new TimeInterval(9, 16))
+//   caitlynWeeklyAvail.push(new TimeInterval(8, 15))
+//   dariusWeeklyAvail.push(new TimeInterval(9, 16))
+//   aliceWeeklyShifts.push(null)
+//   bobWeeklyShifts.push(null)
+//   caitlynWeeklyShifts.push(null)
+//   dariusWeeklyShifts.push(null)
+// }
+// aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availability on Sunday
+//
+// aliceWeeklyShifts[0] = new TimeInterval(8, 15)
+// bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
+//
+// allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '000'))
+// allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '001'))
+// allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '002'))
+// allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '003'))
+//
+// allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
+//
+// allEmployees[0].availability = aliceWeeklyAvail
+// allEmployees[1].availability = bobWeeklyAvail
+// allEmployees[2].availability = caitlynWeeklyAvail
+// allEmployees[3].availability = dariusWeeklyAvail
+// allEmployees[0].shifts = aliceWeeklyShifts
+// allEmployees[1].shifts = bobWeeklyShifts
+// allEmployees[2].shifts = caitlynWeeklyShifts
+// allEmployees[3].shifts = dariusWeeklyShifts
 
-let aliceWeeklyAvail = []
-let bobWeeklyAvail = []
-let caitlynWeeklyAvail = []
-let dariusWeeklyAvail = []
-
-let aliceWeeklyShifts = []
-let bobWeeklyShifts = []
-let caitlynWeeklyShifts = []
-let dariusWeeklyShifts = []
-
-
-for (let i = 0; i < 7; i++) {
-  aliceWeeklyAvail.push(new TimeInterval(8, 15))
-  bobWeeklyAvail.push(new TimeInterval(9, 16))
-  caitlynWeeklyAvail.push(new TimeInterval(8, 15))
-  dariusWeeklyAvail.push(new TimeInterval(9, 16))
-  aliceWeeklyShifts.push(null)
-  bobWeeklyShifts.push(null)
-  caitlynWeeklyShifts.push(null)
-  dariusWeeklyShifts.push(null)
-}
-aliceWeeklyAvail[6] = new TimeInterval(8, 12) // Alice has different availability on Sunday
-
-aliceWeeklyShifts[0] = new TimeInterval(8, 15)
-bobWeeklyShifts[0] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
-
-allEmployees.push(new Employee('Alice', '123', 'alice@mail.com', 'waitress', '000'))
-allEmployees.push(new Employee('Bob', '123', 'bob@mail.com', 'cook', '001'))
-allEmployees.push(new Employee('Caitlyn', '123', 'caitlyn@mail.com', 'cook', '002'))
-allEmployees.push(new Employee('Darius', '123', 'darius@mail.com', 'supervisor', '003'))
-
-allEmployers.push(new Employer('employer1', '123', 'employer1@mail.com', '123567989', 'company1'));
-
-allEmployees[0].availability = aliceWeeklyAvail
-allEmployees[1].availability = bobWeeklyAvail
-allEmployees[2].availability = caitlynWeeklyAvail
-allEmployees[3].availability = dariusWeeklyAvail
-allEmployees[0].shifts = aliceWeeklyShifts
-allEmployees[1].shifts = bobWeeklyShifts
-allEmployees[2].shifts = caitlynWeeklyShifts
-allEmployees[3].shifts = dariusWeeklyShifts
-
-const current_user = allEmployers[0]
+//const current_user = allEmployers[0]
 
 
 
-let dayOfWeek = 0
-const timeOpen = 8
-const timeClosed = 24
+let dayOfWeek = 0   // Display Monday Schedule by default
+
+
+
+const currentUser = current_user
+const timeOpen = currentUser.getCompany().openHours.start
+const timeClosed = currentUser.getCompany().openHours.end
+const myEmployees = currentUser.getCompany().employees
 const colours = {
   "waiter": "table-success",
   "waitress": "table-success",
@@ -136,13 +142,13 @@ dropdownDiv.addEventListener("click", changeDayOfWeek)
 window.addEventListener("load", loadData)
 
 const sidebar = document.querySelector('#sidebar');
-window.addEventListener('load', modifySideBar(current_user));
+window.addEventListener('load', modifySideBar(currentUser));
 
 function modalLoadSelected(e) {
   e.preventDefault()
   if (e.target.classList.contains("selectAvailButton")) {
     let employee = null
-    for (const emp of allEmployees) {
+    for (const emp of myEmployees) {
       if (emp.name == e.target.innerText.trim()) {
         employee = emp
         break
@@ -153,7 +159,6 @@ function modalLoadSelected(e) {
     modalBody.firstElementChild.innerText = `Availability: ${employee.availability[dayOfWeek].start} - ${employee.availability[dayOfWeek].end}`
     modalBody.firstElementChild.nextElementSibling.innerText = `Currently scheduled hours: ${totalHours(employee.shifts)}`
     modalBody.firstElementChild.nextElementSibling.nextElementSibling.innerText = `Position: ${employee.position}`
-
 
   }
 }
@@ -200,9 +205,9 @@ function updateShift(e) {
   const employeeCell = e.target.parentElement.parentElement.parentElement.parentElement.parentElement
   let employee = null
 
-  for (let i = 0; i < allEmployees.length; i++) {
-    if (allEmployees[i].name == name) {
-      employee = allEmployees[i]
+  for (let i = 0; i < myEmployees.length; i++) {
+    if (myEmployees[i].name == name) {
+      employee = myEmployees[i]
       employee.shifts[dayOfWeek] = new TimeInterval(start, end)
       break;
     }
@@ -220,9 +225,9 @@ function removeShift(e) {
   const name = nameButton.innerText.trim()
   let employee = null
 
-  for (let i = 0; i < allEmployees.length; i++) {
-    if (allEmployees[i].name == name) {
-      employee = allEmployees[i]
+  for (let i = 0; i < myEmployees.length; i++) {
+    if (myEmployees[i].name == name) {
+      employee = myEmployees[i]
       break;
     }
   }
@@ -238,9 +243,9 @@ function addShift(e) {
     const name = e.target.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerText.trim().split(" ")[1]
     let employee = null
 
-    for (let i = 0; i < allEmployees.length; i++) {
-      if (allEmployees[i].name == name) {
-        employee = allEmployees[i]
+    for (let i = 0; i < myEmployees.length; i++) {
+      if (myEmployees[i].name == name) {
+        employee = myEmployees[i]
         break;
       }
     }
@@ -255,11 +260,35 @@ function addShift(e) {
 function loadData(e) {
   //e.preventDefault()
 
-  for (const employee of allEmployees) {
+  const timeBd = document.createElement("tbody")
+  const timeRow = document.createElement("tr")
+
+  timeRow.appendChild(document.createElement("th"))
+  for (let i = timeOpen; i <= timeClosed; i++) {
+    const timeCell = document.createElement("th")
+    timeCell.innerText = String(i)
+    timeRow.appendChild(timeCell)
+  }
+  timeRow.firstElementChild.className = "nameHead"
+
+  timeBd.appendChild(timeRow)
+  scheduleTable.appendChild(timeBd)
+  availTable.appendChild(timeBd.cloneNode(true))
+
+
+  for (const employee of myEmployees) {
     const shiftTr = document.createElement("tr")
     const availTr = document.createElement("tr")
     shiftTr.id = `${employee.name}ShiftRow`
     availTr.id = `${employee.name}AvailRow`
+
+    let availStart = 0
+    let availEnd = 0
+    const availInterval = employee.availability[dayOfWeek]
+    if (availInterval != null){
+      availStart = availInterval.start
+      availEnd = availInterval.end
+    }
 
     shiftTr.innerHTML = `
       <td class="dropdownCell" >
@@ -271,9 +300,9 @@ function loadData(e) {
             <form>
               <div class="form-group col">
                 <label>Start Time</label>
-                <input type="number" class="form-control form-control-sm scheduleStartTimeInput" placeholder="${employee.availability[dayOfWeek].start}">
+                <input type="number" class="form-control form-control-sm scheduleStartTimeInput" placeholder="${availStart}">
                 <label>End Time</label>
-                <input type="number" class="form-control form-control-sm scheduleEndTimeInput" placeholder="${employee.availability[dayOfWeek].end}">
+                <input type="number" class="form-control form-control-sm scheduleEndTimeInput" placeholder="${availEnd}">
                 <button class="btn btn-primary btn-sm scheduleSubmitButton" type="button" style="margin-top: 5px;">Update</button>
                 <button class="btn btn-danger btn-sm scheduleRemoveButton" type="button" style="margin-top: 5px;">Remove</button>
               </div>
@@ -289,19 +318,21 @@ function loadData(e) {
         </button>
       </td>`
 
-    for (let i = 8; i <= 24; i++) {
+    for (let i = timeOpen; i <= timeClosed; i++) {
       shiftTr.appendChild(document.createElement("td"))
       availTr.appendChild(document.createElement("td"))
     }
 
     if (employee.shifts[dayOfWeek] == null) {
       shiftTr.className = "d-none"
-      updateAvailTable(employee, availTr.firstElementChild)
+
     }
     else {
       availTr.className = "d-none"
       updateScheduleTable(employee, shiftTr.firstElementChild)
     }
+    updateAvailTable(employee, availTr.firstElementChild)
+
     scheduleTable.firstElementChild.appendChild(shiftTr)
     availTable.firstElementChild.appendChild(availTr)
   }
@@ -379,13 +410,7 @@ function removeShiftFromTable(employee) {
 
 
 function removeAllTableRows() {
-  const headRow1 = scheduleTable.firstElementChild.firstElementChild
-  const headRow2 = availTable.firstElementChild.firstElementChild
-  while (headRow1.nextElementSibling != null) {
-    scheduleTable.firstElementChild.removeChild(headRow1.nextElementSibling)
-  }
+  scheduleTable.removeChild(scheduleTable.firstElementChild)
+  availTable.removeChild(availTable.firstElementChild)
 
-  while (headRow2.nextElementSibling != null) {
-    availTable.firstElementChild.removeChild(headRow2.nextElementSibling)
-  }
 }

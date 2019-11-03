@@ -51,3 +51,15 @@ function checkStartEnd(s, e) {
   }
   return false
 }
+
+
+// returns the total number of hours in an array of Intervals
+function totalHours(intArray) {
+  let sum = 0
+  for (const interval of intArray) {
+    if (interval != null) {
+      sum += interval.duration
+    }
+  }
+  return sum
+}
