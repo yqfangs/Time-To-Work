@@ -1,6 +1,7 @@
 'use strict';
 const log = console.log;
 
+/*
 const allEmployees = []
 const allEmployers = []
 const dayId = ['MondayTime', 'TuesdayTime','WednesdayTime', 'ThursdayTime', 'FridayTime', 'SaturdayTime', 'SundayTime'];
@@ -30,9 +31,16 @@ caitlyn.getCompany().employees.push(caitlyn);
 darius.getCompany().employees.push(darius);
 
 employer1.getCompany().employers.push(employer1);
+*/
 
-const current_user = allEmployers[0]; //store the current user log in id
 
+
+// declared and loaded when loggin in
+// const current_user = allEmployers[0]; //store the current user log in id
+
+
+
+/*
 for (let i = 0; i < 7; i++) {
   allEmployees[0].availability.push(new TimeInterval(8, 15))
   allEmployees[1].availability.push(new TimeInterval(9, 16))
@@ -45,6 +53,7 @@ allEmployees[0].shifts[2] = new TimeInterval(12, 20)
 allEmployees[0].shifts[3] = new TimeInterval(9, 17)
 allEmployees[0].shifts[6] = new TimeInterval(16, 24)
 allEmployees[1].shifts[1] = new TimeInterval(9, 16) //Alice and Bob has scheduled work shifts
+*/
 
 const scheduleTable = document.querySelector('#WeeklyScheduleTable');
 const hourTable = document.querySelector('#WorkingHourTable');
