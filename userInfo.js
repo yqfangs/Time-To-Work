@@ -145,11 +145,6 @@ function checkEmployee() {
         alert("Please enter valid email address")
         return false
     }
-
-    if (userPhoneNum.length != 10) {
-        alert("Please enter valid phone number")
-        return false
-    }
     return true
 }
 

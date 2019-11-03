@@ -43,10 +43,12 @@ function onDetailsClick(e) {
 /////////////////////////////
 /// component creation
 /////////////////////////////
-function appendButtonToRow(tableRow, buttonText, buttonClass, onClick) {
+function appendButtonToRow(tableRow, buttonText, buttonClasses, onClick) {
     const cell = document.createElement('td')
     const but = document.createElement('button')
-    but.classList.add(buttonClass)
+    for (let c in buttonClasses) {
+        but.classList.add(buttonClasses[c])
+    }
     but.onclick = onClick;
     const butText = document.createTextNode(buttonText)
     but.appendChild(butText)
@@ -83,7 +85,7 @@ function addEmployerToEmployerTable(employer) {
 
     appendAllAttributesToRow(attributes, tableRow);
 
-    appendButtonToRow(tableRow, 'modify info', 'btn-info', onDetailsClick);
+    appendButtonToRow(tableRow, 'modify info', ['btn','btn-info'], onDetailsClick);
 
     table.appendChild(tableRow)
 }
@@ -99,7 +101,7 @@ function addEmployeeToEmployeeTable(employee) {
     
     appendAllAttributesToRow(attributes, tableRow)
 
-    appendButtonToRow(tableRow, 'modify info', 'btn-info', onDetailsClick);
+    appendButtonToRow(tableRow, 'modify info', ['btn','btn-info'], onDetailsClick);
 
     table.appendChild(tableRow)
 }
