@@ -3,37 +3,72 @@
 const log = console.log;
 
 const loginButton = document.querySelector("#loginButton");
+const forgetPWlink = document.querySelector("#forgetPWlink");
 
 loginButton.addEventListener("click", checkEmailPwMatch);
+forgetPWlink.addEventListener("click", forgetPW);
 
-function forgetPW(){
-	var email = document.getElementById("email").value;
-	if(email == null || email == ""){
-		alert("Enter your email first")
-		return false;
+let currentUser;
+
+
+/*
+  This function return -1 if the input for email and password is empty;
+  return 0 if the email and password not match;
+  return 1 if the email and password match;
+*/
+function checkExist(employeeList, employerList){
+
+	if(document.getElementById("email").value === null || document.getElementById("email").value === ""){
+		return -1;
 	}
-	alert(`Password reset request already sent to your email : ${email}`)
-	document.getElementById("email").value = "";
-	return true;
+	if(document.getElementById("pw").value === null || document.getElementById("pw").value === ""){
+		return -1;
+	}
+
+	let email = document.getElementById("email").value;
+	let password = document.getElementById("pw").value;
+
+	for(let i=0; i<employeeList.length;i++){
+		if(employeeList[i].email === email && employeeList[i].password !== password){
+			return 0;
+		}
+		if(employeeList[i].email === email && employeeList[i].password === password){
+			currentUser = employeeList[i];
+			return 1;
+		}
+	}
+	for(let j=0; j<employerList.length; j++){
+		if(employerList[j].email === email && employerList[j].password !== password){
+			return 0;
+		}
+		if(employerList[j].email === email && employerList[j].password === password){
+			currentUser = employerList[j]
+			return 1;
+		}
+	}
+	return -1;
 }
+
 function checkEmailPwMatch(e){
 	e.preventDefault()
 
-	var email = document.getElementById("email").value;
-	var password = document.getElementById("pw").value;
-	//correcy email and password for user
-	if(email == "user" && password == "user"){
-		//clear the input box
-		document.getElementById("email").value = "";
-		document.getElementById("pw").value = "";
-		//pop up to notice log in success
-		alert("Login Successfully as regular user");
-		//point to next page
-		window.location = "dashboard.html";
-		return true;
+	//not enter email
+	if(document.getElementById("email").value === null || document.getElementById("email").value === ""){
+		alert("Please enter your email address");
+		return false;
 	}
+
+	//not enter password
+	if(document.getElementById("pw").value === null || document.getElementById("pw").value === ""){
+		alert("Please enter your password");
+		return false;
+	}
+
+	let email = document.getElementById("email").value;
+	let password = document.getElementById("pw").value;
+
 	//correcy email and password for admin
-	else if(email == "admin" && password == "admin"){
+	if(email === "admin" && password === "admin"){
 		//clear the input box
 		document.getElementById("email").value = "";
 		document.getElementById("pw").value = "";
@@ -43,21 +78,54 @@ function checkEmailPwMatch(e){
 		window.location = "admin.html";
 		return true;
 	}
-	//not enter email
-	else if(email == null || email == ""){
-		alert("Please enter your email address");
-		return false;
+
+	//correcy email and password for user
+	if(checkExist(allEmployees, allEmployers) === 1){
+		//clear the input box
+		document.getElementById("email").value = "";
+		document.getElementById("pw").value = "";
+		//pop up to notice log in success
+		let userType;
+		if(currentUser instanceof Employee){
+			userType = "Employee";
+		}
+		if(currentUser instanceof Employer){
+			userType = "Employer";
+		}
+		alert(`Login Successfully as ${userType}.\nName: ${currentUser.name}\nEmail: ${currentUser.email}\nuserID: ${currentUser.userID}`);
+		//point to next page
+		window.location = "dashboard.html";
+		return true;
 	}
-	//not enter password
-	else if(password == null || password == ""){
-		alert("Please enter your password");
-		return false;
+	//password not match
+	else if(checkExist(allEmployees, allEmployers) === 0){
+		//clear the input box
+		document.getElementById("pw").value = "";
+		//pop up that password not match
+		alert("Login Fail: Email and password are not match, plase try again");
+		log(email);
 	}
+
 	//email and password not match
 	else{
 		document.getElementById("email").value = "";
 		document.getElementById("pw").value = "";
-		alert("Login Fail: email and password are not match, plase try again")
+		alert("Login Fail: Account not existing, plase try again")
 		return false;
 	}
+}
+
+function forgetPW(e){
+	e.preventDefault()
+
+	if(document.getElementById("email").value === null || document.getElementById("email").value === ""){
+		alert("Enter your email first")
+		return false;
+	}
+
+	let email = document.getElementById("email").value;
+
+	alert(`Password reset request already sent to your email : ${email}`)
+	document.getElementById("email").value = "";
+	return true;
 }
