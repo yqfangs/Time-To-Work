@@ -3,7 +3,7 @@ This website is optimizing the process of scheduling work shifts.
 <br>
 Notice that the pages are implemented separately but all depending on the mock data provided by MockData.js. This means that all changes made on one page will not be reflected on the other ones.
 <br>
-If you want to test out the webpages as a specific person (employee or employer), please head to MockData.js and change the current_user attribute to another employee or employer object.
+If you want to test out the webpages as a specific person (employee or employer), please head to the bottom of MockData.js and change the current_user attribute to another employee or employer object.
 <br>
 <ul>
 <li><strong>Log In Page:</strong>
