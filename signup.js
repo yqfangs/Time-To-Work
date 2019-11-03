@@ -5,6 +5,9 @@ const log = console.log;
 const signupButton = document.querySelector("#signupButton");
 signupButton.addEventListener("click", checkSignUpValid);
 
+let currentCompany;
+let newUser;
+
 
 function checkSignUpValid(e){
 	e.preventDefault()
@@ -13,43 +16,50 @@ function checkSignUpValid(e){
 		alert("Please enter your email address");
 		return false;
 	}
-	var signupemail = document.getElementById("email").value;
+	let signupemail = document.getElementById("email").value;
 
 	if(document.getElementById("pw").value === null || document.getElementById("pw").value === ""){
 		alert("Please enter your password");
 		return false;
 	}
-	var signuppassword = document.getElementById("pw").value;
+	let signuppassword = document.getElementById("pw").value;
 
 	if(document.getElementById("cpw").value === null || document.getElementById("cpw").value === ""){
 		alert("Please enter your confirm password");
 		return false;
 	}
-	var confirmpw = document.getElementById("cpw").value;
+	let confirmpw = document.getElementById("cpw").value;
 
 	if(document.getElementById("name").value === null || document.getElementById("name").value === ""){
 		alert("Please enter your name");
 		return false;
 	}
-	var name = document.getElementById("name").value;
+	let name = document.getElementById("name").value;
 
 	if(document.getElementById("phone") === null || document.getElementById("phone") === ""){
 		alert("Please enter your phone number");
 		return false;
 	}
-	var phone = document.getElementById("phone").value;
+	let phone = document.getElementById("phone").value;
 
 	if(document.getElementById("company").value === null || document.getElementById("company").value === ""){
 		alert("Please enter your company");
 		return false;
 	}
-	var company = document.getElementById("company").value;
+	let company = document.getElementById("company").value;
 
 	if(document.querySelector('#selectPosition').value === "none"){
 		alert("Please select your position");
 		return false;
 	}
-	var position = document.querySelector('#selectPosition').value;
+	let position = document.querySelector('#selectPosition').value;
+
+	//company not exist
+	if(!checkCompanyExist(allCompanies)){
+		document.getElementById("company").value = "";
+		alert("Please enter corret company, the company your enter is not exist")
+		return false;
+	}
 
 	//password not match
 	if(signuppassword != confirmpw){
@@ -60,16 +70,39 @@ function checkSignUpValid(e){
 	}
 
 	//email address not valid
-	if(signupemail.indexOf('@') == -1){
+	if(signupemail.indexOf('@') === -1){
 		document.getElementById("email").value = "";
 		alert("Please enter valid email address");
 		return false;
 	}
 
+	newUser = new Employee(name, signuppassword, signupemail, position, phone, company);
+	allEmployees.push(newUser)
 	//otherwise is valide sign up
-	alert("Sign Up Successfully")
+	alert(`Sign Up Successfully as Employee.\nName: ${newUser.name}\nEmail: ${newUser.email}\nuserID: ${newUser.userID}\nCompany: ${newUser.companyName}\nPosition: ${newUser.position}`)
 	//point to the log in page
 	window.location = "index.html";
 }
 
-function checkCompanyExist()
+
+/*
+  This function return false if user want to sign up and enter the company name which 
+  is not on the company list; and return true if the company is exists.
+  Also this function will get data companyList from server, but now we get data from MockData.js
+*/
+function checkCompanyExist(companyList){
+
+	if(document.getElementById("company").value === null || document.getElementById("company").value === ""){
+		return false;
+	}
+
+	let company = document.getElementById("company").value
+	for(let i=0; i<companyList.length; i++){
+		if(companyList[i].name === company){
+			currentCompany = companyList[i];
+			return true;
+		}
+	}
+
+	return false;
+}
