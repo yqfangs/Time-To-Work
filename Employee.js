@@ -44,15 +44,6 @@ function compareIntervals(i1, i2) {
 }
 
 
-// returns if the start and end time are valid for an interval (call before creating the interval)
-function checkStartEnd(s, e) {
-  if (s >= 8 && e <= 24 && s < e) {
-    return true
-  }
-  return false
-}
-
-
 // returns the total number of hours in an array of Intervals
 function totalHours(intArray) {
   let sum = 0
