@@ -27,9 +27,9 @@ In admin page, you can add companies into the table which contains existing page
 <li><strong>Submit Availability Page: </strong>
 <ul>
 <li> Log in as an employee to gain access to this page on the side menu bar. </li>
-<li> Select the day of week you wish to change with the grey button. </li>
+<li> Select the day of week you wish to change available work time with the grey button. </li>
 <li> Input a valid interval of available work time and submit. </li>
-<li> Successful changes is can be observed by inspecting the corresponding employee object in console. </li>
+<li> Successful changes can be observed by inspecting the corresponding employee object in console. </li>
 </ul>
 </li>
 <li><strong>Scheduling Page: </strong>
@@ -38,7 +38,7 @@ In admin page, you can add companies into the table which contains existing page
 <li> Select the day of week you wish to schedule shifts on the upper left. </li>
 <li> Click on names of employees in the Daily Schedule table in order to modify their shift time or remove the shift</li>
 <li> Click on names of employees in the Availability table in order to view their status and add them to the shift schedule. </li>
-<li> Successful changes is can be observed by inspecting the corresponding employee object in console. </li>
+<li> Successful changes can be observed by inspecting the corresponding employee object in console. ("myEmployees" attribute) </li>
 </ul>
 </li>
 
