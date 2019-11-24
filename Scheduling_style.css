@@ -3,9 +3,11 @@ td {
   width: 5%;
 }
 
-.container {
+.row {
   margin-top: 50px;
 }
+
+
 
 
 .dropdownCell{
@@ -14,14 +16,11 @@ td {
   min-width: 100px;
 }
 
-h4 {
-  width: 200px;
+h3 {
+  width: 230px;
   margin-top: 5px;
 }
 
-.h4Div {
-  max-width: 200px;
-}
 
 th {
   width: 40px;
