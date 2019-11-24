@@ -48,7 +48,7 @@ function modalLoadSelected(e) {
     }
 
     modalTitle.innerText = `Add ${employee.name} to Schedule`
-    modalBody.firstElementChild.innerText = `Availability: ${employee.availability[dayOfWeek].start} - ${employee.availability[dayOfWeek].end}`
+    modalBody.firstElementChild.innerText = `Availability: ${employee.availability[dayOfWeek]}`
     modalBody.firstElementChild.nextElementSibling.innerText = `Currently scheduled hours: ${totalHours(employee.shifts)}`
     modalBody.firstElementChild.nextElementSibling.nextElementSibling.innerText = `Position: ${employee.position}`
 
@@ -90,8 +90,8 @@ function updateShift(e) {
   const end = Number(e.target.previousElementSibling.value)
   const start = Number(e.target.previousElementSibling.previousElementSibling.previousElementSibling.value)
   if (!checkStartEnd(start, end)) {
-    alert("Please enter valid inputs!")
-    return
+    alert(`Please enter a valid input! \nHours of operation: ${currentUser.getCompany().openHours}`)
+    return;
   }
   const name = e.target.parentElement.parentElement.parentElement.previousElementSibling.innerText.trim()
   const employeeCell = e.target.parentElement.parentElement.parentElement.parentElement.parentElement
@@ -100,10 +100,16 @@ function updateShift(e) {
   for (let i = 0; i < myEmployees.length; i++) {
     if (myEmployees[i].name == name) {
       employee = myEmployees[i]
-      employee.shifts[dayOfWeek] = new TimeInterval(start, end)
+      const newInt = new TimeInterval(start, end)
+      if (!compareIntervals(employee.availability[dayOfWeek], newInt)) {
+        alert(`Please enter a valid input! This employee's availability is: ${employee.availability[dayOfWeek]}`)
+        return;
+      }
+      employee.shifts[dayOfWeek] = newInt
       break;
     }
   }
+
 
   updateScheduleTable(employee, employeeCell)
 
@@ -305,4 +311,12 @@ function removeAllTableRows() {
   scheduleTable.removeChild(scheduleTable.firstElementChild)
   availTable.removeChild(availTable.firstElementChild)
 
+}
+
+
+function checkStartEnd(s, e) {
+  if (s >= currentUser.getCompany().openHours.start && e <= currentUser.getCompany().openHours.end && s < e) {
+    return true
+  }
+  return false
 }

@@ -36,6 +36,10 @@ class TimeInterval {
     this.end = end
     this.duration = end - start
   }
+
+  toString() {
+    return `${this.start} - ${this.end}`
+  }
 }
 
 // returns true if TimeInterval i1 contains i2, false otherwise

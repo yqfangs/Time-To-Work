@@ -161,7 +161,7 @@ function submitNewAvail(e) {
       addNewAvailToTable(start, end)
     }
     else {
-      alert(`Please enter a valid input! \nHours of operation: ${currentUser.getCompany().openHours.start} - ${currentUser.getCompany().openHours.end}`)
+      alert(`Please enter a valid input! \nHours of operation: ${currentUser.getCompany().openHours}`)
     }
   }
 }
