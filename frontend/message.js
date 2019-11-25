@@ -93,7 +93,7 @@ function addSentMessage(e){
 	titleDiv.classList.add("justify-content-between");
 	const titleh5 = document.createElement('h5');
 	titleh5.classList.add("mb-1");
-	const nameTextNode = document.createTextNode("From: " + name + " ");
+	const nameTextNode = document.createTextNode("To: " + name + " ");
 	const titleSmall = document.createElement('small');
 	const emailTextNode = document.createTextNode(email);
 	titleSmall.appendChild(emailTextNode);
@@ -120,6 +120,11 @@ function addSentMessage(e){
 
 	console.log(listGroup);
 	sentForm.appendChild(listGroup);
+
+	document.getElementById("name").value = "";
+	document.getElementById("email").value = "";
+	document.getElementById("message").value = "";
+	alert("Message Send!");
 
 }
 
