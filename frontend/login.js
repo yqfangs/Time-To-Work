@@ -104,7 +104,7 @@ function checkEmailPwMatch(e){
 		document.getElementById("pw").value = "";
 		//pop up that password not match
 		alert("Login Fail: Email and password are not match, plase try again");
-		log(email);
+		return false;
 	}
 
 	//email and password not match
