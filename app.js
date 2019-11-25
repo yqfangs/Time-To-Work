@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('./db/mongoose')
+const path = require('path')
 
 const { User } = require('./db/models/user')
 const app = express();
@@ -9,15 +10,27 @@ const app = express();
 const port = process.env.PORT || 3000
 app.listen(port, () => {
 	console.log(`Listening on port ${port}...`)
+
+	initDbData()
 }) 
 
-async function init() {
-	const admin = await  User.findOneAndUpdate({
+app.use(express.static(__dirname + '/frontend'))
+
+async function initDbData() {
+	const user = new User({
 		userName: 'admin',
 		password: 'admin'
 	})
-	console.log(admin)
+	User.find({userName: user.userName, password: user.password}).then(
+		res => {
+			if (res.length) {
+				console.log('Admin already exists')
+			} else {
+				user.save().then( res => 
+					console.log(res)
+				)
+			}
+		})
 }
 
-init()
 
