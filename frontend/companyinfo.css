@@ -7,17 +7,17 @@ body {
 	margin-right: 20px;
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
-
-h1 {
-    font-size: 48px;
-    padding: 10px;
-    color: #355E88;
-    text-align: center;
-    border-style: dotted;
-	position: relative;
-	top: 30px;
+#header_box {
+    background-color: #FFFFFF;
+    height: 100px;
+    font-size: 30px;
 }
 
+h1 {
+    color: #355E88;
+    position: relative;
+    top: 30px;
+}
 h2 {
     top: 30px;
 	font-size:15px;
@@ -51,6 +51,10 @@ p{
 }
 table
         {
+            border: 2px solid #ffffff;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            table-layout: fixed;
             border-collapse: collapse;
             margin: 0 auto;
             text-align: center;
@@ -59,31 +63,12 @@ table
         table td, table th
         {
             border: 1px solid #cad9ea;
-            color: #666;
+            width: 12.5%;
+            border-left: 2px solid #ffffff;
+/*            color: #666;
+*/            height: 30px;
             padding: 5px;
-            height: 30px;
         }
-        table thead th
-        {
-            background-color: #CCE8EB;
-            width: 300px;
-        }
-        table tr:nth-child(odd)
-        {
-            background: #fff;
-        }
-        table tr:nth-child(even)
-        {
-            background: #F5FAFA;
-        }
-/* table, td, th {
-	border-collapse: collapse;
-    border: 2px solid #355E88;
-}
-
-td, th {
-    min-width: 200px;
-} */
 #userInfo p {
     font-weight: bold;
     text-align: center;
