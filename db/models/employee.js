@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
-const TimeInterval = mongoose.model('TimeInterval', {
+const TimeInterval = new mongoose.Schema({
 	start: Number,
 	end: Number,
 	duration: Number
@@ -54,7 +54,7 @@ const EmployeeSchema = new mongoose.Schema({
 	shifts:[TimeInterval]
 })
 
-Employee.pre('save', function(next) {
+EmployeeSchema.pre('save', function(next) {
 	const employee = this; 
 	if (employee.isModified('password')) {
 		// generate salt and hash the password
@@ -68,6 +68,32 @@ Employee.pre('save', function(next) {
 		next()
 	}
 })
+
+// A static method on the document model.
+// Allows us to find a User document by comparing the hashed password
+//  to a given one, for example when logging in.
+EmployeeSchema.statics.findByEmailPassword = function(email, password) {
+	const Employee = this // binds this to the User model
+
+	// First find the user by their email
+	return Employee.findOne({ email: email }).then((employee) => {
+		if (!employee) {
+			return Promise.reject()  // a rejected promise
+		}
+		// if the user exists, make sure their password is correct
+		return new Promise((resolve, reject) => {
+			bcrypt.compare(password, employee.password, (err, result) => {
+				if (result) {
+					log(user)
+					resolve(employee)
+				} else {
+					reject()
+				}
+			})
+		})
+	})
+}
+
 
 const Employee = mongoose.model('Employee', EmployeeSchema)
 module.exports = { Employee, TimeInterval }
