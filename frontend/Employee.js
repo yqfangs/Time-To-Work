@@ -12,6 +12,7 @@ class Employee {
     this.companyName = companyName
     this.availability = []
     this.shifts = []
+    this.message = []
   }
 
   /*
@@ -58,3 +59,18 @@ function totalHours(intArray) {
   }
   return sum
 }
+
+
+class Message {
+  constructor(from, to, message, isTrade){
+    this.from = from
+    this.to = to
+    this.message = message
+    this.isTrade = false
+  }
+
+  changeToTradeMessage(){
+    this.isTrade = true
+  }
+}
+
