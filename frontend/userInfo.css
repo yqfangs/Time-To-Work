@@ -8,22 +8,14 @@ body {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-/* h1 {
-    font-size: 45px;
-    color: #355E88; 
-    font-style: oblique;
-    text-align: center;
-    border-style: dotted;
-	position: relative;
-	
-} */
+#header_box {
+	background-color: #FFFFFF;
+	height: 100px;
+	font-size: 30px;
+}
 
 h1 {
-    font-size: 48px;
-    padding: 10px;
-    color: #355E88;
-    text-align: center;
-    border-style: dotted;
+	color: #355E88;
 	position: relative;
 	top: 30px;
 }
@@ -44,7 +36,6 @@ h1 {
 
 #userInfo span {
 	font-weight: normal;
-	color: #666;
 }
 .btn_delete {
 	font-size: 15px;
