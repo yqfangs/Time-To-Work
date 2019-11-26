@@ -11,6 +11,11 @@ function modifySideBar(user){
     const timeA = time.firstElementChild
     timeA.removeAttribute('href');
     time.className = 'disabled';
+
+    const trade = document.querySelector('#tradeshift');
+    const tradeA = trade.firstElementChild
+    tradeA.removeAttribute('href');
+    trade.className = 'disabled';
   }
 
 }

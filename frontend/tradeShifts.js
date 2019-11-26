@@ -9,7 +9,8 @@ let tradeOptionSelected = null    // person to trade with
 const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const daysOfWeekText = ["Monday", "Tuesday", "wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-
+const sidebar = document.querySelector('#sidebar');
+window.addEventListener('load', modifySideBar(current_user));
 
 const modalContent = document.querySelector("#modalContent")
 const myShiftsList = document.querySelector("#myShiftsList")
