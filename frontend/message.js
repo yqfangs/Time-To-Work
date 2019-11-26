@@ -3,6 +3,9 @@
 const inboxMessages = document.querySelector('#inbox');
 inboxMessages.addEventListener("click", removeInboxMessage);
 
+const sidebar = document.querySelector('#sidebar');
+window.addEventListener('load', modifySideBar(current_user));
+
 const sentMessage = document.querySelector('#sent');
 sentMessage.addEventListener("click", removeSentMessage);
 
