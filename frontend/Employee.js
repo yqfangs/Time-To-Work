@@ -12,6 +12,7 @@ class Employee {
     this.companyName = companyName
     this.availability = []
     this.shifts = []
+    this.message = []
   }
 
   /*

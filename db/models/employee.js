@@ -11,6 +11,13 @@ const TimeInterval = mongoose.model('TimeInterval', {
 	duration: Number
 })
 
+const Message = mongoose.model('Message', {
+	from: Employee,
+	to: Employee,
+	message: String,
+	isTrade: Boolean
+})
+
 const EmployeeSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -51,7 +58,8 @@ const EmployeeSchema = new mongoose.Schema({
 		trim: true,
 	},
 	availability:[TimeInterval],
-	shifts:[TimeInterval]
+	shifts:[TimeInterval],
+	message:[Message]
 })
 
 Employee.pre('save', function(next) {
@@ -71,3 +79,4 @@ Employee.pre('save', function(next) {
 
 const Employee = mongoose.model('Employee', EmployeeSchema)
 module.exports = { Employee, TimeInterval }
+module.exports = { Employee, Message }
