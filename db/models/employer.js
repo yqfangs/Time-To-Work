@@ -42,7 +42,7 @@ const EmployerSchema = new mongoose.Schema({
 	}
 })
 
-Employer.pre('save', function(next) {
+EmployerSchema.pre('save', function(next) {
 	const employer = this; 
 
 	if (employer.isModified('password')) {
