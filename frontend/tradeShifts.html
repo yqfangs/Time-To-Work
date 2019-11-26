@@ -1,0 +1,109 @@
+<DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="tradeShifts_style.css">
+    <link rel="stylesheet" type="text/css" href="sidebar.css">
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <!-- sidebar -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>TimeToWork Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components nav-tabs">
+          <li>
+            <a href="dashboard.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="profile.html">Profile</a>
+          </li>
+          <li id='scheduling'>
+            <a href="Scheduling.html">Scheduling</a>
+          </li>
+          <li id='timeavail'>
+            <a href="TimeAvail.html">Submit Available Time</a>
+          </li>
+          <li>
+            <a href="index.html">Sign Out</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Content -->
+      <div id="content">
+        <div class="container col-11">
+          <div class="row">
+            <h3>Trade Shifts</h3>
+          </div>
+          <p>Exchange selected available time or shift with others</p>
+          <div class="row">
+            <div class="col-3">
+              <div class="list-group" id="myShiftsList">
+                <a class="list-group-item list-item-action active" data-toggle="list" href="" onclick="updateSelectedDay(0)">Mon: <span>No Shift</span></a>
+                <a class="list-group-item list-item-action" data-toggle="list" href="" onclick="updateSelectedDay(1)">Tue: <span>No Shift</span></a>
+                <a class="list-group-item list-item-action" data-toggle="list" href="" onclick="updateSelectedDay(2)">Wed: <span>No Shift</span></a>
+                <a class="list-group-item list-item-action" data-toggle="list" href="" onclick="updateSelectedDay(3)">Thu: <span>No Shift</span></a>
+                <a class="list-group-item list-item-action" data-toggle="list" href="" onclick="updateSelectedDay(4)">Fri: <span>No Shift</span></a>
+                <a class="list-group-item list-item-action" data-toggle="list" href="" onclick="updateSelectedDay(5)">Sat: <span>No Shift</span></a>
+                <a class="list-group-item list-item-action" data-toggle="list" href="" onclick="updateSelectedDay(6)">Sun: <span>No Shift</span></a>
+              </div>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
+              <br>
+              <br>
+              <br>
+              <h5>Exchange with:</h5>
+            </div>
+            <div class="col-3">
+              <div class="list-group" id="tradeOptionList">
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-end">
+            <div class="col-2">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="modalLoad()">Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="modal fade" id="confirmModal">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="">Confirm Trade Request</h5>
+              </div>
+              <div class="modal-body" id="modalContent">
+                <p></p>
+                <p></p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="button" id="modalConfirmButton" data-dismiss="modal">Confirm</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <script type="text/javascript" src="Employer.js"></script>
+  <script type="text/javascript" src="Employee.js"></script>
+  <script type="text/javascript" src="Company.js"></script>
+  <script type="text/javascript" src="MockData.js"></script>
+  <script type="text/javascript" src="sidebar.js"></script>
+  <script type="text/javascript" src="tradeShifts.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
