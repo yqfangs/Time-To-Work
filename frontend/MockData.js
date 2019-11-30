@@ -67,4 +67,4 @@ const current_user = employer1; //store the currently logged in user
 // other predefined employee substitutes for employer1: alice, bob, caitlyn, darius
 // i.e. can log in as any of the four employees above. E.g.
 
-// const current_user = alice;
+//const current_user = alice;

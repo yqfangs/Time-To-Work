@@ -1,3 +1,4 @@
+/* server.js nov 20 */
 'use strict';
 const log = console.log
 
@@ -7,11 +8,10 @@ const app = express();
 
 // mongoose and mongo connection
 const { mongoose } = require('./db/mongoose')
-const path = require('path')
 
 // import the mongoose models
-const { Employer } = require('./db/models/employer')
 const { Employee } = require('./db/models/employee')
+// const { User } = require('./models/user')
 
 // to validate object IDs
 const { ObjectID } = require('mongodb')
@@ -48,25 +48,51 @@ const sessionChecker = (req, res, next) => {
 
 // A route to login and create a session
 app.post('/employees/login', (req, res) => {
-	const email = req.body.email
+    log("i can print here!!!")
+    const email = req.body.email
     const password = req.body.password
+
+    log(email)
+    log(password)
+
+     res.redirect('/dashboard');
 
     // Use the static method on the User model to find a user
     // by their email and password
-	Employee.findByEmailPassword(email, password).then((employee) => {
-	    if (!employee) {
-            res.redirect('/login.html');
+    // Employee.findByEmailPassword(email, password).then((employee) => {
+    //     if (!employee) {
+    //         res.redirect('/login');
+    //     } else {
+    //         // Add the user's id to the session cookie.
+    //         // We can check later if this exists to ensure we are logged in.
+    //         req.session.user = user._id;
+    //         res.redirect('/dashboard');
+    //     }
+    // }).catch((error) => {
+    //     res.status(400).redirect('/login');
+    // })
+})
+
+// A route to logout a user
+app.get('/employee/logout', (req, res) => {
+    // Remove the session
+    req.session.destroy((error) => {
+        if (error) {
+            res.status(500).send(error)
         } else {
-            // Add the user's id to the session cookie.
-            // We can check later if this exists to ensure we are logged in.
-            req.session.user = employee._id;
-            res.redirect('/dashboard');
+            res.redirect('/')
         }
-    }).catch((error) => {
-		res.status(400).redirect('/login');
     })
 })
+
+
 /*** Webpage routes below **********************************/
+// Inject the sessionChecker middleware to any routes that require it.
+// sessionChecker will run before the route handler and check if we are
+// logged in, ensuring that we go to the dashboard if that is the case.
+
+// The various redirects will ensure a proper flow between login and dashboard
+// pages so that your users have a proper experience on the front-end.
 
 // route for root: should redirect to login route
 app.get('/', sessionChecker, (req, res) => {
@@ -81,68 +107,109 @@ app.get('/login', sessionChecker, (req, res) => {
 // dashboard route will check if the user is logged in and server
 // the dashboard page
 app.get('/dashboard', (req, res) => {
-    if (req.session.user) {
+    //if (req.session.user) {
         res.sendFile(__dirname + '/frontend/dashboard.html');
-    } else {
-        res.redirect('/login')
-    }
+    // } else {
+    //     res.redirect('/login')
+    // }
 
 })
 
-app.use("/css", express.static(__dirname + '/public/css'));
+app.get('/profile', (req, res) => {
+    //if (req.session.user) {
+        res.sendFile(__dirname + '/frontend/profile.html');
+    // } else {
+    //     res.redirect('/login')
+    // }
+
+})
+
+app.get('/profile', (req, res) => {
+    //if (req.session.user) {
+        res.sendFile(__dirname + '/frontend/profile.html');
+    // } else {
+    //     res.redirect('/login')
+    // }
+
+})
+
+app.get('/Scheduling', (req, res) => {
+    //if (req.session.user) {
+        res.sendFile(__dirname + '/frontend/Scheduling.html');
+    // } else {
+    //     res.redirect('/login')
+    // }
+
+})
+
+app.get('/TimeAvail', (req, res) => {
+    //if (req.session.user) {
+        res.sendFile(__dirname + '/frontend/TimeAvail.html');
+    // } else {
+    //     res.redirect('/login')
+    // }
+
+})
+app.get('/tradeShifts', (req, res) => {
+    //if (req.session.user) {
+        res.sendFile(__dirname + '/frontend/tradeShifts.html');
+    // } else {
+    //     res.redirect('/login')
+    // }
+
+})
+
+app.get('/message', (req, res) => {
+    //if (req.session.user) {
+        res.sendFile(__dirname + '/frontend/message.html');
+    // } else {
+    //     res.redirect('/login')
+    // }
+
+})
+
 // static js directory
+app.use("/css", express.static(__dirname + '/public/css'))
 app.use("/js", express.static(__dirname + '/public/js'))
 
 /*********************************************************/
 
 /*** API Routes below ************************************/
 
-/** Student resource routes **/
-// a POST route to *create* a student
+
+/** User routes below **/
+// Set up a POST route to *create* a user of your web app (*not* a student).
 app.post('/employees', (req, res) => {
-	// log(req.body)
+    log(req.body)
 
-	// Create a new student using the Student mongoose model
-	const employee = new Employee({
-		name: req.body.name,
-		email: req.body.email,
-		password: req.body.email,
-		position: req.body.position,
-		phone: req.body.phone,
-		companyName: req.body.companyName
-	})
+    // Create a new user
+    const employee = new Employee({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.email,
+        position: req.body.position,
+        phone: req.body.phone,
+        companyName: req.body.companyName
+    })
 
-	employee.save().then((result) => {
-		res.send(result)
-	}, (error) => {
-		res.status(400).send(error) // 400 for bad request
-	})
-})
-
-// A route to login and create a session
-app.post('/employees/login', (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
-
-    // Use the static method on the User model to find a user
-    // by their email and password
-    Employee.findByEmailPassword(email, password).then((employee) => {
-        if (!employee) {
-            res.redirect('/login');
-        } else {
-            // Add the user's id to the session cookie.
-            // We can check later if this exists to ensure we are logged in.
-            req.session.user = employee._id;
-            res.redirect('/dashboard');
-        }
-    }).catch((error) => {
-        res.status(400).redirect('/login');
+    // Save the user
+    employee.save().then((employee) => {
+        res.send(employee)
+    }, (error) => {
+        res.status(400).send(error) // 400 for bad request
     })
 })
+
 /*************************************************/
 // Express server listening...
 const port = process.env.PORT || 3001
 app.listen(port, () => {
     log(`Listening on port ${port}...`)
 }) 
+
+
+
+
+
+
 

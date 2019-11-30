@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
  </head>
 
 <body>
@@ -29,7 +29,7 @@
                 <div id="login-row" class="row justify-content-center align-items-center">
                     <div id="login-column" class="col-md-6">
                         <div id="login-box" class="col-md-12">
-                            <form id="login-form" class="form" action="" method="post">
+                            <form id="login-form" action ="/employees/login"  method="post">
                                 <h3 class="text-center text-info">Log In</h3>
                                 <div class="form-group">
                                     <label for="email" class="text-info">Email:</label><br>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="text-left">
                                     <br>
-                                    <input type="button" id="loginButton" class="btn btn-info btn-md" value="Login">
+                                    <input type="submit" id="loginButton" class="btn btn-info btn-md" value="Login">
                                 </div>
                                 <div id="register-link" class="text-right">
                                     <br>
@@ -56,11 +56,11 @@
         </div>
     </div>
 <!-- JS File here-->
-<script type="text/javascript" src="Employee.js"></script>
+<!-- <script type="text/javascript" src="Employee.js"></script>
 <script type="text/javascript" src="Employer.js"></script>
 <script type="text/javascript" src="Company.js"></script>
 <script type="text/javascript" src="MockData.js"></script>
-<script type="text/javascript" src="login.js"></script>
+<script type="text/javascript" src="login.js"></script> -->
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
