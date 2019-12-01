@@ -18,12 +18,16 @@ const { Employer } = require('./db/models/employer')
 const { ObjectID } = require('mongodb')
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
-const bodyParser = require('body-parser') 
+const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
 // express-session for managing user sessions
 const session = require('express-session')
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// helper functions
+const { server_helper } = require('./server_helper.js')
 
 /*** Session handling **************************************/
 // Create a session cookie
@@ -37,14 +41,14 @@ app.use(session({
     }
 }));
 
-// Our own express middleware to check for 
+// Our own express middleware to check for
 // an active user on the session cookie (indicating a logged in user.)
 const sessionChecker = (req, res, next) => {
     if (req.session.user) {
         res.redirect('/dashboard'); // redirect to dashboard if logged in.
     } else {
         next(); // next() moves on to the route.
-    }    
+    }
 };
 
 // A route to login and create a session
@@ -139,7 +143,69 @@ app.get('/TimeAvail', (req, res) => {
         res.redirect('/login')
     }
 
+
 })
+
+app.get('/TimeAvail/load', (req, res) => {
+  if (req.session.user) {
+    Employee.findOne({_id: req.session.user}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send(employee)
+      }
+    }).catch((error) => {
+      res.status(500).send()
+    })
+  }
+})
+
+// app.get('/TimeAvail/:email', (req, res) => {
+//   const email = req.params.email
+//   Employee.findOne({email: email}).then((employee) => {
+//     if (!employee) {
+//       res.status(404).send()
+//     }
+//     else {
+//       res.send(employee)
+//     }
+//   }).catch((error) => {
+//     res.status(500).send()
+//   })
+// })
+
+app.patch('/TimeAvail/', (req, res) => {
+  // const email = req.params.email
+  const id = req.body.id
+  const newAvail = req.body.availability
+
+  // check if new availability is valid
+  if (!(server_helper.validate_avail(newAvail))) {
+    res.status(400).send()
+  }
+  else if (id != req.session.user) {
+    res.status(400).send()
+  }
+  else {
+    Employee.findOneAndUpdate({_id: id}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send({
+          "new availability": newAvail,
+          "employee": employee
+        })
+      }
+    }).catch((error) => {
+      log(error)
+      res.status(500).send()
+    })
+  }
+})
+
+
 app.get('/tradeShifts', (req, res) => {
     if (req.session.user) {
        res.sendFile(__dirname + '/frontend/tradeShifts.html');
@@ -329,4 +395,4 @@ app.get('/api/companies/:id', (req, res) =>{
 const port = process.env.PORT || 3002
 app.listen(port, () => {
     log(`Listening on port ${port}...`)
-}) 
+})

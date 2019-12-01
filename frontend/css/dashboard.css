@@ -1,0 +1,22 @@
+/* Project Style Sheet for dashboard*/
+
+
+body {
+	background-color: #e6ecf0;
+	margin-left: 20px;
+	margin-right: 20px;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-family: 'Poppins', sans-serif;
+}
+
+table {
+  border: 2px solid #ffffff;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  table-layout:fixed;
+}
+
+th, td {
+  width: 12.5%;
+  border-left: 2px solid #ffffff;
+}

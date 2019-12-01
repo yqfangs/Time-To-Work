@@ -1,0 +1,64 @@
+/* Project Style Sheet */
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+	background-color: #e6ecf0;
+	margin-left: 20px;
+	margin-right: 20px;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+#header_box {
+	background-color: #FFFFFF;
+	height: 100px;
+	font-size: 30px;
+}
+
+h1 {
+	color: #355E88;
+	position: relative;
+	top: 30px;
+}
+
+#userInfo{
+	padding: 10px;
+    top: 30px;
+    text-align: center;
+    position: relative;
+
+}
+#userInfo p {
+    font-weight: bold;
+	text-align: center;
+	font-size: 15px;
+	color:darkslategrey;
+}
+
+#userInfo span {
+	font-weight: normal;
+}
+.btn_delete {
+	font-size: 15px;
+    margin-top: 20px;
+	padding: 10px 10px;
+	width: 150px;
+	height: auto;
+	border-radius: 10px;
+	box-shadow: 0 5px 10px rgba(0,0,0,.2);
+	position: relative;
+	margin-bottom: 15px;
+}
+
+.btn_save {
+	font-size: 15px;
+    margin-top: 20px;
+	padding: 10px 10px;
+	width: 150px;
+	height: auto;
+	border-radius: 10px;
+	box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    margin-left: 5%;
+	position: relative;
+	margin-bottom: 15px;
+	
+}
