@@ -1,0 +1,36 @@
+
+td {
+  width: 5%;
+}
+
+.row {
+  margin-top: 50px;
+}
+
+
+
+
+.dropdownCell{
+  padding: 4px !important;
+  max-width: 100px;
+  min-width: 100px;
+}
+
+h3 {
+  width: 230px;
+  margin-top: 5px;
+}
+
+
+th {
+  width: 40px;
+  max-width: 40px;
+  text-align: left;
+  padding-left: 0px !important;
+  font-weight: normal;
+}
+
+.nameHead {
+  max-width: 100px;
+  min-width: 100px;
+}
