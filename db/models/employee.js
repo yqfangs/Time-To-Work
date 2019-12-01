@@ -11,13 +11,6 @@ const TimeInterval = new mongoose.Schema({
 	duration: Number
 })
 
-const Message = mongoose.model('Message', {
-	from: Employee,
-	to: Employee,
-	message: String,
-	isTrade: Boolean
-})
-
 const EmployeeSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -59,7 +52,6 @@ const EmployeeSchema = new mongoose.Schema({
 	},
 	availability:[TimeInterval],
 	shifts:[TimeInterval],
-	message:[Message]
 })
 
 EmployeeSchema.pre('save', function(next) {
@@ -105,4 +97,3 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 
 const Employee = mongoose.model('Employee', EmployeeSchema)
 module.exports = { Employee, TimeInterval }
-module.exports = { Employee, Message }
