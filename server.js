@@ -165,7 +165,7 @@ app.get('/TimeAvail/:email', (req, res) => {
       res.status(404).send()
     }
     else {
-      res.send(employee.availability)
+      res.send(employee)
     }
   }).catch((error) => {
     res.status(500).send()
