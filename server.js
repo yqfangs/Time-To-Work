@@ -17,12 +17,16 @@ const { Employee } = require('./db/models/employee')
 const { ObjectID } = require('mongodb')
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
-const bodyParser = require('body-parser') 
+const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
 // express-session for managing user sessions
 const session = require('express-session')
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// helper functions
+const server_helper = require('./server_helper.js')
 
 /*** Session handling **************************************/
 // Create a session cookie
@@ -36,14 +40,14 @@ app.use(session({
     }
 }));
 
-// Our own express middleware to check for 
+// Our own express middleware to check for
 // an active user on the session cookie (indicating a logged in user.)
 const sessionChecker = (req, res, next) => {
     if (req.session.user) {
         res.redirect('/dashboard'); // redirect to dashboard if logged in.
     } else {
         next(); // next() moves on to the route.
-    }    
+    }
 };
 
 // A route to login and create a session
@@ -144,12 +148,53 @@ app.get('/Scheduling', (req, res) => {
 
 app.get('/TimeAvail', (req, res) => {
     //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/TimeAvail.html');
+    //  res.sendFile(__dirname + '/frontend/TimeAvail.html');
     // } else {
     //     res.redirect('/login')
     // }
 
+    res.sendFile(__dirname + '/frontend/TimeAvail.html');
+
+
 })
+
+app.get('/TimeAvail/:email', (req, res) => {
+  const email = req.params.email
+  Employee.findOne({email: email}).then((employee) => {
+    if (!employee) {
+      res.status(404).send()
+    }
+    else {
+      res.send(employee.availability)
+    }
+  }).catch((error) => {
+    res.status(500).send()
+  })
+})
+
+app.patch('/TimeAvail/:email', (req, res) => {
+  const email = req.params.email
+  const newAvail = req.body.availability
+  Employee.findOneAndUpdate({email: email}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+    if (!employee) {
+      res.status(404).send()
+    }
+    else if (!server_helper.validate_avail(newAvail)) {
+      // check if new availability is valid
+      res.status(400).send()
+    }
+    else {
+      res.send({
+        "new availability": newAvail,
+        "employee": employee
+      })
+    }
+  }).catch((error) => {
+    res.status(500).send()
+  })
+})
+
+
 app.get('/tradeShifts', (req, res) => {
     //if (req.session.user) {
         res.sendFile(__dirname + '/frontend/tradeShifts.html');
@@ -205,11 +250,4 @@ app.post('/employees', (req, res) => {
 const port = process.env.PORT || 3001
 app.listen(port, () => {
     log(`Listening on port ${port}...`)
-}) 
-
-
-
-
-
-
-
+})

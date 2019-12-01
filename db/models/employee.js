@@ -11,12 +11,12 @@ const TimeInterval = new mongoose.Schema({
 	duration: Number
 })
 
-const Message = mongoose.model('Message', {
-	from: Employee,
-	to: Employee,
-	message: String,
-	isTrade: Boolean
-})
+// const Message = mongoose.model('Message', {
+// 	from: Employee,
+// 	to: Employee,
+// 	message: String,
+// 	isTrade: Boolean
+// })
 
 const EmployeeSchema = new mongoose.Schema({
 	name: {
@@ -35,7 +35,7 @@ const EmployeeSchema = new mongoose.Schema({
 			validator: validator.isEmail,   // custom validator
 			message: 'Not valid email'
 		}
-	}, 
+	},
 	password: {
 		type: String,
 		required: true,
@@ -58,12 +58,12 @@ const EmployeeSchema = new mongoose.Schema({
 		trim: true,
 	},
 	availability:[TimeInterval],
-	shifts:[TimeInterval],
-	message:[Message]
+	shifts:[TimeInterval]
+	//message:[Message]
 })
 
 EmployeeSchema.pre('save', function(next) {
-	const employee = this; 
+	const employee = this;
 	if (employee.isModified('password')) {
 		// generate salt and hash the password
 		bcrypt.genSalt(10, (err, salt) => {
@@ -105,4 +105,4 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 
 const Employee = mongoose.model('Employee', EmployeeSchema)
 module.exports = { Employee, TimeInterval }
-module.exports = { Employee, Message }
+// module.exports = { Employee, Message }
