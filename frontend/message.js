@@ -113,7 +113,7 @@ function addSentMessage(e){
 	const button = document.createElement('button');
 	button.setAttribute("type", "button");
 	button.classList.add("btn");
-	button.classList.add("btn-primary");
+	button.classList.add("btn-secondary");
 	button.classList.add("delete");
 	const buttonTextNode = document.createTextNode("Delete Message");
 	button.appendChild(buttonTextNode);

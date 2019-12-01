@@ -48,29 +48,24 @@ const sessionChecker = (req, res, next) => {
 
 // A route to login and create a session
 app.post('/employees/login', (req, res) => {
-    log("i can print here!!!")
+    //log("i can print here!!!")
     const email = req.body.email
     const password = req.body.password
 
-    log(email)
-    log(password)
-
-     res.redirect('/dashboard');
-
     // Use the static method on the User model to find a user
     // by their email and password
-    // Employee.findByEmailPassword(email, password).then((employee) => {
-    //     if (!employee) {
-    //         res.redirect('/login');
-    //     } else {
-    //         // Add the user's id to the session cookie.
-    //         // We can check later if this exists to ensure we are logged in.
-    //         req.session.user = user._id;
-    //         res.redirect('/dashboard');
-    //     }
-    // }).catch((error) => {
-    //     res.status(400).redirect('/login');
-    // })
+    Employee.findByEmailPassword(email, password).then((employee) => {
+        if (!employee) {
+            res.redirect('/login');
+        } else {
+            // Add the user's id to the session cookie.
+            // We can check later if this exists to ensure we are logged in.
+            req.session.user = user._id;
+            res.redirect('/dashboard');
+        }
+    }).catch((error) => {
+        res.status(400).redirect('/login');
+    })
 })
 
 // A route to logout a user
@@ -107,64 +102,57 @@ app.get('/login', sessionChecker, (req, res) => {
 // dashboard route will check if the user is logged in and server
 // the dashboard page
 app.get('/dashboard', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/dashboard.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
+    log(req.session.user)
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/dashboard.html');
+    } else {
+        res.redirect('/login')
+    }
 
 })
 
 app.get('/profile', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/profile.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
-
-})
-
-app.get('/profile', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/profile.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
+    log(req.session.user)
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/profile.html');
+    } else {
+        res.redirect('/login')
+    }
 
 })
 
 app.get('/Scheduling', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/Scheduling.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/Scheduling.html');
+    } else {
+        res.redirect('/login')
+    }
 
 })
 
 app.get('/TimeAvail', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/TimeAvail.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/TimeAvail.html');
+    } else {
+        res.redirect('/login')
+    }
 
 })
 app.get('/tradeShifts', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/tradeShifts.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/tradeShifts.html');
+    } else {
+        res.redirect('/login')
+    }
 
 })
 
 app.get('/message', (req, res) => {
-    //if (req.session.user) {
-        res.sendFile(__dirname + '/frontend/message.html');
-    // } else {
-    //     res.redirect('/login')
-    // }
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/message.html');
+    } else {
+        res.redirect('/login')
+    }
 
 })
 
@@ -175,11 +163,8 @@ app.use("/js", express.static(__dirname + '/public/js'))
 /*********************************************************/
 
 /*** API Routes below ************************************/
-
-
-/** User routes below **/
-// Set up a POST route to *create* a user of your web app (*not* a student).
-app.post('/employees', (req, res) => {
+/** Employee routes below **/
+app.post('/api/employees', (req, res) => {
     log(req.body)
 
     // Create a new user
@@ -200,16 +185,148 @@ app.post('/employees', (req, res) => {
     })
 })
 
+app.get('/api/employees/:id', (req, res) =>{
+    const id = req.params.id
+
+    if(!ObjectID.isValid(id)){
+        res.status(404).send()
+    }
+
+    Employee.findById(id).then((employee) =>{
+        if(!employee){
+            res.status(404).send()
+        } else{
+            res.send(employee)
+        }
+    }).catch((error)=>{
+        res.status(500).send()
+    })
+})
+
+
+// app.post('/timeavail/:id', (req, res) =>{
+//     const id = req.params.id
+
+//     if(!ObjectID.isValid(id)){
+//         res.status(404).send()
+//     }
+
+//     const timeavail = {
+//         start: req.body.start,
+//         end: req.body.end,
+//         duration: req.body.start - req.body.end
+//     }
+
+//     mongoose.set("useFindAndModify", false)
+//     Employee.findByIdAndUpdate(id,
+//         {$push: {avaliability: timeavail}},
+//         {new: true}).then((employee) => {
+//         if(!employee){
+//             res.status(404).send()
+//         } else{
+//             res.send({timeavail, employee})
+//         }
+//     }).catch((error)=>{
+//         res.status(500).send()
+//     })
+
+// })
+
+// app.get('/employees/:id/message', (req, res) =>){
+//     const id = req.params.id
+
+//     if(!ObjectID.isValid(id)){
+//         res.status(404).send()
+//     }
+
+//     Message.find().then((messages) =>{
+//         const allMessages = messages;
+//         allMessages.filter()
+
+//     })
+// }
+
+/** Employer routes below **/
+
+app.post('/api/employers', (req, res) => {
+    log(req.body)
+
+    // Create a new user
+    const employer = new Employer({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        phone: req.body.phone,
+        companyName: req.body.companyName
+    })
+
+    // Save the user
+    employer.save().then((employer) => {
+        res.send(employer)
+    }, (error) => {
+        res.status(400).send(error) // 400 for bad request
+    })
+})
+
+app.get('/employers/:id', (req, res) =>{
+    const id = req.params.id
+
+    if(!ObjectID.isValid(id)){
+        res.status(404).send()
+    }
+
+    Employer.findById(id).then((employer) =>{
+        if(!employer){
+            res.status(404).send()
+        } else{
+            res.send(employer)
+        }
+    }).catch((error)=>{
+        res.status(500).send()
+    })
+})
+
+/** Company routes below **/
+app.post('/api/companies', (req, res) => {
+    log(req.body)
+
+    // Create a new user
+    const company = new Company({
+        name: req.body.name,
+        openHours: req.body.openHours
+    })
+
+    // Save the user
+    company.save().then((company) => {
+        res.send(company)
+    }, (error) => {
+        res.status(400).send(error) // 400 for bad request
+    })
+})
+
+app.get('/api/cpmpanies/:id', (req, res) =>{
+    const id = req.params.id
+
+    if(!ObjectID.isValid(id)){
+        res.status(404).send()
+    }
+
+    Company.findById(id).then((company) =>{
+        if(!company){
+            res.status(404).send()
+        } else{
+            res.send(company)
+        }
+    }).catch((error)=>{
+        res.status(500).send()
+    })
+})
+/** User routes below **/
+// Set up a POST route to *create* a user of your web app (*not* a student).
+
 /*************************************************/
 // Express server listening...
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3002
 app.listen(port, () => {
     log(`Listening on port ${port}...`)
 }) 
-
-
-
-
-
-
-

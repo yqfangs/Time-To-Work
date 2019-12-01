@@ -102,4 +102,3 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 const Employee = mongoose.model('Employee', EmployeeSchema)
 const TimeInterval = mongoose.model('TimeInterval', TimeIntervalSchema)
 module.exports = { Employee, TimeInterval }
-// module.exports = { Employee, Message }
