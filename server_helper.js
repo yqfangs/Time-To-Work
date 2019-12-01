@@ -12,7 +12,7 @@ const server_helper = {
     let filtered = null
     try {
       filtered = newAvail.filter((int) => {
-        return int.start >= 0 && int.end <= 24 && int.start < int.end && int.duration == int.start-int.end
+        return int.start >= 0 && int.end <= 24 && int.start < int.end && int.duration == int.end-int.start
       })
     } catch(err) {
       return false
@@ -25,7 +25,5 @@ const server_helper = {
   }
 
 }
-
-log(server_helper)
 
 module.exports = {server_helper}

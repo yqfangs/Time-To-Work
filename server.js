@@ -175,7 +175,7 @@ app.get('/TimeAvail/load', (req, res) => {
 //   })
 // })
 
-app.patch('/TimeAvail/', (req, res) => {
+app.patch('/TimeAvail', (req, res) => {
   // const email = req.params.email
   const id = req.body.id
   const newAvail = req.body.availability
@@ -183,10 +183,12 @@ app.patch('/TimeAvail/', (req, res) => {
   // check if new availability is valid
   if (!(server_helper.validate_avail(newAvail))) {
     res.status(400).send()
+    log("bad avail")
   }
-  else if (id != req.session.user) {
-    res.status(400).send()
-  }
+  // else if (id != req.session.user) {
+  //   res.status(400).send()
+  //   log("bad id", "req.session.user:", req.session.user, id)
+  // }
   else {
     Employee.findOneAndUpdate({_id: id}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
       if (!employee) {
@@ -392,7 +394,7 @@ app.get('/api/companies/:id', (req, res) =>{
 
 /*************************************************/
 // Express server listening...
-const port = process.env.PORT || 3002
+const port = process.env.PORT || 3001
 app.listen(port, () => {
     log(`Listening on port ${port}...`)
 })
