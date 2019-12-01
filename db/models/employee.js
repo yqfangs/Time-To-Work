@@ -1,9 +1,10 @@
-/* Employee mongoose model */
+/* User model */
 'use strict';
-const log = console.log
+
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const log = console.log
 
 const TimeIntervalSchema = new mongoose.Schema({
 	start: Number,
@@ -11,6 +12,8 @@ const TimeIntervalSchema = new mongoose.Schema({
 	duration: Number
 })
 
+// Making a Mongoose model a little differently: a Mongoose Schema
+// Allows us to add additional functionality.
 const EmployeeSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -32,7 +35,8 @@ const EmployeeSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
-		minlength: 6
+		minlength: 6,
+		maxlength: 100
 	},
 	position: {
 		type: String,
@@ -51,7 +55,7 @@ const EmployeeSchema = new mongoose.Schema({
 		trim: true,
 	},
 	availability:[TimeIntervalSchema],
-	shifts:[TimeIntervalSchema],
+	shifts:[TimeIntervalSchema]
 })
 
 // An example of Mongoose middleware.
@@ -64,8 +68,8 @@ EmployeeSchema.pre('save', function(next) {
 	if (employee.isModified('password')) {
 		// generate salt and hash the password
 		bcrypt.genSalt(10, (err, salt) => {
-			bcrypt.hash(user.password, salt, (err, hash) => {
-				user.password = hash
+			bcrypt.hash(employee.password, salt, (err, hash) => {
+				employee.password = hash
 				next()
 			})
 		})
@@ -87,10 +91,13 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 		}
 		// if the user exists, make sure their password is correct
 		return new Promise((resolve, reject) => {
+			log(password)
 			bcrypt.compare(password, employee.password, (err, result) => {
+				log("MATCH! " + result)
 				if (result) {
 					resolve(employee)
 				} else {
+					log('reject')
 					reject()
 				}
 			})
@@ -98,7 +105,7 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 	})
 }
 
-
+// make a model using the User schema
 const Employee = mongoose.model('Employee', EmployeeSchema)
 const TimeInterval = mongoose.model('TimeInterval', TimeIntervalSchema)
 module.exports = { Employee, TimeInterval }

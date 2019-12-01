@@ -12,6 +12,6 @@ const CompanySchema = new mongoose.Schema({
 	},
 	employers: [Employer],
 	employees: [Employee],
-	openHours: [TimeInterval]
+	openHours: TimeInterval
 
 })

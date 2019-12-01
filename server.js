@@ -11,6 +11,7 @@ const { mongoose } = require('./db/mongoose')
 
 // import the mongoose models
 const { Employee } = require('./db/models/employee')
+const { Employer } = require('./db/models/employer')
 // const { User } = require('./models/user')
 
 // to validate object IDs
@@ -60,10 +61,11 @@ app.post('/employees/login', (req, res) => {
         } else {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user._id;
+            req.session.user = employee._id;
             res.redirect('/dashboard');
         }
     }).catch((error) => {
+        log('error')
         res.status(400).redirect('/login');
     })
 })
@@ -167,17 +169,17 @@ app.use("/js", express.static(__dirname + '/public/js'))
 app.post('/api/employees', (req, res) => {
     log(req.body)
 
-    // Create a new user
+    // Create a new EMployee
     const employee = new Employee({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.email,
+        password: req.body.password,
         position: req.body.position,
         phone: req.body.phone,
         companyName: req.body.companyName
     })
 
-    // Save the user
+    // Save the Employee
     employee.save().then((employee) => {
         res.send(employee)
     }, (error) => {
@@ -251,7 +253,7 @@ app.get('/api/employees/:id', (req, res) =>{
 app.post('/api/employers', (req, res) => {
     log(req.body)
 
-    // Create a new user
+    // Create a new Employer
     const employer = new Employer({
         name: req.body.name,
         email: req.body.email,
@@ -260,7 +262,7 @@ app.post('/api/employers', (req, res) => {
         companyName: req.body.companyName
     })
 
-    // Save the user
+    // Save the Employer
     employer.save().then((employer) => {
         res.send(employer)
     }, (error) => {
@@ -268,7 +270,7 @@ app.post('/api/employers', (req, res) => {
     })
 })
 
-app.get('/employers/:id', (req, res) =>{
+app.get('/api/employers/:id', (req, res) =>{
     const id = req.params.id
 
     if(!ObjectID.isValid(id)){
@@ -290,13 +292,13 @@ app.get('/employers/:id', (req, res) =>{
 app.post('/api/companies', (req, res) => {
     log(req.body)
 
-    // Create a new user
+    // Create a new Company
     const company = new Company({
         name: req.body.name,
         openHours: req.body.openHours
     })
 
-    // Save the user
+    // Save the Company
     company.save().then((company) => {
         res.send(company)
     }, (error) => {
@@ -304,7 +306,7 @@ app.post('/api/companies', (req, res) => {
     })
 })
 
-app.get('/api/cpmpanies/:id', (req, res) =>{
+app.get('/api/companies/:id', (req, res) =>{
     const id = req.params.id
 
     if(!ObjectID.isValid(id)){
@@ -321,8 +323,6 @@ app.get('/api/cpmpanies/:id', (req, res) =>{
         res.status(500).send()
     })
 })
-/** User routes below **/
-// Set up a POST route to *create* a user of your web app (*not* a student).
 
 /*************************************************/
 // Express server listening...
