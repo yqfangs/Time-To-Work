@@ -11,8 +11,8 @@ const server_helper = {
   validate_avail: function(newAvail) {
     let filtered = null
     try {
-      filtered = newAvail.filter((avail) => {
-        return avail.start >= 0 && avail.end <= 24 && avail.start < avail.end
+      filtered = newAvail.filter((int) => {
+        return int.start >= 0 && int.end <= 24 && int.start < int.end && int.duration == int.start-int.end
       })
     } catch(err) {
       return false
