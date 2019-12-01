@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
+const SALT_FACTOR = 10
+
 const EmployerSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -43,11 +45,11 @@ const EmployerSchema = new mongoose.Schema({
 })
 
 EmployerSchema.pre('save', function(next) {
-	const employer = this; 
+	const employer = this; // binds this to employer document instance
 
+	//only hash again if we modify/ its new
 	if (employer.isModified('password')) {
-		// generate salt and hash the password
-		bcrypt.genSalt(10, (err, salt) => {
+		bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
 			bcrypt.hash(employer.password, salt, (err, hash) => {
 				employer.password = hash
 				next()
@@ -57,6 +59,25 @@ EmployerSchema.pre('save', function(next) {
 		next()
 	}
 })
+
+EmployerSchema.statics.findByEmailPassword = function(email, password) {
+	const Employer = this
+
+	return Employer.findOne({ email: email }).then((employer) => {
+		if (!employer) {
+			return Promise.reject()  // a rejected promise
+		}
+		return new Promise((resolve, reject) => {
+			bcrypt.compare(password, employer.password, (err, result) => {
+				if (result) {
+					resolve(employer)
+				} else {
+					reject()
+				}
+			})
+		})
+	})
+}
 
 const Employer = mongoose.model('Employer', EmployerSchema)
 module.exports = { Employer }
