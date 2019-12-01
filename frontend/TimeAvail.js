@@ -7,7 +7,7 @@ let currentlySelected = 0
 
 // the id of employee currently logged in
 // const currentUser = current_user
-const currentUser = alice   // this should be current_user, but logging in as
+let currentUser = null  // this should be current_user, but logging in as
                             // an employer (default) will not have access to this page
 
 const availTable = document.querySelector('#AvailabilityTable')
@@ -28,14 +28,39 @@ const sidebar = document.querySelector('#sidebar');
 window.addEventListener('load', modifySideBar(currentUser));
 
 
-function getCurrUser() {
-
-}
 
 function submitToServer(e) {
   e.preventDefault()
   if (e.target.id == 'submitAllButton') {
-    
+    const url = '/TimeAvail'
+
+    const data = {
+      id: currentUser.id,
+      availability: currentUser.availability
+    }
+
+    const request = new Request(url, {
+      method: 'patch',
+      body: JSON.stringify(data),
+      headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    })
+
+    fetch(request)
+    .then((res) => {
+      if (res.status === 200) {
+        alert('New availability submitted!')
+      }
+      else {
+        return Promise.reject()
+      }
+    })
+    .catch((error) => {
+      log(error)
+      alert('Submission is unsuccessful.')
+    })
   }
 }
 
@@ -83,6 +108,25 @@ function submitNewAvail(e) {
 }
 
 function loadAvailTable(e) {
+  // Server call to get current user
+  const url = '/TimeAvail/load'
+  fetch(url)
+  .then((res) => {
+    if (res.status === 200) {
+      return res.json()
+    } else {
+      alert('Cannot get your availability from server')
+    }
+  })
+  .then((json) => {
+    currentUser = JSON.parse(json)
+  })
+  .catch((error) => {
+    log(error)
+    alert('Error')
+  })
+
+  // DOM
   title.innerText = `${currentUser.name}'s ${title.innerText}`
 
   let curr = availRow.firstElementChild.nextElementSibling

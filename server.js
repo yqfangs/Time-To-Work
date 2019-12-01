@@ -158,30 +158,49 @@ app.get('/TimeAvail', (req, res) => {
 
 })
 
-app.get('/TimeAvail/:email', (req, res) => {
-  const email = req.params.email
-  Employee.findOne({email: email}).then((employee) => {
-    if (!employee) {
-      res.status(404).send()
-    }
-    else {
-      res.send(employee)
-    }
-  }).catch((error) => {
-    res.status(500).send()
-  })
+app.get('/TimeAvail/load', (req, res) => {
+  if (req.session.user) {
+    Employee.findOne({_id: req.session.user}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send(employee)
+      }
+    }).catch((error) => {
+      res.status(500).send()
+    })
+  }
 })
 
-app.patch('/TimeAvail/:email', (req, res) => {
-  const email = req.params.email
+// app.get('/TimeAvail/:email', (req, res) => {
+//   const email = req.params.email
+//   Employee.findOne({email: email}).then((employee) => {
+//     if (!employee) {
+//       res.status(404).send()
+//     }
+//     else {
+//       res.send(employee)
+//     }
+//   }).catch((error) => {
+//     res.status(500).send()
+//   })
+// })
+
+app.patch('/TimeAvail/', (req, res) => {
+  // const email = req.params.email
+  const id = req.body.id
   const newAvail = req.body.availability
 
   // check if new availability is valid
   if (!(server_helper.validate_avail(newAvail))) {
     res.status(400).send()
   }
+  else if (id != req.session.user) {
+    res.status(400).send()
+  }
   else {
-    Employee.findOneAndUpdate({email: email}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+    Employee.findOneAndUpdate({_id: id}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
       if (!employee) {
         res.status(404).send()
       }
