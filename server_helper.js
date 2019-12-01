@@ -3,6 +3,8 @@
 const { Employee } = require('./db/models/employee')
 const { mongoose } = require('./db/mongoose')
 
+const log = console.log
+
 
 const server_helper = {
 
@@ -13,17 +15,17 @@ const server_helper = {
         return avail.start >= 0 && avail.end <= 24 && avail.start < avail.end
       })
     } catch(err) {
-      console.log(err)
       return false
     }
 
     if (filtered.length == 7) {
       return true
     }
-
     return false
   }
 
 }
 
-module.exports = { server_helper }
+log(server_helper)
+
+module.exports = {server_helper}

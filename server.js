@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // helper functions
-const server_helper = require('./server_helper.js')
+const { server_helper } = require('./server_helper.js')
 
 /*** Session handling **************************************/
 // Create a session cookie
@@ -175,23 +175,27 @@ app.get('/TimeAvail/:email', (req, res) => {
 app.patch('/TimeAvail/:email', (req, res) => {
   const email = req.params.email
   const newAvail = req.body.availability
-  Employee.findOneAndUpdate({email: email}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
-    if (!employee) {
-      res.status(404).send()
-    }
-    else if (!server_helper.validate_avail(newAvail)) {
-      // check if new availability is valid
-      res.status(400).send()
-    }
-    else {
-      res.send({
-        "new availability": newAvail,
-        "employee": employee
-      })
-    }
-  }).catch((error) => {
-    res.status(500).send()
-  })
+
+  // check if new availability is valid
+  if (!(server_helper.validate_avail(newAvail))) {
+    res.status(400).send()
+  }
+  else {
+    Employee.findOneAndUpdate({email: email}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send({
+          "new availability": newAvail,
+          "employee": employee
+        })
+      }
+    }).catch((error) => {
+      log(error)
+      res.status(500).send()
+    })
+  }
 })
 
 
