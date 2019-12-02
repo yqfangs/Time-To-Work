@@ -248,6 +248,7 @@ app.patch('/TimeAvail', (req, res) => {
 
   // check if new availability is valid
   if (!(server_helper.validate_avail(newAvail))) {
+    log("bad avail")
     res.status(400).send()
   }
   else {
