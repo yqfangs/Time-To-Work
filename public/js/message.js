@@ -1,11 +1,14 @@
 'use strict';
 
+//load message on inbox from db
+
 const inboxMessages = document.querySelector('#inbox');
 inboxMessages.addEventListener("click", removeInboxMessage);
+window.addEventListener("load", loadMessage);
 
 let currentUser = null
 const sidebar = document.querySelector('#sidebar');
-window.addEventListener('load', modifySideBar(currentUser));
+window.addEventListener("load", modifySideBar(currentUser));
 
 const sentMessage = document.querySelector('#sent');
 sentMessage.addEventListener("click", removeSentMessage);
@@ -14,6 +17,41 @@ const sendNewMessageButton = document.querySelector('#sendButton');
 sendNewMessageButton.addEventListener("click", addSentMessage);
 
 const sentForm = document.querySelector('#sent');
+
+
+function loadMessage(e){
+  // load inbox message from server
+    const url = '/message/load'
+    log("inbox")
+    fetch(url)
+    .then((res) => {
+        if (res.status === 200) {
+            return res.json()
+        }else{
+            alert('could not get user message')
+        }
+    })
+    .then((json) => {
+    	//modify side bar
+        currentUser = convertToEmployee(json);
+        modifySideBar(currentUser);
+        log(currentUser)
+
+        //display message DOM
+        if(currentUser.messagesRecived.length === 0){
+        	//do nothing
+        }else{
+	        const message = currentUser.messagesRecived
+	        for(var i = 0; i < message.length; i++){
+
+	        }
+        }
+
+    }).catch((error) => {
+        log(error)
+    })
+}
+
 
 
 function removeInboxMessage(e){

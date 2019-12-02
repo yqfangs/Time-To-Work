@@ -8,6 +8,8 @@ class Employer {
 		this.email = email
 		this.phone = phone
 		this.companyName = companyName
+    this.messagesSend = []
+    this.messagesRecived = []
 	}
 
 	toReqBody() {
@@ -33,4 +35,14 @@ class Employer {
   	}
   	return -1
   }
+}
+
+
+class employerMessage {
+  constructor(from, to, message){
+    this.from = from
+    this.to = to
+    this.message = message
+  }
+
 }
