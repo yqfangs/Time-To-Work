@@ -9,12 +9,49 @@ const ObjectId = mongoose.ObjectId
 
 const SALT_FACTOR = 10
 
+// ----------- Schema for time interval ----------- 
 const TimeIntervalSchema = new mongoose.Schema({
 	start: Number,
 	end: Number,
 	duration: Number
 })
 
+
+// ----------- Schema for message ----------- 
+const MessageEmployeeSchema = new mongoose.Schema({
+	from: { //email address
+		type: String,
+		required: true,
+		validate: {
+			validator: validator.isEmail,   // custom validator
+			message: 'Not valid email'
+		}
+	},
+	to: { //email address
+		type: String,
+		required: true,
+		validate: {
+			validator: validator.isEmail,   // custom validator
+			message: 'Not valid email'
+		}
+	},
+	isTrade: {
+		type: Boolean,
+		required: true,
+		default: false
+	},
+	tradeTime: {
+		type: TimeIntervalSchema
+	},
+	message: {
+		type: String,
+		minlength: 1
+	}
+
+})
+
+
+// ----------- Schema for employee ----------- 
 const EmployeeSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -56,7 +93,9 @@ const EmployeeSchema = new mongoose.Schema({
 		trim: true,
 	},
 	availability:[TimeIntervalSchema],
-	shifts:[TimeIntervalSchema]
+	shifts:[TimeIntervalSchema],
+	messagesSend: [MessageEmployeeSchema],
+	messagesRecived: [MessageEmployeeSchema]
 })
 
 EmployeeSchema.pre('save', function(next) {
@@ -97,4 +136,5 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 // make a model using the User schema
 const Employee = mongoose.model('Employee', EmployeeSchema)
 const TimeInterval = mongoose.model('TimeInterval', TimeIntervalSchema)
-module.exports = { Employee, TimeInterval }
+const MessageEmployee = mongoose.model('MessageEmployee', MessageEmployeeSchema)
+module.exports = { Employee, TimeInterval, MessageEmployee }
