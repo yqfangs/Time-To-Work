@@ -246,7 +246,9 @@ app.post('/api/employees', (req, res) => {
         password: req.body.password,
         position: req.body.position,
         phone: req.body.phone,
-        companyName: req.body.companyName
+        companyName: req.body.companyName,
+        availability: [{},{},{},{},{},{},{}],
+        shifts: [{},{},{},{},{},{},{}]
     })
 
     // Save the Employee
