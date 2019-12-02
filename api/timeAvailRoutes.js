@@ -2,8 +2,9 @@ const log = console.log;
 const express = require('express');
 const router = express.Router();
 const { Employee } = require('../db/models/employee')
+const { server_helper } = require('../server_helper.js')
 
-/** Routes in this file start at /api/timeAvail */
+/** Routes in this file start at /api/TimeAvail */
 router.get('/', (req, res) => {
     if (req.session.user) {
       Employee.findOne({_id: req.session.user}).then((employee) => {
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
       res.redirect('/login')
     }
   })
-  
+
   // router.get('/:email', (req, res) => {
   //   const email = req.params.email
   //   Employee.findOne({email: email}).then((employee) => {

@@ -34,7 +34,7 @@ window.addEventListener('load', modifySideBar(currentUser));
 function submitToServer(e) {
   e.preventDefault()
   if (e.target.id == 'submitAllButton') {
-    const url = '/TimeAvail'
+    const url = '/api/TimeAvail'
 
     const data = {
       availability: currentUser.availability
@@ -119,7 +119,7 @@ function submitNewAvail(e) {
 
 function loadAvailTable(e) {
   // Server call to get current user
-  const url = '/TimeAvail/load'
+  const url = '/api/TimeAvail'
 
   fetch(url)
   .then((res) => {

@@ -144,24 +144,6 @@ app.get('/TimeAvail', (req, res) => {
     }
 })
 
-app.get('/TimeAvail/load', (req, res) => {
-  if (req.session.user) {
-    Employee.findOne({_id: req.session.user}).then((employee) => {
-      if (!employee) {
-        res.status(404).send()
-      }
-      else {
-        res.send(employee)
-      }
-    }).catch((error) => {
-      res.status(500).send()
-    })
-  }
-  else {
-    res.redirect('/login')
-  }
-})
-
 app.get('/tradeShifts', (req, res) => {
     if (req.session.user) {
        res.sendFile(__dirname + '/frontend/tradeShifts.html');
