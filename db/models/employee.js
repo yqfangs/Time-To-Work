@@ -4,18 +4,11 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const {TimeIntervalSchema} = require('./timeInterval')
 const log = console.log
 const ObjectId = mongoose.ObjectId
 
 const SALT_FACTOR = 10
-
-// ----------- Schema for time interval ----------- 
-const TimeIntervalSchema = new mongoose.Schema({
-	start: Number,
-	end: Number,
-	duration: Number
-})
-
 
 // ----------- Schema for message ----------- 
 const MessageEmployeeSchema = new mongoose.Schema({
@@ -135,6 +128,5 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 
 // make a model using the User schema
 const Employee = mongoose.model('Employee', EmployeeSchema)
-const TimeInterval = mongoose.model('TimeInterval', TimeIntervalSchema)
 const MessageEmployee = mongoose.model('MessageEmployee', MessageEmployeeSchema)
-module.exports = { Employee, TimeInterval, MessageEmployee }
+module.exports = { Employee, MessageEmployee }

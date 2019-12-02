@@ -8,6 +8,13 @@ class Company {
 		this.openHours = openHours	// a timeInterval object
 	}
 
+	toReqBody() {
+		return {
+			name: this.name,
+			start: this.openHours.start,
+			end: this.openHours.end
+		}
+	}
 
 	/*
 		This funciton finds the employee of the given name (string).
