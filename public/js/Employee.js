@@ -13,8 +13,7 @@ class Employee {
     this.companyName = companyName
     this.availability = []
     this.shifts = []
-    this.messagesSend = []
-    this.messagesRecived = []
+    this.messages = []
   }
 
 	toReqBody() {
@@ -113,6 +112,7 @@ class employeeMessage {
     this.message = message
     this.isTrade = false
     this.tradeTime = null
+    this.tradeWeekDay = null
   }
 
   changeToTradeMessage(){

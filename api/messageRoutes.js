@@ -124,7 +124,7 @@ Request body expects:
 	"message": <string of message>
 }
 */
-router.post('/employees/newTradeMessage', (req, res) => {
+router.post('/employees/newRegularMessage', (req, res) => {
 
 	const message = {
 		from: req.body.from,
