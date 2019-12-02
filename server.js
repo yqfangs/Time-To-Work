@@ -53,7 +53,6 @@ const sessionChecker = (req, res, next) => {
 
 // A route to login and create a session
 app.post('/employees/login', (req, res) => {
-    //log("i can print here!!!")
     const email = req.body.email
     const password = req.body.password
 
@@ -105,6 +104,10 @@ app.get('/login', sessionChecker, (req, res) => {
     res.sendFile(__dirname + '/frontend/index.html')
 })
 
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/frontend/signup.html')
+})
+
 // dashboard route will check if the user is logged in and server
 // the dashboard page
 app.get('/dashboard', (req, res) => {
@@ -146,6 +149,67 @@ app.get('/TimeAvail', (req, res) => {
 
 })
 
+app.get('/TimeAvail/load', (req, res) => {
+  if (req.session.user) {
+    Employee.findOne({_id: req.session.user}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send(employee)
+      }
+    }).catch((error) => {
+      res.status(500).send()
+    })
+  }
+})
+
+// app.get('/TimeAvail/:email', (req, res) => {
+//   const email = req.params.email
+//   Employee.findOne({email: email}).then((employee) => {
+//     if (!employee) {
+//       res.status(404).send()
+//     }
+//     else {
+//       res.send(employee)
+//     }
+//   }).catch((error) => {
+//     res.status(500).send()
+//   })
+// })
+
+app.patch('/TimeAvail', (req, res) => {
+  // const email = req.params.email
+  const id = req.body.id
+  const newAvail = req.body.availability
+
+  // check if new availability is valid
+  if (!(server_helper.validate_avail(newAvail))) {
+    res.status(400).send()
+    log("bad avail")
+  }
+  // else if (id != req.session.user) {
+  //   res.status(400).send()
+  //   log("bad id", "req.session.user:", req.session.user, id)
+  // }
+  else {
+    Employee.findOneAndUpdate({_id: id}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send({
+          "new availability": newAvail,
+          "employee": employee
+        })
+      }
+    }).catch((error) => {
+      log(error)
+      res.status(500).send()
+    })
+  }
+})
+
 
 app.get('/tradeShifts', (req, res) => {
     if (req.session.user) {
@@ -174,7 +238,6 @@ app.use("/js", express.static(__dirname + '/public/js'))
 /*** API Routes below ************************************/
 /** Employee routes below **/
 app.post('/api/employees', (req, res) => {
-    log(req.body)
 
     // Create a new EMployee
     const employee = new Employee({
@@ -188,9 +251,13 @@ app.post('/api/employees', (req, res) => {
 
     // Save the Employee
     employee.save().then((employee) => {
-        res.send(employee)
+        log('alright')
+        res.redirect('/login')
+        // res.send(employee)
     }, (error) => {
-        res.status(400).send(error) // 400 for bad request
+        //res.redirect('/signup')
+        log('here')
+        res.status(400).redirect('/signup') // 400 for bad request
     })
 })
 
