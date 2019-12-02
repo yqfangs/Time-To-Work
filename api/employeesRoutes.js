@@ -97,29 +97,6 @@ router.get('/:id', (req, res) =>{
         })
 })
 
-router.get('/', (req, res) =>{
-    //log("imhere " + req.session.user)
-    if (req.session.user) {
-        const id = req.session.user
-        if(!ObjectID.isValid(id)){
-            res.status(404).send()
-        }
-
-        Employee.findById(id).then((employee) =>{
-            if(!employee){
-                res.status(404).send()
-            } else{
-                res.send(employee)
-            }
-        }).catch((error)=>{
-            res.status(500).send()
-        })
-    }else{
-        res.redirect('/login');
-    }
-
-})
-
 
 // Should not be called normally
 router.post('/_removeAll', (req, res) => {

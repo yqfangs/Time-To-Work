@@ -176,6 +176,7 @@ app.get('/userInfo', (req, res) => {
 // static js directory
 app.use("/css", express.static(__dirname + '/public/css'))
 app.use("/js", express.static(__dirname + '/public/js'))
+app.use("/img", express.static(__dirname + '/public/img'))
 
 /*********************************************************/
 /*** Declare API routes ************************************/
@@ -183,6 +184,7 @@ app.use("/js", express.static(__dirname + '/public/js'))
 app.use("/api/employees", require('./api/employeesRoutes.js'))
 app.use("/api/employers", require('./api/employersRoutes.js'))
 app.use("/api/companies", require('./api/companiesRoutes.js'))
+app.use("/api/profile", require('./api/profileRoutes.js'))
 app.use("/api/TimeAvail", require('./api/timeAvailRoutes.js'))
 app.use("/api/message", require('./api/messageRoutes.js'))
 
