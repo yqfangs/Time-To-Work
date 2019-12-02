@@ -8,31 +8,6 @@ const bcrypt = require('bcryptjs')
 const SALT_FACTOR = 10
 
 
-// // ----------- Schema for message ----------- 
-// const MessageEmployerSchema = new mongoose.Schema({
-// 	from: { //email address
-// 		type: String,
-// 		required: true,
-// 		validate: {
-// 			validator: validator.isEmail,   // custom validator
-// 			message: 'Not valid email'
-// 		}
-// 	},
-// 	to: { //email address
-// 		type: String,
-// 		required: true,
-// 		validate: {
-// 			validator: validator.isEmail,   // custom validator
-// 			message: 'Not valid email'
-// 		}
-// 	},
-// 	message: {
-// 		type: String,
-// 		minlength: 1
-// 	}
-
-// })
-
 const EmployerSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -67,9 +42,7 @@ const EmployerSchema = new mongoose.Schema({
 		required: true,
 		minlength: 1,
 		trim: true,
-	},
-	// messagesSend: [MessageEmployerSchema],
-	// messagesRecived: [MessageEmployerSchema]
+	}
 })
 
 EmployerSchema.pre('save', function(next) {
@@ -108,5 +81,4 @@ EmployerSchema.statics.findByEmailPassword = function(email, password) {
 }
 
 const Employer = mongoose.model('Employer', EmployerSchema)
-//const MessageEmployer = mongoose.model('MessageEmployer', MessageEmployerSchema)
 module.exports = { Employer }
