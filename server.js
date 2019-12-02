@@ -200,23 +200,43 @@ app.post('/api/employees', (req, res) => {
         res.status(400).redirect('/signup') // 400 for bad request
     })
 })
-
 app.get('/api/employees/:id', (req, res) =>{
-    const id = req.params.id
+        const id = req.params.id
+        if(!ObjectID.isValid(id)){
+            res.status(404).send()
+        }
 
-    if(!ObjectID.isValid(id)){
-        res.status(404).send()
+        Employee.findById(id).then((employee) =>{
+            if(!employee){
+                res.status(404).send()
+            } else{
+                res.send(employee)
+            }
+        }).catch((error)=>{
+            res.status(500).send()
+        })
+})
+
+app.get('/api/employees/current', (req, res) =>{
+    if (req.session.user) {
+        const id = req.session.user
+        if(!ObjectID.isValid(id)){
+            res.status(404).send()
+        }
+
+        Employee.findById(id).then((employee) =>{
+            if(!employee){
+                res.status(404).send()
+            } else{
+                res.send(employee)
+            }
+        }).catch((error)=>{
+            res.status(500).send()
+        })
+    }else{
+        res.redirect('/login');
     }
 
-    Employee.findById(id).then((employee) =>{
-        if(!employee){
-            res.status(404).send()
-        } else{
-            res.send(employee)
-        }
-    }).catch((error)=>{
-        res.status(500).send()
-    })
 })
 
 
@@ -283,48 +303,6 @@ app.patch('/TimeAvail', (req, res) => {
   }
 })
 
-
-// app.post('/timeavail/:id', (req, res) =>{
-//     const id = req.params.id
-
-//     if(!ObjectID.isValid(id)){
-//         res.status(404).send()
-//     }
-
-//     const timeavail = {
-//         start: req.body.start,
-//         end: req.body.end,
-//         duration: req.body.start - req.body.end
-//     }
-
-//     mongoose.set("useFindAndModify", false)
-//     Employee.findByIdAndUpdate(id,
-//         {$push: {avaliability: timeavail}},
-//         {new: true}).then((employee) => {
-//         if(!employee){
-//             res.status(404).send()
-//         } else{
-//             res.send({timeavail, employee})
-//         }
-//     }).catch((error)=>{
-//         res.status(500).send()
-//     })
-
-// })
-
-// app.get('/employees/:id/message', (req, res) =>){
-//     const id = req.params.id
-
-//     if(!ObjectID.isValid(id)){
-//         res.status(404).send()
-//     }
-
-//     Message.find().then((messages) =>{
-//         const allMessages = messages;
-//         allMessages.filter()
-
-//     })
-// }
 
 /** Employer routes below **/
 

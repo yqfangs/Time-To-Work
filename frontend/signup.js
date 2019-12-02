@@ -69,19 +69,19 @@ function checkSignUpValid(e){
 		return false;
 	}
 
-	//email address not valid
-	if(signupemail.indexOf('@') === -1){
-		document.getElementById("email").value = "";
-		alert("Please enter valid email address");
-		return false;
-	}
+	// //email address not valid
+	// if(signupemail.indexOf('@') === -1){
+	// 	document.getElementById("email").value = "";
+	// 	alert("Please enter valid email address");
+	// 	return false;
+	// }
 
-	newUser = new Employee(name, signuppassword, signupemail, position, phone, company);
-	allEmployees.push(newUser)
+	// newUser = new Employee(name, signuppassword, signupemail, position, phone, company);
+	// allEmployees.push(newUser)
 	//otherwise is valide sign up
 	alert(`Sign Up Successfully as Employee.\nName: ${newUser.name}\nEmail: ${newUser.email}\nuserID: ${newUser.userID}\nCompany: ${newUser.companyName}\nPosition: ${newUser.position}`)
 	//point to the log in page
-	window.location = "index.html";
+	//window.location = "index.html";
 }
 
 
