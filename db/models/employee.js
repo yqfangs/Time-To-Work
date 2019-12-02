@@ -36,9 +36,9 @@ const MessageEmployeeSchema = new mongoose.Schema({
 	tradeTime: {
 		type: TimeIntervalSchema
 	},
+	tradeWeekDay: Number,
 	message: {
-		type: String,
-		minlength: 1
+		type: String
 	}
 
 })

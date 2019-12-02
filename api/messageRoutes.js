@@ -69,6 +69,7 @@ Request body expects:
 	"to": <email>,
 	"isTrade": <true or flase>,
 	"tradeTime": <time interval>,
+	"tradeWeekDay": <weekday from Mon to Sun represent as number from 1-7
 	"message": <string of message>
 }
 */
@@ -85,6 +86,7 @@ router.post('/employees/:id', (req, res) => {
 		to: req.body.to,
 		isTrade: req.body.isTrade,
 		tradeTime: req.body.tradeTime,
+		tradeWeekDay: req.body.tradeWeekDay,
 		message: req.body.message
 	}
 
@@ -133,7 +135,6 @@ router.delete('/employees/:id/:mes_id', (req, res) => {
 	}, (error) => {
 		res.status(500).send(error)
 	})
-
 })
 
 module.exports = router;
