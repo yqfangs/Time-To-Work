@@ -1,6 +1,4 @@
 'use strict';
-const log = console.log;
-
 /////////////////////////////
 /// Event handlers
 /////////////////////////////
@@ -12,9 +10,7 @@ function addNewCompany(e) {
             new TimeInterval(document.querySelector('#openingTime').value, document.querySelector('#closingTime').value)
         )
 
-        allCompanies.push(company)
-
-        addCompanyToCompanyTable(company)
+        addCompany(company)
     }
 }
 
@@ -24,9 +20,61 @@ function onDetailsClick(e) {
     if (e.target.classList.contains('btn-info')) {
         const company = e.target.parentElement.parentElement
         const companyName = company.querySelectorAll('td')[0].innerHTML
-        window.location.href = 'companyInfo.html?company=' + companyName;
+        window.location.href = '/companyInfo?company=' + companyName;
 
     }
+}
+
+
+/////////////////////////////
+/// API calls
+/////////////////////////////
+
+async function fetchAllCompanies() {
+    const url = '/api/companies/all'
+    const request = new Request(url, {
+        headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+          }
+    })
+  
+    const response = await fetch(request)
+        .then((res) => res.json())
+        .catch((error) => {
+            console.log(error)
+            alert('Fetch is unsuccessful.')
+        })
+
+    return response.map(company => {
+        const interval = new TimeInterval(company.openHours.start, company.openHours.end)
+        return new Company(company.name, interval)
+    })
+
+}
+
+async function addCompany(company) {
+    const url = '/api/companies'
+
+    const request = new Request(url, {
+        method: 'POST',
+        headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(company.toReqBody())
+    })
+
+    fetch(request)
+    .then((res) => {
+        if (res.ok) {
+            addCompanyToCompanyTable(company)
+        } else {
+            alert('Add failed')
+        }
+    })
+
+
 }
 
 /////////////////////////////
@@ -118,10 +166,17 @@ function appendAllAttributesToRow(att, tableRow) {
 /////////////////////////////
 /// Init page
 /////////////////////////////
-const companyAddForm = document.getElementById('companyAddForm')
-const companyTable = document.getElementById('companyTable')
-companyAddForm.addEventListener('submit', addNewCompany)
 
-allCompanies.map((e) => {
-    addCompanyToCompanyTable(e)
-});
+function initPage() {
+    const companyAddForm = document.getElementById('companyAddForm')
+    const companyTable = document.getElementById('companyTable')
+    companyAddForm.addEventListener('submit', addNewCompany)
+
+    fetchAllCompanies().then(allCompanies => {
+        allCompanies.forEach((e) => {
+            addCompanyToCompanyTable(e)
+        });
+    })
+}
+
+document.addEventListener('DOMContentLoaded', initPage)

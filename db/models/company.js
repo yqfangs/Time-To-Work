@@ -1,18 +1,18 @@
 'use strict'
 
 const mongoose = require('mongoose')
-const { Employer } = require('./employer')
-const { Employee, TimeInterval } = require('./employee')
+const {TimeIntervalSchema} = require('./timeInterval')
 
 const CompanySchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		unique: true,
 		minlegth: 1,
 		trim: true
 	},
-	employers: [String],
-	employees: [String],
-	// openHours: TimeInterval
-
+	openHours: TimeIntervalSchema
 })
+
+const Company = mongoose.model('Company', CompanySchema)
+module.exports = { Company }
