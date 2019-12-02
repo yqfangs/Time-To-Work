@@ -46,22 +46,28 @@ app.post('/employees/login', (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
-    // Use the static method on the User model to find a user
-    // by their email and password
-    Employee.findByEmailPassword(email, password).then((employee) => {
-        if (!employee) {
-            res.redirect('/login');
-        } else {
-            // Add the user's id to the session cookie.
-            // We can check later if this exists to ensure we are logged in.
-            req.session.user = employee._id;
-            console.log(employee._id)
-            res.redirect('/dashboard');
-        }
-    }).catch((error) => {
-        log('login '+ error)
-        res.status(400).redirect('/login');
-    })
+    if(email === 'admin' && password === 'admin'){
+        res.redirect('/admin')
+    }else{
+
+        // Use the static method on the User model to find a user
+        // by their email and password
+        Employee.findByEmailPassword(email, password).then((employee) => {
+            if (!employee) {
+                res.redirect('/login');
+            } else {
+                // Add the user's id to the session cookie.
+                // We can check later if this exists to ensure we are logged in.
+                req.session.user = employee._id;
+                console.log(employee._id)
+                res.redirect('/dashboard');
+            }
+        }).catch((error) => {
+            log('login '+ error)
+            res.status(400).redirect('/login');
+        })
+    
+    }
 })
 
 // A route to logout a user
@@ -155,8 +161,12 @@ app.get('/message', (req, res) => {
     } else {
         res.redirect('/login')
     }
-
 })
+
+app.get('/admin', (req, res) => {
+    res.sendFile(__dirname + '/frontend/admin.html');
+})
+
 
 // static js directory
 app.use("/css", express.static(__dirname + '/public/css'))
