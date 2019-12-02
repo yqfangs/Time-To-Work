@@ -18,12 +18,10 @@ function deleteUser(e) {
         const email = getUrlParameter('email')
         updateUser({email: email}, "DELETE").then(
             res => {
-                if (res.ok) console.log(res)
+                if (res.ok) window.location.href = '/admin'
                 else alert('Delete failed')
             }
         )
-        /// redirect to admin page
-        // window.location.href = '/admin'
     }
 }
 
@@ -31,11 +29,27 @@ function saveUserInfo(e) {
     e.preventDefault();
     if (check()) {
         if (e.target.classList.contains('btn_save')) {
-            const userInfo = document.querySelectorAll('#userInfo input')
-            /// save user from database
-            
-            /// redirect to admin page
-            window.location.href = '/admin'
+
+            const type = getUrlParameter('type')
+            const user = {}
+            if (type === 'employerTable') {
+                user.name = document.querySelector(('#name')).value
+                user.password = document.querySelector(('#password')).value
+                user.email = document.querySelector(('#email')).value
+            } else if (type === 'employeeTable') {
+                user.name = document.querySelector(('#name')).value
+                user.password = document.querySelector(('#password')).value
+                user.email = document.querySelector(('#email')).value
+                user.position = document.querySelector(('#position')).value
+                user.phone = document.querySelector(('#phone')).value
+            }
+
+            updateUser(user, "SAVE").then(
+                res => {
+                    if (res.ok) window.location.href = '/admin'
+                    else alert('Save failed')
+                }
+            )
         }
     }
 }
@@ -46,9 +60,11 @@ function saveUserInfo(e) {
 /////////////////////////////
 async function updateUser(user, mode) {
     const type = getUrlParameter('type')
+    const email = getUrlParameter('email')
     const url =  (type === 'employerTable') ? 
-        '/api/employers/email/' +  user.email : 
-        '/api/employees/email/' +  user.email
+        '/api/employers/email/' +  email : 
+        '/api/employees/email/' +  email
+    console.log(url)
 
     const request = new Request(url, {
         method: 'PATCH',
