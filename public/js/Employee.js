@@ -38,13 +38,15 @@ class Employee {
 */
 function convertToEmployee(json) {
   const emp = new Employee(json.name, json.password, json.email, json.position, json.phone, json.companyName)
-
   emp.availability = json.availability.map((int) => {
     return convertToTimeInterval(int)
   })
   emp.shifts = json.availability.map((int) => {
     return convertToTimeInterval(int)
   })
+
+  emp.messagesSend = json.messagesSend;
+  emp.messagesRecived = json.messagesRecived;
   return emp
 }
 

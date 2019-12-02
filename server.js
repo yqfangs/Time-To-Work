@@ -142,8 +142,24 @@ app.get('/TimeAvail', (req, res) => {
     } else {
         res.redirect('/login')
     }
+})
 
-
+app.get('/TimeAvail/load', (req, res) => {
+  if (req.session.user) {
+    Employee.findOne({_id: req.session.user}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send(employee)
+      }
+    }).catch((error) => {
+      res.status(500).send()
+    })
+  }
+  else {
+    res.redirect('/login')
+  }
 })
 
 app.get('/tradeShifts', (req, res) => {
@@ -178,7 +194,7 @@ app.use("/js", express.static(__dirname + '/public/js'))
 app.use("/api/employees", require('./api/employeesRoutes.js'))
 app.use("/api/employers", require('./api/employersRoutes.js'))
 app.use("/api/companies", require('./api/companiesRoutes.js'))
-app.use("/api/timeAvail", require('./api/timeAvailRoutes.js'))
+app.use("/api/TimeAvail", require('./api/timeAvailRoutes.js'))
 app.use("/api/message", require('./api/messageRoutes.js'))
 
 /*************************************************/
