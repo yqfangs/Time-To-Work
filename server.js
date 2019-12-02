@@ -66,7 +66,7 @@ app.post('/employees/login', (req, res) => {
             log('login '+ error)
             res.status(400).redirect('/login');
         })
-    
+
     }
 })
 
@@ -179,6 +179,7 @@ app.use("/api/employees", require('./api/employeesRoutes.js'))
 app.use("/api/employers", require('./api/employersRoutes.js'))
 app.use("/api/companies", require('./api/companiesRoutes.js'))
 app.use("/api/timeAvail", require('./api/timeAvailRoutes.js'))
+app.use("/api/message", require('./api/messageRoutes.js'))
 
 /*************************************************/
 // Express server listening...
