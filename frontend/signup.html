@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
  </head>
 
  <body>
@@ -31,11 +31,11 @@
                 <div id="signup-row" class="row justify-content-center align-items-center">
                     <div id="signup-column" class="col-md-6">
                         <div id="signup-box" class="col-md-12">
-                            <form id="signup-form" class="form" action="" method="post">
+                            <form id="signup-form" class="form" method="post" action="/api/employees">
                                 <h3 class="text-center text-info">Sign Up</h3>
                                 <div class="form-group">
                                     <label for="email" class="text-info">Email:</label><br>
-                                    <input type="text" name="username" id="email" class="form-control">
+                                    <input type="text" name="email" id="email" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="text-info">Password:</label><br>
@@ -54,11 +54,11 @@
                                     <input type="number" name="phone" id="phone" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="company" class="text-info">Company:</label><br>
-                                    <input type="text" name="company" id="company" class="form-control"><br>
+                                    <label for="companyName" class="text-info">Company:</label><br>
+                                    <input type="text" name="companyName" id="company" class="form-control"><br>
                                 <div class="form-group">
-                                    <label for="company" class="text-info">Position:</label>
-                                    <select class="browser-default custom-select" id="selectPosition">
+                                    <label for="position" class="text-info">Position:</label>
+                                    <select name='position' class="browser-default custom-select" id="selectPosition">
                                         <option selected value="none">Select Your Position</option>
                                         <option value="waiter">Waiter</option>
                                         <option value="waitress">Waitress</option>
@@ -68,9 +68,10 @@
                                     </select>
                                 </div><br>
                                 <div class="text-right">
-                                    <center><input type="button" name="signup" id="signupButton" class="btn btn-info btn-md" value="Sign Up"></center>
-                                    <input type="button" name="back" class="btn btn-info btn-md" value="back" onclick="location.href = 'index.html';">
-                                </div>
+                                    <center><input type="submit" name="signup" id="signupButton" class="btn btn-info btn-md" value="Sign Up"></center>
+                                     <a href="login" class="text-info">Back</a>
+<!--                                     <input type="button" name="back" class="btn btn-info btn-md" value="back" method='get' action='/login'>
+ -->                                </div>
                             </form>
                         </div>
                     </div>
@@ -85,7 +86,7 @@
 <script type="text/javascript" src="Employer.js"></script>
 <script type="text/javascript" src="Company.js"></script>
 <script type="text/javascript" src="MockData.js"></script>
-<script type="text/javascript" src="signup.js"></script>
+<script type="text/javascript" src="/js/signup.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
