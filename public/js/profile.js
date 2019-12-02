@@ -24,7 +24,7 @@ window.addEventListener('load', loadPersonalInfo);
 function loadPersonalInfo(e){
     log('hihihi')
   // load personal info from server
-    const url = '/api/employees/current'
+    const url = '/api/employees'
     fetch(url)
     .then((res) => {
         if (res.status === 200) {

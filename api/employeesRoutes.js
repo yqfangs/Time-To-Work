@@ -2,6 +2,7 @@ const log = console.log;
 const express = require('express');
 const router = express.Router();
 const { Employee } = require('../db/models/employee')
+const { ObjectID } = require('mongodb')
 
 /** Routes in this file start at /api/employees
  *  (eg. '/' here will be '/api/employees' )
@@ -96,7 +97,8 @@ router.get('/:id', (req, res) =>{
         })
 })
 
-router.get('/current', (req, res) =>{
+router.get('/', (req, res) =>{
+    //log("imhere " + req.session.user)
     if (req.session.user) {
         const id = req.session.user
         if(!ObjectID.isValid(id)){
