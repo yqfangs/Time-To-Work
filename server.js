@@ -53,7 +53,6 @@ const sessionChecker = (req, res, next) => {
 
 // A route to login and create a session
 app.post('/employees/login', (req, res) => {
-    //log("i can print here!!!")
     const email = req.body.email
     const password = req.body.password
 
@@ -103,6 +102,10 @@ app.get('/', sessionChecker, (req, res) => {
 // login route serves the login page
 app.get('/login', sessionChecker, (req, res) => {
     res.sendFile(__dirname + '/frontend/index.html')
+})
+
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/frontend/signup.html')
 })
 
 // dashboard route will check if the user is logged in and server
@@ -235,7 +238,11 @@ app.use("/js", express.static(__dirname + '/public/js'))
 /*** API Routes below ************************************/
 /** Employee routes below **/
 app.post('/api/employees', (req, res) => {
-    log(req.body)
+    log(req.body.name)
+    log(req.body.email)
+    log(req.body.password)
+    log(req.body.position)
+
 
     // Create a new EMployee
     const employee = new Employee({
@@ -249,8 +256,10 @@ app.post('/api/employees', (req, res) => {
 
     // Save the Employee
     employee.save().then((employee) => {
+        res.redirect('/login')
         res.send(employee)
     }, (error) => {
+        res.redirect('/signup')
         res.status(400).send(error) // 400 for bad request
     })
 })
