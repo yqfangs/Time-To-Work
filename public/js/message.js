@@ -18,6 +18,10 @@ sendNewMessageButton.addEventListener("click", addSentMessage);
 
 const sentForm = document.querySelector('#sent');
 
+const nameInput = document.querySelector('#name');
+const emailInput = document.querySelector('#email');
+const messageInput = document.querySelector('#message');
+
 
 function loadMessage(e){
   // load inbox message from server
@@ -51,7 +55,6 @@ function loadMessage(e){
         log(error)
     })
 }
-
 
 
 function removeInboxMessage(e){
@@ -98,76 +101,85 @@ function addSentMessage(e){
 		return false;
 	}
 
-	//email and name not match
-	if(checkRecipientExist(allEmployees, allEmployers) === 0){
+	//name and email not match
+	if(!checkEmailName(email, name)){
 		//clear the input box
-		document.getElementById("name").value = "";
+		name = "";
 		//pop up that password not match
 		alert("Name not matched email address your enter, please try again");
 		return false;
 	}
 
-	//email not exist
-	if(checkRecipientExist(allEmployees, allEmployers) === -1){
-		document.getElementById("email").value = "";
+	// //email and name not match
+	// if(checkRecipientExist(allEmployees, allEmployers) === 0){
+	// 	//clear the input box
+	// 	document.getElementById("name").value = "";
+	// 	//pop up that password not match
+	// 	alert("Name not matched email address your enter, please try again");
+	// 	return false;
+	// }
+
+	// //email not exist
+	// if(checkRecipientExist(allEmployees, allEmployers) === -1){
+	// 	document.getElementById("email").value = "";
+	// 	document.getElementById("name").value = "";
+	// 	alert("Recipient not exist please check")
+	// 	return false;
+	// }
+
+	//name and email match
+    if (checkEmailName(email, name)) {
+		const name = document.querySelector('#name').value;
+		const email = document.querySelector('#email').value;
+		const message = document.querySelector('#message').value;
+
+	    //DOM
+		const listGroup = document.createElement('div');
+		listGroup.classList.add("list-group");
+		const listA = document.createElement('a');
+		listA.classList.add("list-group-item");
+		listA.classList.add("list-group-item-action");
+		listA.classList.add("flex-column");
+		listA.classList.add("align-items-start");
+		const titleDiv = document.createElement('div');
+		titleDiv.classList.add("d-flex");
+		titleDiv.classList.add("w-100");
+		titleDiv.classList.add("justify-content-between");
+		const titleh5 = document.createElement('h5');
+		titleh5.classList.add("mb-1");
+		const nameTextNode = document.createTextNode("To: " + name + " ");
+		const titleSmall = document.createElement('small');
+		const emailTextNode = document.createTextNode(email);
+		titleSmall.appendChild(emailTextNode);
+		titleh5.appendChild(nameTextNode);
+		titleh5.appendChild(titleSmall);
+		titleDiv.appendChild(titleh5);
+		listA.appendChild(titleDiv);
+		const messageP = document.createElement('p');
+		messageP.classList.add("mb-1");
+		const messageTextNode = document.createTextNode(message);
+		messageP.appendChild(messageTextNode);
+		listA.appendChild(messageP);
+		const buttonSmall = document.createElement('small');
+		const button = document.createElement('button');
+		button.setAttribute("type", "button");
+		button.classList.add("btn");
+		button.classList.add("btn-secondary");
+		button.classList.add("delete");
+		const buttonTextNode = document.createTextNode("Delete Message");
+		button.appendChild(buttonTextNode);
+		buttonSmall.appendChild(button);
+		listA.appendChild(buttonSmall);
+		listGroup.appendChild(listA);
+
+		console.log(listGroup);
+		sentForm.appendChild(listGroup);
+
 		document.getElementById("name").value = "";
-		alert("Recipient not exist please check")
-		return false;
-	}
-
-	//add message to sent
-	const name = document.querySelector('#name').value;
-	const email = document.querySelector('#email').value;
-	const message = document.querySelector('#message').value;
-
-
-    //DOM
-	const listGroup = document.createElement('div');
-	listGroup.classList.add("list-group");
-	const listA = document.createElement('a');
-	listA.classList.add("list-group-item");
-	listA.classList.add("list-group-item-action");
-	listA.classList.add("flex-column");
-	listA.classList.add("align-items-start");
-	const titleDiv = document.createElement('div');
-	titleDiv.classList.add("d-flex");
-	titleDiv.classList.add("w-100");
-	titleDiv.classList.add("justify-content-between");
-	const titleh5 = document.createElement('h5');
-	titleh5.classList.add("mb-1");
-	const nameTextNode = document.createTextNode("To: " + name + " ");
-	const titleSmall = document.createElement('small');
-	const emailTextNode = document.createTextNode(email);
-	titleSmall.appendChild(emailTextNode);
-	titleh5.appendChild(nameTextNode);
-	titleh5.appendChild(titleSmall);
-	titleDiv.appendChild(titleh5);
-	listA.appendChild(titleDiv);
-	const messageP = document.createElement('p');
-	messageP.classList.add("mb-1");
-	const messageTextNode = document.createTextNode(message);
-	messageP.appendChild(messageTextNode);
-	listA.appendChild(messageP);
-	const buttonSmall = document.createElement('small');
-	const button = document.createElement('button');
-	button.setAttribute("type", "button");
-	button.classList.add("btn");
-	button.classList.add("btn-secondary");
-	button.classList.nadd("delete");
-	const buttonTextNode = document.createTextNode("Delete Message");
-	button.appendChild(buttonTextNode);
-	buttonSmall.appendChild(button);
-	listA.appendChild(buttonSmall);
-	listGroup.appendChild(listA);
-
-	console.log(listGroup);
-	sentForm.appendChild(listGroup);
-
-	document.getElementById("name").value = "";
-	document.getElementById("email").value = "";
-	document.getElementById("message").value = "";
-	alert("Message Send!");
-
+		document.getElementById("email").value = "";
+		document.getElementById("message").value = "";
+		alert("Message Send!");
+    }
 }
 
 
@@ -199,4 +211,8 @@ function checkRecipientExist(employeeList, employerList){
 		}
 	}
 	return -1;
+}
+
+function checkEmailName(email, name){
+	return true
 }

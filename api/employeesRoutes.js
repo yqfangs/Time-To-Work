@@ -64,9 +64,9 @@ router.post('/', (req, res) => {
         phone: req.body.phone,
         companyName: req.body.companyName,
         availability: [{},{},{},{},{},{},{}],
-        shifts: [{},{},{},{},{},{},{}],
-        messagesSend: [{}],
-        messagesRecived: [{}]
+        shifts: [{},{},{},{},{},{},{}]
+        // messagesSend: [{}],
+        // messagesRecived: [{}]
     })
 
     // Save the Employee
