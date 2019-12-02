@@ -3,31 +3,21 @@
 const log = console.log
 
 const express = require('express')
+const { mongoose } = require('./db/mongoose')
+const { Employee } = require('./db/models/employee')
+const { ObjectID } = require('mongodb')
+const bodyParser = require('body-parser') 
+const { User } = require('./db/models/user')
+const session = require('express-session')
+const { server_helper } = require('./server_helper.js')
+
 // starting the express server
 const app = express();
-
-// mongoose and mongo connection
-const { mongoose } = require('./db/mongoose')
-
-// import the mongoose models
-const { Employee } = require('./db/models/employee')
-const { Employer } = require('./db/models/employer')
-// const { User } = require('./models/user')
-
-// to validate object IDs
-const { ObjectID } = require('mongodb')
-
-// body-parser: middleware for parsing HTTP JSON body into a usable object
-const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
 // express-session for managing user sessions
-const session = require('express-session')
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-// helper functions
-const { server_helper } = require('./server_helper.js')
 
 /*** Session handling **************************************/
 // Create a session cookie
@@ -65,10 +55,11 @@ app.post('/employees/login', (req, res) => {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
             req.session.user = employee._id;
+            console.log(employee._id)
             res.redirect('/dashboard');
         }
     }).catch((error) => {
-        log('error')
+        log('login '+ error)
         res.status(400).redirect('/login');
     })
 })
@@ -172,239 +163,35 @@ app.use("/css", express.static(__dirname + '/public/css'))
 app.use("/js", express.static(__dirname + '/public/js'))
 
 /*********************************************************/
+/*** Declare API routes ************************************/
 
-/*** API Routes below ************************************/
-/** Employee routes below **/
-app.post('/api/employees', (req, res) => {
-
-    // Create a new EMployee
-    const employee = new Employee({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        position: req.body.position,
-        phone: req.body.phone,
-        companyName: req.body.companyName,
-        availability: [{},{},{},{},{},{},{}],
-        shifts: [{},{},{},{},{},{},{}]
-    })
-
-    // Save the Employee
-    employee.save().then((employee) => {
-        log('alright')
-        res.redirect('/login')
-        // res.send(employee)
-    }, (error) => {
-        //res.redirect('/signup')
-        log('here')
-        res.status(400).redirect('/signup') // 400 for bad request
-    })
-})
-
-app.get('/api/employees/:id', (req, res) =>{
-    const id = req.params.id
-
-    if(!ObjectID.isValid(id)){
-        res.status(404).send()
-    }
-
-    Employee.findById(id).then((employee) =>{
-        if(!employee){
-            res.status(404).send()
-        } else{
-            res.send(employee)
-        }
-    }).catch((error)=>{
-        res.status(500).send()
-    })
-})
-
-
-app.get('/TimeAvail/load', (req, res) => {
-  if (req.session.user) {
-    Employee.findOne({_id: req.session.user}).then((employee) => {
-      if (!employee) {
-        res.status(404).send()
-      }
-      else {
-        res.send(employee)
-      }
-    }).catch((error) => {
-      res.status(500).send()
-    })
-  }
-  else {
-    res.redirect('/login')
-  }
-})
-
-// app.get('/TimeAvail/:email', (req, res) => {
-//   const email = req.params.email
-//   Employee.findOne({email: email}).then((employee) => {
-//     if (!employee) {
-//       res.status(404).send()
-//     }
-//     else {
-//       res.send(employee)
-//     }
-//   }).catch((error) => {
-//     res.status(500).send()
-//   })
-// })
-
-app.patch('/TimeAvail', (req, res) => {
-  // const email = req.params.email
-  if (req.session.user) {
-    const newAvail = req.body.availability
-    // check if new availability is valid
-    if (!(server_helper.validate_avail(newAvail))) {
-      res.status(400).send()
-    }
-    else {
-      Employee.findOneAndUpdate({_id: req.session.user}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
-        if (!employee) {
-          log(req.session.user)
-          res.status(404).send()
-        }
-        else {
-          res.send({
-            "new availability": newAvail,
-            "employee": employee
-          })
-        }
-      }).catch((error) => {
-        log(error)
-        res.status(500).send()
-      })
-    }
-  }
-  else {
-    res.redirect('/login')
-  }
-})
-
-
-// app.post('/timeavail/:id', (req, res) =>{
-//     const id = req.params.id
-
-//     if(!ObjectID.isValid(id)){
-//         res.status(404).send()
-//     }
-
-//     const timeavail = {
-//         start: req.body.start,
-//         end: req.body.end,
-//         duration: req.body.start - req.body.end
-//     }
-
-//     mongoose.set("useFindAndModify", false)
-//     Employee.findByIdAndUpdate(id,
-//         {$push: {avaliability: timeavail}},
-//         {new: true}).then((employee) => {
-//         if(!employee){
-//             res.status(404).send()
-//         } else{
-//             res.send({timeavail, employee})
-//         }
-//     }).catch((error)=>{
-//         res.status(500).send()
-//     })
-
-// })
-
-// app.get('/employees/:id/message', (req, res) =>){
-//     const id = req.params.id
-
-//     if(!ObjectID.isValid(id)){
-//         res.status(404).send()
-//     }
-
-//     Message.find().then((messages) =>{
-//         const allMessages = messages;
-//         allMessages.filter()
-
-//     })
-// }
-
-/** Employer routes below **/
-
-app.post('/api/employers', (req, res) => {
-    log(req.body)
-
-    // Create a new Employer
-    const employer = new Employer({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone,
-        companyName: req.body.companyName
-    })
-
-    // Save the Employer
-    employer.save().then((employer) => {
-        res.send(employer)
-    }, (error) => {
-        res.status(400).send(error) // 400 for bad request
-    })
-})
-
-app.get('/api/employers/:id', (req, res) =>{
-    const id = req.params.id
-
-    if(!ObjectID.isValid(id)){
-        res.status(404).send()
-    }
-
-    Employer.findById(id).then((employer) =>{
-        if(!employer){
-            res.status(404).send()
-        } else{
-            res.send(employer)
-        }
-    }).catch((error)=>{
-        res.status(500).send()
-    })
-})
-
-/** Company routes below **/
-app.post('/api/companies', (req, res) => {
-    log(req.body)
-
-    // Create a new Company
-    const company = new Company({
-        name: req.body.name,
-        openHours: req.body.openHours
-    })
-
-    // Save the Company
-    company.save().then((company) => {
-        res.send(company)
-    }, (error) => {
-        res.status(400).send(error) // 400 for bad request
-    })
-})
-
-app.get('/api/companies/:id', (req, res) =>{
-    const id = req.params.id
-
-    if(!ObjectID.isValid(id)){
-        res.status(404).send()
-    }
-
-    Company.findById(id).then((company) =>{
-        if(!company){
-            res.status(404).send()
-        } else{
-            res.send(company)
-        }
-    }).catch((error)=>{
-        res.status(500).send()
-    })
-})
+app.use("/api/employees", require('./api/employeesRoutes.js'))
+app.use("/api/employers", require('./api/employersRoutes.js'))
+app.use("/api/companies", require('./api/companiesRoutes.js'))
+app.use("/api/timeAvail", require('./api/timeAvailRoutes.js'))
 
 /*************************************************/
 // Express server listening...
 const port = process.env.PORT || 3001
 app.listen(port, () => {
     log(`Listening on port ${port}...`)
-})
+
+	initDbData()
+}) 
+
+async function initDbData() {
+	const user = new User({
+		userName: 'admin',
+		password: 'admin'
+	})
+	User.find({userName: user.userName, password: user.password}).then(
+		res => {
+			if (res.length) {
+				console.log('Admin already exists')
+			} else {
+				user.save().then( res => 
+					console.log(res)
+				)
+			}
+		})
+}

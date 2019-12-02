@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const log = console.log
+const ObjectId = mongoose.ObjectId
 
 const SALT_FACTOR = 10
 
@@ -14,8 +15,6 @@ const TimeIntervalSchema = new mongoose.Schema({
 	duration: Number
 })
 
-// Making a Mongoose model a little differently: a Mongoose Schema
-// Allows us to add additional functionality.
 const EmployeeSchema = new mongoose.Schema({
 	name: {
 		type: String,

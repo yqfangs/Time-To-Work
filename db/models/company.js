@@ -1,7 +1,8 @@
 'use strict'
 
-const { Employer } = require('./db/models/employer.js')
-const { Employee, TimeInterval } = require('./db/models/employee.js')
+const mongoose = require('mongoose')
+const { Employer } = require('./employer')
+const { Employee, TimeInterval } = require('./employee')
 
 const CompanySchema = new mongoose.Schema({
 	name: {
@@ -10,8 +11,8 @@ const CompanySchema = new mongoose.Schema({
 		minlegth: 1,
 		trim: true
 	},
-	employers: [Employer],
-	employees: [Employee],
-	openHours: TimeInterval
+	employers: [String],
+	employees: [String],
+	// openHours: TimeInterval
 
 })
