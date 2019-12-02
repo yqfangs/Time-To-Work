@@ -149,79 +149,6 @@ app.get('/TimeAvail', (req, res) => {
 
 })
 
-
-app.get('/tradeShifts', (req, res) => {
-    if (req.session.user) {
-       res.sendFile(__dirname + '/frontend/tradeShifts.html');
-    } else {
-        res.redirect('/login')
-    }
-
-})
-
-app.get('/message', (req, res) => {
-    if (req.session.user) {
-       res.sendFile(__dirname + '/frontend/message.html');
-    } else {
-        res.redirect('/login')
-    }
-
-})
-
-// static js directory
-app.use("/css", express.static(__dirname + '/public/css'))
-app.use("/js", express.static(__dirname + '/public/js'))
-
-/*********************************************************/
-
-/*** API Routes below ************************************/
-/** Employee routes below **/
-app.post('/api/employees', (req, res) => {
-    log(req.body.name)
-    log(req.body.email)
-    log(req.body.password)
-    log(req.body.position)
-
-
-    // Create a new EMployee
-    const employee = new Employee({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        position: req.body.position,
-        phone: req.body.phone,
-        companyName: req.body.companyName
-    })
-
-    // Save the Employee
-    employee.save().then((employee) => {
-        res.redirect('/login')
-        res.send(employee)
-    }, (error) => {
-        res.redirect('/signup')
-        res.status(400).send(error) // 400 for bad request
-    })
-})
-
-app.get('/api/employees/:id', (req, res) =>{
-    const id = req.params.id
-
-    if(!ObjectID.isValid(id)){
-        res.status(404).send()
-    }
-
-    Employee.findById(id).then((employee) =>{
-        if(!employee){
-            res.status(404).send()
-        } else{
-            res.send(employee)
-        }
-    }).catch((error)=>{
-        res.status(500).send()
-    })
-})
-
-
 app.get('/TimeAvail/load', (req, res) => {
   if (req.session.user) {
     Employee.findOne({_id: req.session.user}).then((employee) => {
@@ -253,14 +180,20 @@ app.get('/TimeAvail/load', (req, res) => {
 
 app.patch('/TimeAvail', (req, res) => {
   // const email = req.params.email
+  const id = req.body.id
   const newAvail = req.body.availability
 
   // check if new availability is valid
   if (!(server_helper.validate_avail(newAvail))) {
     res.status(400).send()
+    log("bad avail")
   }
+  // else if (id != req.session.user) {
+  //   res.status(400).send()
+  //   log("bad id", "req.session.user:", req.session.user, id)
+  // }
   else {
-    Employee.findOneAndUpdate({_id: req.session.user}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+    Employee.findOneAndUpdate({_id: id}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
       if (!employee) {
         res.status(404).send()
       }
@@ -275,6 +208,75 @@ app.patch('/TimeAvail', (req, res) => {
       res.status(500).send()
     })
   }
+})
+
+
+app.get('/tradeShifts', (req, res) => {
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/tradeShifts.html');
+    } else {
+        res.redirect('/login')
+    }
+
+})
+
+app.get('/message', (req, res) => {
+    if (req.session.user) {
+       res.sendFile(__dirname + '/frontend/message.html');
+    } else {
+        res.redirect('/login')
+    }
+
+})
+
+// static js directory
+app.use("/css", express.static(__dirname + '/public/css'))
+app.use("/js", express.static(__dirname + '/public/js'))
+
+/*********************************************************/
+
+/*** API Routes below ************************************/
+/** Employee routes below **/
+app.post('/api/employees', (req, res) => {
+
+    // Create a new EMployee
+    const employee = new Employee({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        position: req.body.position,
+        phone: req.body.phone,
+        companyName: req.body.companyName
+    })
+
+    // Save the Employee
+    employee.save().then((employee) => {
+        log('alright')
+        res.redirect('/login')
+        // res.send(employee)
+    }, (error) => {
+        //res.redirect('/signup')
+        log('here')
+        res.status(400).redirect('/signup') // 400 for bad request
+    })
+})
+
+app.get('/api/employees/:id', (req, res) =>{
+    const id = req.params.id
+
+    if(!ObjectID.isValid(id)){
+        res.status(404).send()
+    }
+
+    Employee.findById(id).then((employee) =>{
+        if(!employee){
+            res.status(404).send()
+        } else{
+            res.send(employee)
+        }
+    }).catch((error)=>{
+        res.status(500).send()
+    })
 })
 
 
