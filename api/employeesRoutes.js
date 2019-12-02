@@ -27,41 +27,47 @@ router.post('/', (req, res) => {
         // res.send(employee)
     }, (error) => {
         //res.redirect('/signup')
-        log(error)
+        log('here')
         res.status(400).redirect('/signup') // 400 for bad request
     })
 })
-
 router.get('/:id', (req, res) =>{
-    const id = req.params.id
-
-    if(!ObjectID.isValid(id)){
-        res.status(404).send()
-    }
-
-    Employee.findById(id).then((employee) =>{
-        if(!employee){
+        const id = req.params.id
+        if(!ObjectID.isValid(id)){
             res.status(404).send()
-        } else{
-            res.send(employee)
         }
-    }).catch((error)=>{
-        res.status(500).send()
-    })
+
+        Employee.findById(id).then((employee) =>{
+            if(!employee){
+                res.status(404).send()
+            } else{
+                res.send(employee)
+            }
+        }).catch((error)=>{
+            res.status(500).send()
+        })
 })
 
-// router.get('/:id/message', (req, res) =>){
-//     const id = req.params.id
+router.get('/current', (req, res) =>{
+    if (req.session.user) {
+        const id = req.session.user
+        if(!ObjectID.isValid(id)){
+            res.status(404).send()
+        }
 
-//     if(!ObjectID.isValid(id)){
-//         res.status(404).send()
-//     }
+        Employee.findById(id).then((employee) =>{
+            if(!employee){
+                res.status(404).send()
+            } else{
+                res.send(employee)
+            }
+        }).catch((error)=>{
+            res.status(500).send()
+        })
+    }else{
+        res.redirect('/login');
+    }
 
-//     Message.find().then((messages) =>{
-//         const allMessages = messages;
-//         allMessages.filter()
-
-//     })
-// }
+})
 
 module.exports = router;

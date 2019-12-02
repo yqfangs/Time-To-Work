@@ -66,34 +66,5 @@ router.get('/', (req, res) => {
       res.redirect('/login')
     }
   })
-  
-  
-  // router.post('/:id', (req, res) =>{
-  //     const id = req.params.id
-  
-  //     if(!ObjectID.isValid(id)){
-  //         res.status(404).send()
-  //     }
-  
-  //     const timeavail = {
-  //         start: req.body.start,
-  //         end: req.body.end,
-  //         duration: req.body.start - req.body.end
-  //     }
-  
-  //     mongoose.set("useFindAndModify", false)
-  //     Employee.findByIdAndUpdate(id,
-  //         {$push: {avaliability: timeavail}},
-  //         {new: true}).then((employee) => {
-  //         if(!employee){
-  //             res.status(404).send()
-  //         } else{
-  //             res.send({timeavail, employee})
-  //         }
-  //     }).catch((error)=>{
-  //         res.status(500).send()
-  //     })
-  
-  // })
 
 module.exports = router;
