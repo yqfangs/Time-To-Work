@@ -22,9 +22,9 @@ const personalInfo = document.querySelector('#personalInfo');
 window.addEventListener('load', loadPersonalInfo);
 
 function loadPersonalInfo(e){
-    log('hihihi')
+    
   // load personal info from server
-    const url = '/api/employees'
+    const url = '/api/profile'
     fetch(url)
     .then((res) => {
         if (res.status === 200) {
@@ -38,7 +38,7 @@ function loadPersonalInfo(e){
         log(currentUser)
         modifySideBar(currentUser)
         log(json);
-        const userInfo = [currentUser.name, 1, currentUser.email, currentUser.phone, currentUser.position];
+        const userInfo = [currentUser.name, currentUser.email, currentUser.phone, currentUser.companyName, currentUser.position];
         console.log(userInfo);
         const infoList = personalInfo.children;
         console.log(infoList);
