@@ -56,7 +56,7 @@ function saveUserInfo(e) {
 
 
 /////////////////////////////
-/// Replace with API calls
+/// API calls
 /////////////////////////////
 async function updateUser(user, mode) {
     const type = getUrlParameter('type')
@@ -186,7 +186,6 @@ function displayUserInfo(user) {
 
 function displayEmployerInfo(user) {
     const container = document.querySelector('.infoContainer')
-    appendFixedInfo('ID: ', user.userID, container)
     appendEditableInfo('Name: ', user.name, container, 'name')
     appendEditableInfo('Password: ', user.password, container, 'password')
     appendEditableInfo('Email: ', user.email, container, 'email')
@@ -195,7 +194,6 @@ function displayEmployerInfo(user) {
 
 function displayEmployeeInfo(user) {
     const container = document.querySelector('.infoContainer')
-    appendFixedInfo('ID: ', user.userID, container)
     appendEditableInfo('Name: ', user.name, container, 'name')
     appendEditableInfo('Password: ', user.password, container, 'password')
     appendEditableInfo('Email: ', user.email, container, 'email')

@@ -79,8 +79,8 @@ function addEmployerToEmployerTable(employer) {
     const tableRow = document.createElement('tr')
 
     const attributes = 
-        (({userID, name, email, companyName, ..._}) => {
-       return {userID, name, email, companyName}
+        (({name, email, companyName, ..._}) => {
+       return {name, email, companyName}
     })(employer)
 
     appendAllAttributesToRow(attributes, tableRow);
@@ -95,8 +95,8 @@ function addEmployeeToEmployeeTable(employee) {
     const tableRow = document.createElement('tr')
 
     const attributes = 
-    (({userID, name, email, position, phone, companyName, ..._}) => {
-   return {userID, name, email, position, phone, companyName}
+    (({name, email, position, phone, companyName, ..._}) => {
+   return {name, email, position, phone, companyName}
     })(employee)
     
     appendAllAttributesToRow(attributes, tableRow)
