@@ -6,6 +6,17 @@ const { Employee } = require('../db/models/employee')
 /** Routes in this file start at /api/employees
  *  (eg. '/' here will be '/api/employees' )
  */
+router.get('/by_company/:company',  (req, res) => {
+    const company = req.params.company
+    Employee.find({
+        companyName: company
+    }).then(employees => {
+        res.send(employees)
+    }).catch(err => {
+        res.status(404).send(err)
+    })
+})
+
 router.post('/', (req, res) => {
 
     // Create a new EMployee
@@ -68,6 +79,12 @@ router.get('/current', (req, res) =>{
         res.redirect('/login');
     }
 
+})
+
+
+// Should not be called normally
+router.post('/_removeAll', (req, res) => {
+    Employee.remove({}).then((r) => res.send(r)).catch((err)=> {res.status(500).send()})
 })
 
 module.exports = router;

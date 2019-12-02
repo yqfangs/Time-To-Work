@@ -4,10 +4,20 @@ class Employer {
 	constructor(name, password, email, phone, companyName){
 		this.name = name
 		this.password = password
-		this.userID = allEmployers.length
+		// this.userID = allEmployers.length
 		this.email = email
 		this.phone = phone
 		this.companyName = companyName
+	}
+
+	toReqBody() {
+		return {
+			name: this.name,
+			password: this.password,
+			email: this.email,
+			phone: this.phone,
+			companyName: this.companyName
+		}
 	}
 
 	/*

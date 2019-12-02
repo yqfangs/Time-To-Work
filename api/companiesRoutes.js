@@ -33,11 +33,6 @@ router.get('/all', (req, res) => {
     }).catch((error) => {res.status(500).send()})
 })
 
-// Should not be called
-router.post('/_removeAll', (req, res) => {
-    Company.remove({}).then((r) => res.send(r)).catch((err)=> {res.status(500).send()})
-})
-
 router.get('/:id', (req, res) =>{
     const id = ObjectID(req.params.id)
 
@@ -54,6 +49,11 @@ router.get('/:id', (req, res) =>{
     }).catch((error)=>{
         res.status(500).send()
     })
+})
+
+// Should not be called normally
+router.post('/_removeAll', (req, res) => {
+    Company.remove({}).then((r) => res.send(r)).catch((err)=> {res.status(500).send()})
 })
 
 module.exports = router;

@@ -4,6 +4,18 @@ const router = express.Router();
 const { Employer } = require('../db/models/employer');
 
 /** Routes in this file start at /api/employers */
+
+router.get('/by_company/:company',  (req, res) => {
+    const company = req.params.company
+    Employer.find({
+        companyName: company
+    }).then(employers => {
+        res.send(employers)
+    }).catch(err => {
+        res.status(404).send(err)
+    })
+})
+
 router.post('/', (req, res) => {
     log(req.body)
 

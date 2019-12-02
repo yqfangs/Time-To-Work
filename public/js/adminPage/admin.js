@@ -73,8 +73,6 @@ async function addCompany(company) {
             alert('Add failed')
         }
     })
-
-
 }
 
 /////////////////////////////
