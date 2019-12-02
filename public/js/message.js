@@ -21,7 +21,7 @@ const sentForm = document.querySelector('#sent');
 
 function loadMessage(e){
   // load inbox message from server
-    const url = '/message/load'
+    const url = '/api/message'
     log("inbox")
     fetch(url)
     .then((res) => {
