@@ -13,7 +13,8 @@ class Employee {
     this.companyName = companyName
     this.availability = []
     this.shifts = []
-    this.message = []
+    this.messagesSend = []
+    this.messagesRecived = []
   }
 
 	toReqBody() {
@@ -105,12 +106,13 @@ function totalHours(intArray) {
 }
 
 
-class Message {
+class employeeMessage {
   constructor(from, to, message, isTrade){
     this.from = from
     this.to = to
     this.message = message
     this.isTrade = false
+    this.tradeTime = null
   }
 
   changeToTradeMessage(){
