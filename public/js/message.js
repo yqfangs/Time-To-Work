@@ -175,10 +175,47 @@ function addSentMessage(e){
 		console.log(listGroup);
 		sentForm.appendChild(listGroup);
 
-		document.getElementById("name").value = "";
-		document.getElementById("email").value = "";
-		document.getElementById("message").value = "";
-		alert("Message Send!");
+		// now let's send to server
+
+		// the URL for the request
+	    const url = '/api/message'
+
+	    // The data we are going to send in our request
+	    let data = {
+	      from: currentUser.email
+	      to: email
+	      name: name
+	      message: message
+	      isTrade: false
+
+	    }
+
+	    // Create our request constructor with all the parameters we need
+	    const request = new Request(url, {
+	      method: 'PATCH',
+	      body: JSON.stringify(data),
+	      headers: {
+	            'Accept': 'application/json, text/plain, */*',
+	            'Content-Type': 'application/json'
+	        },
+	    })
+
+	    // Send the request with fetch()
+	    fetch(request)
+	    .then((res) => {
+	      if (res.status === 200) {
+		    document.getElementById("name").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("message").value = "";
+	        alert("Message Send!")
+	      }
+	      else {
+	        return Promise.reject()
+	      }
+	    })
+	    .catch((error) => {
+	      alert('sending message is unsuccessful.')
+	    })
     }
 }
 

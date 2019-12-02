@@ -87,8 +87,7 @@ const EmployeeSchema = new mongoose.Schema({
 	},
 	availability:[TimeIntervalSchema],
 	shifts:[TimeIntervalSchema],
-	messagesSend: [MessageEmployeeSchema],
-	messagesRecived: [MessageEmployeeSchema]
+	messages: [MessageEmployeeSchema]
 })
 
 EmployeeSchema.pre('save', function(next) {
