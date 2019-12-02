@@ -76,8 +76,14 @@ function changeSelected(e) {
         break
       }
     }
-    startTimeInput.placeholder = currentUser.availability[i].start
-    endTimeInput.placeholder = currentUser.availability[i].end
+    // if (currentUser.availability[i]) {
+    //   startTimeInput.placeholder = currentUser.availability[i].start
+    //   endTimeInput.placeholder = currentUser.availability[i].end
+    // }
+    // else {
+    //   startTimeInput.placeholder = ``
+    //   endTimeInput.placeholder = ``
+    // }
   }
 }
 
@@ -101,6 +107,10 @@ function submitNewAvail(e) {
       currentUser.availability[currentlySelected] = new TimeInterval(start, end)
       addNewAvailToTable(start, end)
     }
+    else if (startTimeInput.value == `` && endTimeInput.value == ``) {
+      currentUser.availability[currentlySelected] = null
+      addNewAvailToTable()
+    }
     else {
       alert(`Please enter a valid input!`)
     }
@@ -110,7 +120,7 @@ function submitNewAvail(e) {
 function loadAvailTable(e) {
   // Server call to get current user
   const url = '/TimeAvail/load'
-  
+
   fetch(url)
   .then((res) => {
     if (res.status === 200) {
@@ -134,14 +144,16 @@ function loadAvailTable(e) {
       if (availInterval != null) {
         availStart = availInterval.start
         availEnd = availInterval.end
+        curr.innerText = `${availStart} - ${availEnd}`
+      } else {
+        curr.innerText = `Not available`
       }
-      curr.innerText = `${availStart} - ${availEnd}`
       curr = curr.nextElementSibling
     }
-    if (currentUser.availability[0] != null) {
-      startTimeInput.placeholder = currentUser.availability[0].start
-      endTimeInput.placeholder = currentUser.availability[0].end
-    }
+    // if (currentUser.availability[currentlySelected] != null) {
+    //   startTimeInput.placeholder = currentUser.availability[currentlySelected].start
+    //   endTimeInput.placeholder = currentUser.availability[currentlySelected].end
+    // }
 
   })
   .catch((error) => {
@@ -151,5 +163,11 @@ function loadAvailTable(e) {
 }
 
 function addNewAvailToTable(start, end) {
-  availTable.firstElementChild.lastElementChild.children[currentlySelected+1].innerText = start + '-' + end
+  if (start && end) {
+    availTable.firstElementChild.lastElementChild.children[currentlySelected+1].innerText = start + ' - ' + end
+  } else {
+    availTable.firstElementChild.lastElementChild.children[currentlySelected+1].innerText = `Not available`
+  }
+  startTimeInput.value = ``
+  endTimeInput.value = ``
 }

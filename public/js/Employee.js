@@ -66,7 +66,12 @@ class TimeInterval {
   server to a corresponding TimeInterval object.
 */
 function convertToTimeInterval(json) {
-  return new TimeInterval(json.start, json.end)
+  if (json.start && json.end) {
+    return new TimeInterval(json.start, json.end)
+  }
+  else {
+    return null
+  }
 }
 
 // returns true if TimeInterval i1 contains i2, false otherwise
