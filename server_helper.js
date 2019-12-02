@@ -1,7 +1,5 @@
 'user strict'
 
-const { Employee } = require('./db/models/employee')
-const { mongoose } = require('./db/mongoose')
 
 const log = console.log
 
@@ -32,6 +30,31 @@ const server_helper = {
       return true
     }
     return false
+  },
+
+  // newShifts look like:
+  /*
+    [
+    {
+        name: "emp1",
+        shifts: [{timeint}, {timeint}, {timeint}, ...]
+    },
+    {
+        name: "emp2",
+        shifts: [{timeint}, {timeint}, {timeint}, ...]
+    },
+    ...
+    ]
+  */
+  validate_shifts: function(newShifts) {
+    newShifts.forEach((emp) => {
+      let filtered = null
+      try {
+        filtered = emp.shifts.filter((int) => {
+          
+        })
+      }
+    })
   }
 
 }
