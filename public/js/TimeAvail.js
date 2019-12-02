@@ -42,7 +42,7 @@ function submitToServer(e) {
 
     const request = new Request(url, {
       method: 'PATCH',
-      body: JSON.stringify(data, null, '\t'),
+      body: JSON.stringify(data),
       headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
