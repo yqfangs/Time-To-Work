@@ -73,13 +73,7 @@ Request body expects:
 	"message": <string of message>
 }
 */
-router.post('/employees/:id', (req, res) => {
-
-	const employeeID = req.params.id;
-
-	if(!ObjectID.isValid(employeeID)){
-		res.status(404).send()
-	}
+router.post('/employees/newMessage', (req, res) => {
 
 	const message = {
 		from: req.body.from,
@@ -90,13 +84,30 @@ router.post('/employees/:id', (req, res) => {
 		message: req.body.message
 	}
 
-	Employee.findById(employeeID).then((employee) => {
-		if(!employee){
+	Employee.findOne({ email: req.body.from }).then((employeeFrom) => {
+		if(!employeeFrom){
 			res.status(404).send()
 		}else{
-			employee.messages.push(message)
+			employeeFrom.messages.push(message)
+			employeeFrom.shifts[req.body.tradeWeekDay - 1] = {}
 		}
-		employee.save().then((result) => {
+		employeeFrom.save().then((result) => {
+			res.send(result)
+		}, (error) => {
+			res.status(400).send(error)
+		})
+	}, (error) => {
+		res.status(400).send(error)
+	})
+
+	Employee.findOne({ email: req.body.to }).then((employeeTo) => {
+		if(!employeeTo){
+			res.status(404).send()
+		}else{
+			employeeTo.messages.push(message)
+			employeeTo.shifts[req.body.tradeWeekDay - 1] = req.body.tradeTime;
+		}
+		employeeTo.save().then((result) => {
 			res.send(result)
 		}, (error) => {
 			res.status(400).send(error)
