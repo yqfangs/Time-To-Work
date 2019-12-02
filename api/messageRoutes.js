@@ -61,7 +61,7 @@ router.get('/employees/:id', (req, res) => {
 	})
 })
 
-/// Route for adding message to a particular employee.
+/// Route for adding trade shift message to a particular employee.
 /* 
 Request body expects:
 {
@@ -70,10 +70,9 @@ Request body expects:
 	"isTrade": <true or flase>,
 	"tradeTime": <time interval>,
 	"tradeWeekDay": <weekday from Mon to Sun represent as number from 1-7
-	"message": <string of message>
 }
 */
-router.post('/employees/newMessage', (req, res) => {
+router.post('/employees/newTradeMessage', (req, res) => {
 
 	const message = {
 		from: req.body.from,
@@ -81,7 +80,6 @@ router.post('/employees/newMessage', (req, res) => {
 		isTrade: req.body.isTrade,
 		tradeTime: req.body.tradeTime,
 		tradeWeekDay: req.body.tradeWeekDay,
-		message: req.body.message
 	}
 
 	Employee.findOne({ email: req.body.from }).then((employeeFrom) => {
@@ -106,6 +104,54 @@ router.post('/employees/newMessage', (req, res) => {
 		}else{
 			employeeTo.messages.push(message)
 			employeeTo.shifts[req.body.tradeWeekDay - 1] = req.body.tradeTime;
+		}
+		employeeTo.save().then((result) => {
+			res.send(result)
+		}, (error) => {
+			res.status(400).send(error)
+		})
+	}, (error) => {
+		res.status(400).send(error)
+	})
+})
+
+/// Route for adding regular message to a particular employee.
+/* 
+Request body expects:
+{
+	"from": <email>,
+	"to": <email>,
+	"message": <string of message>
+}
+*/
+router.post('/employees/newTradeMessage', (req, res) => {
+
+	const message = {
+		from: req.body.from,
+		to: req.body.to,
+		message: reg.body.message
+	}
+
+	Employee.findOne({ email: req.body.from }).then((employeeFrom) => {
+		if(!employeeFrom){
+			res.status(404).send()
+		}else{
+			employeeFrom.messages.push(message)
+		}
+		employeeFrom.save().then((result) => {
+			res.send(result)
+		}, (error) => {
+			res.status(400).send(error)
+		})
+	}, (error) => {
+		res.status(400).send(error)
+	})
+
+	Employee.findOne({ email: req.body.to }).then((employeeTo) => {
+		if(!employeeTo){
+			res.status(404).send()
+		}else{
+			employeeTo.messages.push(message)
 		}
 		employeeTo.save().then((result) => {
 			res.send(result)
