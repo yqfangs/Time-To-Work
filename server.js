@@ -146,67 +146,6 @@ app.get('/TimeAvail', (req, res) => {
 
 })
 
-app.get('/TimeAvail/load', (req, res) => {
-  if (req.session.user) {
-    Employee.findOne({_id: req.session.user}).then((employee) => {
-      if (!employee) {
-        res.status(404).send()
-      }
-      else {
-        res.send(employee)
-      }
-    }).catch((error) => {
-      res.status(500).send()
-    })
-  }
-})
-
-// app.get('/TimeAvail/:email', (req, res) => {
-//   const email = req.params.email
-//   Employee.findOne({email: email}).then((employee) => {
-//     if (!employee) {
-//       res.status(404).send()
-//     }
-//     else {
-//       res.send(employee)
-//     }
-//   }).catch((error) => {
-//     res.status(500).send()
-//   })
-// })
-
-app.patch('/TimeAvail', (req, res) => {
-  // const email = req.params.email
-  const id = req.body.id
-  const newAvail = req.body.availability
-
-  // check if new availability is valid
-  if (!(server_helper.validate_avail(newAvail))) {
-    res.status(400).send()
-    log("bad avail")
-  }
-  // else if (id != req.session.user) {
-  //   res.status(400).send()
-  //   log("bad id", "req.session.user:", req.session.user, id)
-  // }
-  else {
-    Employee.findOneAndUpdate({_id: id}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
-      if (!employee) {
-        res.status(404).send()
-      }
-      else {
-        res.send({
-          "new availability": newAvail,
-          "employee": employee
-        })
-      }
-    }).catch((error) => {
-      log(error)
-      res.status(500).send()
-    })
-  }
-})
-
 
 app.get('/tradeShifts', (req, res) => {
     if (req.session.user) {
@@ -271,6 +210,62 @@ app.get('/api/employees/:id', (req, res) =>{
     }).catch((error)=>{
         res.status(500).send()
     })
+})
+
+
+app.get('/TimeAvail/load', (req, res) => {
+  if (req.session.user) {
+    Employee.findOne({_id: req.session.user}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send(employee)
+      }
+    }).catch((error) => {
+      res.status(500).send()
+    })
+  }
+})
+
+// app.get('/TimeAvail/:email', (req, res) => {
+//   const email = req.params.email
+//   Employee.findOne({email: email}).then((employee) => {
+//     if (!employee) {
+//       res.status(404).send()
+//     }
+//     else {
+//       res.send(employee)
+//     }
+//   }).catch((error) => {
+//     res.status(500).send()
+//   })
+// })
+
+app.patch('/TimeAvail', (req, res) => {
+  // const email = req.params.email
+  const newAvail = req.body.availability
+
+  // check if new availability is valid
+  if (!(server_helper.validate_avail(newAvail))) {
+    res.status(400).send()
+  }
+  else {
+    Employee.findOneAndUpdate({_id: req.session.user}, {$set: {availability: newAvail}}, {new: true}).then((employee) => {
+      if (!employee) {
+        res.status(404).send()
+      }
+      else {
+        res.send({
+          "new availability": newAvail,
+          "employee": employee
+        })
+      }
+    }).catch((error) => {
+      log(error)
+      res.status(500).send()
+    })
+  }
 })
 
 
