@@ -16,6 +16,17 @@ class Employee {
     this.message = []
   }
 
+	toReqBody() {
+		return {
+			name: this.name,
+			password: this.password,
+			email: this.email,
+      phone: this.phone,
+      position: this.position,
+			companyName: this.companyName
+		}
+	}
+
   /*
     This function returns the company object with name equal to the
     companyName attribute.

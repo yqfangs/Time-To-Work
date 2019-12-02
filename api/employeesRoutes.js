@@ -17,6 +17,35 @@ router.get('/by_company/:company',  (req, res) => {
     })
 })
 
+// router.patch('/email/:email', (req, res) => {
+//     const email = req.params.email
+//     const mode = req.body.mode
+//     const employee = req.body.user
+//     console.log(employee)
+//     if (mode === "DELETE") {
+//         Employee.find({
+//             email: email
+//         }).then(r => {
+//             res.send(r)
+//         }).catch(err => {
+//             res.status(404).send(err)
+//         })
+//     } else if (mode === "SAVE") {
+//         Employee.findOneAndUpdate
+//     }
+
+// })
+
+router.get('/email/:email', (req, res) =>{
+    const email = req.params.email
+    Employee.findOne({
+        email: email
+    },(err, employee) => {
+        if (err) res.status(404).send(err)
+        else res.send(employee)
+    })
+})
+
 router.post('/', (req, res) => {
 
     // Create a new EMployee

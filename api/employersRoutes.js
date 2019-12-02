@@ -16,6 +16,16 @@ router.get('/by_company/:company',  (req, res) => {
     })
 })
 
+router.get('/email/:email', (req, res) =>{
+    const email = req.params.email
+    Employer.findOne({
+        email: email
+    },(err, employer) => {
+        if (err) res.status(404).send(err)
+        else res.send(employer)
+    })
+})
+
 router.post('/', (req, res) => {
     log(req.body)
 

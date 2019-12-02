@@ -169,6 +169,10 @@ app.get('/companyInfo', (req, res) => {
     res.sendFile(__dirname + '/frontend/companyInfo.html');
 })
 
+app.get('/userInfo', (req, res) => {
+    res.sendFile(__dirname + '/frontend/userInfo.html');
+})
+
 // static js directory
 app.use("/css", express.static(__dirname + '/public/css'))
 app.use("/js", express.static(__dirname + '/public/js'))
