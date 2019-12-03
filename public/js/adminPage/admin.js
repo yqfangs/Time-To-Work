@@ -25,6 +25,13 @@ function onDetailsClick(e) {
     }
 }
 
+function logOut(e) {
+    if (e.target.classList.contains('logout')){
+        window.location.href="/employee/logout"
+    }
+}
+
+
 
 /////////////////////////////
 /// API calls
@@ -172,6 +179,9 @@ function appendAllAttributesToRow(att, tableRow) {
 function initPage() {
     const companyAddForm = document.getElementById('companyAddForm')
     const companyTable = document.getElementById('companyTable')
+    const logout = document.querySelector('.logout')
+    logout.addEventListener('click', logOut)
+
     companyAddForm.addEventListener('submit', addNewCompany)
 
     fetchAllCompanies().then(allCompanies => {

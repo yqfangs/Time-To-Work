@@ -52,7 +52,7 @@ function convertToEmployee(json) {
   emp.availability = json.availability.map((int) => {
     return convertToTimeInterval(int)
   })
-  emp.shifts = json.availability.map((int) => {
+  emp.shifts = json.shifts.map((int) => {
     return convertToTimeInterval(int)
   })
 

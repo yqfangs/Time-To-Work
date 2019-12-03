@@ -53,6 +53,12 @@ function saveUserInfo(e) {
     }
 }
 
+function logOut(e) {
+    if (e.target.classList.contains('logout')){
+        window.location.href="/employee/logout"
+    }
+}
+
 
 /////////////////////////////
 /// API calls
@@ -213,7 +219,7 @@ function check() {
 }
 
 function checkEmployee() {
-    let positions = ["Waiter", "Waitress", "Cook", "Supervisor", "Cashier"]
+    let positions = ["waiter", "waitress", "cook", "supervisor", "cashier"]
     let name = document.querySelector('#name').value
     let userEmail = document.querySelector('#email').value
     let userPhoneNum = document.querySelector('#phone').value
@@ -241,7 +247,7 @@ function checkEmployee() {
     }
 
     if (positions.includes(userPosition) === false){
-        alert("Please enter valid position {Waiter, Waitress, Cook, Supervisor, Cashier}")
+        alert("Please enter valid position {waiter, waitress, cook, supervisor, cashier}")
         return false
     }
     return true
@@ -285,8 +291,10 @@ function checkEmployer() {
 function initPage() {
     const btnDelete = document.querySelector('.btn_delete')
     const btnSave = document.querySelector('.btn_save')
+    const logout = document.querySelector('.logout')
     btnDelete.addEventListener('click', deleteUser)
     btnSave.addEventListener('click', saveUserInfo)
+    logout.addEventListener('click', logOut)
 
     fetchUser().then(user => displayUserInfo(user))
 }

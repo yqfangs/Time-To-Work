@@ -11,6 +11,7 @@ let currentlySelected = 0
 // const currentUser = current_user
 let currentUser = null  // this should be current_user, but logging in as
                             // an employer (default) will not have access to this page
+let myCompany = null
 
 const availTable = document.querySelector('#AvailabilityTable')
 const availRow = document.querySelector('#availRow')
@@ -37,6 +38,7 @@ function submitToServer(e) {
     const url = '/api/TimeAvail'
 
     const data = {
+      companyName: myCompany.name,
       availability: currentUser.availability
     }
 
@@ -89,10 +91,10 @@ function changeSelected(e) {
 
 
 function checkStartEnd(s, e) {
-  if (s >= 0 && e <= 24 && s < e) {
-    return true
+  if (s < myCompany.openHours.start || e > myCompany.openHours.end) {
+    return false
   }
-  return false
+  return s < e
 }
 
 
@@ -103,21 +105,37 @@ function submitNewAvail(e) {
     const start = Number(startTimeInput.value)
     const end = Number(endTimeInput.value)
 
-    if (checkStartEnd(Number(start), Number(end))) {
-      currentUser.availability[currentlySelected] = new TimeInterval(start, end)
-      addNewAvailToTable(start, end)
-    }
-    else if (startTimeInput.value == `` && endTimeInput.value == ``) {
+    if (startTimeInput.value == `` && endTimeInput.value == ``) {
       currentUser.availability[currentlySelected] = null
       addNewAvailToTable()
     }
+    else if (checkStartEnd(Number(start), Number(end))) {
+      currentUser.availability[currentlySelected] = new TimeInterval(start, end)
+      addNewAvailToTable(start, end)
+    }
     else {
-      alert(`Please enter a valid input!`)
+      alert(`Please enter a valid input! Open hours: ${myCompany.openHours}`)
     }
   }
 }
 
 function loadAvailTable(e) {
+  // Server call to get myCompany
+
+  const url_comp = '/api/TimeAvail/company'
+
+  fetch(url_comp)
+  .then((res) => {
+    if (res.status === 200) {
+      return res.json()
+    } else {
+      alert('Cannot get your company data from server')
+    }
+  })
+  .then((json) => {
+    myCompany = convertToCompany(json)
+  })
+
   // Server call to get current user
   const url = '/api/TimeAvail'
 

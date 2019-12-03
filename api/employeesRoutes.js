@@ -33,8 +33,8 @@ router.patch('/email/:email', (req, res) => {
     } else if (mode === "SAVE") {
         Employee.findOneAndUpdate({
             email: email
-        }, 
-        employee, 
+        },
+        employee,
         (err, doc) => {
             if (!doc) res.status(500).send(err)
             else res.send(doc)
