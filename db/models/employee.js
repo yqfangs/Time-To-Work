@@ -39,6 +39,10 @@ const MessageEmployeeSchema = new mongoose.Schema({
 	tradeWeekDay: Number,
 	message: {
 		type: String
+	},
+	tradeResponse: {
+		type: String,
+		default: 'W' //'W' = wait 'A' = accpet 'D' = 'decline'
 	}
 
 })

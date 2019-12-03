@@ -4,6 +4,8 @@
 
 const inboxMessages = document.querySelector('#inbox');
 inboxMessages.addEventListener("click", removeInboxMessage);
+inboxMessages.addEventListener("click", declineTrade);
+inboxMessages.addEventListener("click", accpetTrade);
 window.addEventListener("load", loadMessage);
 
 let currentUser = null
@@ -232,7 +234,6 @@ function loadMessage(e){
 	        			const startTime = currentMessage.tradeTime.start;
 	        			const endTime = currentMessage.tradeTime.end;
 	        			let dateTime = "";
-	        			log(currentMessage.tradeWeekDay)
 	        			if(currentMessage.tradeWeekDay === 0){
 	        				dateTime = "Monday"
 	        			}
@@ -280,27 +281,26 @@ function loadMessage(e){
 						const messageTextNode = document.createTextNode("Changing shifts request:[From: " + startTime + ", To: " + endTime + ", On: " + dateTime + "]");
 						messageP.appendChild(messageTextNode);
 						listA.appendChild(messageP);
-						// const buttonSmall = document.createElement('small');
-						// const button = document.createElement('button');
-						// button.setAttribute("type", "button");
-						// button.classList.add("btn");
-						// button.classList.add("btn-success");
-						// button.classList.add("accept");
-						// const buttonTextNode = document.createTextNode("Accept");
-						// button.appendChild(buttonTextNode);
-						// buttonSmall.appendChild(button);
-						// const buttonSmall1 = document.createElement('small');
-						// const button1 = document.createElement('button');
-						// button1.setAttribute("type", "button");
-						// button1.classList.add("btn");
-						// button1.classList.add("btn-secondary");
-						// button1.classList.add("decline");
-						// const buttonTextNode1 = document.createTextNode("Decline");
-						// button1.appendChild(buttonTextNode1);
-						// buttonSmall1.appendChild(button1);
-
-						// listA.appendChild(buttonSmall);
-						// listA.appendChild(buttonSmall1);
+						//<span class="badge badge-primary">Waiting for response</span>
+						//<span class="badge badge-success">Accpeted</span>
+						//<span class="badge badge-secondary">Declined</span>
+						const span = document.createElement('span');
+						span.classList.add("badge")
+						let badgeTextNode = document.createTextNode("");
+						if(currentMessage.tradeResponse === 'W'){
+							span.classList.add("badge-primary")
+							badgeTextNode = document.createTextNode("Waiting for response");
+						}
+						if(currentMessage.tradeResponse === 'A'){
+							span.classList.add("badge-success")
+							badgeTextNode = document.createTextNode("Accpetec");
+						}
+						if(currentMessage.tradeResponse === 'D'){
+							span.classList.add("badge-secondary")
+							badgeTextNode = document.createTextNode("Declined");
+						}
+						span.appendChild(badgeTextNode);
+						listA.appendChild(span);
 						listGroup.appendChild(listA);
 
 						sentMessage.appendChild(listGroup);
@@ -346,10 +346,6 @@ function removeSentMessage(e){
 	if(e.target.classList.contains('delete')){
 		//DOM remove
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
-		// log(messageToRemove);
-		// const html = document.getElementById("sendBoxToEmail");
-		// let email = html.textContent;
-		// log(email.slice(4, email.length));
 		const title = document.getElementById("sendBoxToEmail").textContent;
 		const to_email = title.slice(4, title.length);
 		sentMessage.removeChild(messageToRemove);
@@ -365,6 +361,54 @@ function removeSentMessage(e){
         },});
 
         fetch(request).then(alert("Deleted!")).catch((error) => log(error))
+	}
+}
+
+function declineTrade(e){
+	e.preventDefault();
+
+	if(e.target.classList.contains('decline')){
+		//DOM remove
+		const messageToRemove = e.target.parentElement.parentElement.parentElement;
+		const title = document.getElementById("inBoxFromEmailTrade").textContent;
+		const from_email = title.slice(6, title.length);
+		inboxMessages.removeChild(messageToRemove);
+
+		//DB remove
+		const current_email = currentUser.email;
+		const url = '/api/message/employees/inbox/trade/' + current_email + '/' + from_email;
+
+        const request = new Request(url, {method: 'delete',         
+        	headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },});
+
+        fetch(request).then(alert("Declined the trading request!")).catch((error) => log(error))
+	}
+}
+
+function accpetTrade(e){
+	e.preventDefault();
+
+	if(e.target.classList.contains('accpet')){
+		//DOM remove
+		const messageToRemove = e.target.parentElement.parentElement.parentElement;
+		const title = document.getElementById("sendBoxToEmail").textContent;
+		const to_email = title.slice(4, title.length);
+		sentMessage.removeChild(messageToRemove);
+
+		//DB remove
+		const current_email = currentUser.email;
+		const url = '/api/message/employees/sent/' + current_email + '/' + to_email;
+
+        const request = new Request(url, {method: 'delete',         
+        	headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },});
+
+        //fetch(request).then(alert("Deleted!")).catch((error) => log(error))
 	}
 }
 
