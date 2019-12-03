@@ -11,6 +11,7 @@ const { User } = require('./db/models/user')
 const { Employer } = require('./db/models/employer')
 const session = require('express-session')
 const { server_helper } = require('./server_helper.js')
+const multer = require('multer');
 
 // starting the express server
 const app = express();
@@ -35,10 +36,11 @@ app.use(session({
 // Our own express middleware to check for
 // an active user on the session cookie (indicating a logged in user.)
 const sessionChecker = (req, res, next) => {
+    log("check session")
     if (req.session.user) {
         res.redirect('/dashboard'); // redirect to dashboard if logged in.
     } else {
-        next(); // next() moves on to the route.
+        next() //moves on to the route.
     }
 };
 
@@ -96,7 +98,8 @@ app.get('/employee/logout', (req, res) => {
         if (error) {
             res.status(500).send(error)
         } else {
-            res.redirect('/')
+            log("logout")
+            res.redirect('/login')
         }
     })
 })
@@ -127,7 +130,6 @@ app.get('/signup', (req, res) => {
 // dashboard route will check if the user is logged in and server
 // the dashboard page
 app.get('/dashboard', (req, res) => {
-    log(req.session.user)
     if (req.session.user) {
        res.sendFile(__dirname + '/frontend/dashboard.html');
     } else {
@@ -137,7 +139,6 @@ app.get('/dashboard', (req, res) => {
 })
 
 app.get('/profile', (req, res) => {
-    log(req.session.user)
     if (req.session.user) {
        res.sendFile(__dirname + '/frontend/profile.html');
     } else {
@@ -196,7 +197,11 @@ app.get('/userInfo', (req, res) => {
 app.use("/css", express.static(__dirname + '/public/css'))
 app.use("/js", express.static(__dirname + '/public/js'))
 app.use("/img", express.static(__dirname + '/public/img'))
-
+// app.use(multer({ dest: __dirname + '/pubic/uploads/',
+//  rename: function (fieldname, filename) {
+//    return filename;
+//  },
+// }));
 /*********************************************************/
 /*** Declare API routes ************************************/
 
