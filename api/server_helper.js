@@ -24,7 +24,6 @@ const server_helper = {
       log("err", err)
       return false
     }
-
     return filtered.length == 7
   },
 

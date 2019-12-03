@@ -109,7 +109,9 @@ function addEmployeeToEmployeeTable(employee) {
     table.appendChild(tableRow)
 }
 
+
 function check() {
+    
     let employerName = document.querySelector('#name').value
     let employerEmail = document.querySelector('#email').value
     let employerPhone = document.querySelector('#phone').value
@@ -160,9 +162,8 @@ async function addEmployer(employer) {
     .then((res) => {
         if (res.ok) {   
             addEmployerToEmployerTable(employer)
-            console.log(employer)
         } else {
-            alert('Add failed')
+            alert('Add failed (Email has been registered)')
         }
     })
 }

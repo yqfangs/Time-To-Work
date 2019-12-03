@@ -54,7 +54,6 @@ function modalLoad() {
 
 
 function loadData() {
-
   // Server call to get current user
   const url = '/api/tradeshifts/user'
 
@@ -91,6 +90,9 @@ function loadData() {
     for (let i = 0; i < lst.length; i++) {
       if (currUser.shifts[i] != null) {
         lst[i].firstElementChild.innerText = `${currUser.shifts[i].start} - ${currUser.shifts[i].end}`
+      }
+      else {
+        lst[i].firstElementChild.innerText = `No Shift`
       }
     }
 
