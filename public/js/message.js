@@ -70,6 +70,7 @@ function loadMessage(e){
 						titleDiv.classList.add("justify-content-between");
 						const titleh5 = document.createElement('h5');
 						titleh5.classList.add("mb-1");
+						titleh5.setAttribute("id", "inBoxFromEmail");
 						const nameTextNode = document.createTextNode("From: ");
 						const emailTextNode = document.createTextNode(email);
 						titleh5.appendChild(nameTextNode);
@@ -115,6 +116,8 @@ function loadMessage(e){
 						titleDiv.classList.add("justify-content-between");
 						const titleh5 = document.createElement('h5');
 						titleh5.classList.add("mb-1");
+						titleh5.setAttribute("id", "sendBoxToEmail");
+						titleh5.setAttribute("value", email);
 						const nameTextNode = document.createTextNode("To: ");
 						const emailTextNode = document.createTextNode(email);
 						titleh5.appendChild(nameTextNode);
@@ -186,6 +189,7 @@ function loadMessage(e){
 						titleDiv.classList.add("justify-content-between");
 						const titleh5 = document.createElement('h5');
 						titleh5.classList.add("mb-1");
+						titleh5.setAttribute("id", "inBoxFromEmailTrade");
 						const nameTextNode = document.createTextNode("From: ");
 						const emailTextNode = document.createTextNode(email);
 						titleh5.appendChild(nameTextNode);
@@ -264,6 +268,7 @@ function loadMessage(e){
 						titleDiv.classList.add("justify-content-between");
 						const titleh5 = document.createElement('h5');
 						titleh5.classList.add("mb-1");
+						titleh5.setAttribute("id", "sentBoxToEmailTrade");
 						const nameTextNode = document.createTextNode("To: ");
 						const emailTextNode = document.createTextNode(email);
 						titleh5.appendChild(nameTextNode);
@@ -314,8 +319,24 @@ function removeInboxMessage(e){
 	e.preventDefault();
 
 	if(e.target.classList.contains('delete')){
+		//DOM remove
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
+		const title = document.getElementById("inBoxFromEmail").textContent;
+		const from_email = title.slice(6, title.length);
 		inboxMessages.removeChild(messageToRemove);
+
+		//DB remove
+		const current_email = currentUser.email;
+		const url = '/api/message/employees/inbox/' + current_email + '/' + from_email;
+
+        const request = new Request(url, {method: 'delete',         
+        	headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },});
+
+        fetch(request).then(alert("Deleted!")).catch((error) => log(error))
+
 	}
 }
 
@@ -323,8 +344,27 @@ function removeSentMessage(e){
 	e.preventDefault();
 
 	if(e.target.classList.contains('delete')){
+		//DOM remove
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
+		// log(messageToRemove);
+		// const html = document.getElementById("sendBoxToEmail");
+		// let email = html.textContent;
+		// log(email.slice(4, email.length));
+		const title = document.getElementById("sendBoxToEmail").textContent;
+		const to_email = title.slice(4, title.length);
 		sentMessage.removeChild(messageToRemove);
+
+		//DB remove
+		const current_email = currentUser.email;
+		const url = '/api/message/employees/sent/' + current_email + '/' + to_email;
+
+        const request = new Request(url, {method: 'delete',         
+        	headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },});
+
+        fetch(request).then(alert("Deleted!")).catch((error) => log(error))
 	}
 }
 

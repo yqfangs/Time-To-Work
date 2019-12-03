@@ -163,25 +163,75 @@ router.post('/employees/newRegularMessage', (req, res) => {
 	})
 })
 
-/// Route for deleting message
-router.delete('/employees/:id/:mes_id', (req, res) => {
-	// Add code here
-	const employeeID = req.params.id;
-	const messageID = req.params.mes_id;
 
-	if((!ObjectID.isValid(employeeID)) || (!ObjectID.isValid(messageID))){
-		res.status(404).send()
-	}
+/// Route for deleting message on sent box
+router.delete('/employees/sent/:current_email/:to_email', (req, res) => {
 
-	Employee.findById(employeeID).then((employee) => {
+	const current_email = req.params.current_email;
+	const to_email = req.params.to_email;
+
+	Employee.findOne({ email: current_email }).then((employee) => {
 		if(!employee){
 			res.status(404).send()
 		}else{
-			const message = employee.messages.id(messageID);
-			if(!message){
+			if(employee.messages.length === 0){
 				res.status(404).send()
 			}else{
-				employee.messages.pull(message)
+				let flag = false;
+				let list_cpy = employee.messages;
+				for(let i = 0; i < employee.messages.length; i++){
+					if(employee.messages[i].to === to_email){
+						list_cpy.splice(i, 1);
+						flag = true;
+						break;
+					}
+				}
+				//not find same to
+				if(flag === false){
+					res.status(500).send("not such email")
+				}else{
+					employee.messages = list_cpy;
+				}
+			}
+			employee.save().then((result) => {
+				res.send(result)
+			}, (error) => {
+				res.status(500).send(error)
+			})
+		}
+	}, (error) => {
+		res.status(500).send(error)
+	})
+})
+
+/// Route for deleting message on inbox
+router.delete('/employees/inbox/:current_email/:from_email', (req, res) => {
+
+	const current_email = req.params.current_email;
+	const from_email = req.params.from_email;
+
+	Employee.findOne({ email: current_email }).then((employee) => {
+		if(!employee){
+			res.status(404).send()
+		}else{
+			if(employee.messages.length === 0){
+				res.status(404).send()
+			}else{
+				let flag = false;
+				let list_cpy = employee.messages;
+				for(let i = 0; i < employee.messages.length; i++){
+					if(employee.messages[i].from === from_email){
+						list_cpy.splice(i, 1);
+						flag = true;
+						break;
+					}
+				}
+				//not find same from email
+				if(flag === false){
+					res.status(500).send("not such email")
+				}else{
+					employee.messages = list_cpy;
+				}
 			}
 			employee.save().then((result) => {
 				res.send(result)
