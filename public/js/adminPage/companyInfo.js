@@ -11,13 +11,14 @@ function getUrlParameter(name) {
 /////////////////////////////
 function addNewEmployer(e) {
     e.preventDefault()
+    const name = getUrlParameter('company')
     if (check()) {
         const employer = new Employer(
             document.querySelector('#name').value,
-            '000000',
+            document.querySelector('#password').value,            
             document.querySelector('#email').value,
-            '1234567890',
             document.querySelector('#phone').value,
+            name
         )
 
         addEmployer(employer)
@@ -97,8 +98,8 @@ function addEmployeeToEmployeeTable(employee) {
     const tableRow = document.createElement('tr')
 
     const attributes = 
-    (({ name, email, position, phone, companyName, ..._}) => {
-   return { name, email, position, phone, companyName}
+    (({ name, email, position, phone, ..._}) => {
+   return { name, email, position, phone}
     })(employee)
     
     appendAllAttributesToRow(attributes, tableRow)
@@ -111,11 +112,11 @@ function addEmployeeToEmployeeTable(employee) {
 function check() {
     let employerName = document.querySelector('#name').value
     let employerEmail = document.querySelector('#email').value
-    let employerCompany = document.querySelector('#company').value
-
+    let employerPhone = document.querySelector('#phone').value
+    let employerPwd = document.querySelector('#password').value
     //empty inputs
 
-    if ((employerName && employerEmail && employerCompany) === "") {
+    if ((employerName && employerEmail && employerPhone && employerPwd) === "") {
         alert("Please fill in the form")
         return false
     }
@@ -124,6 +125,16 @@ function check() {
     if (employerEmail.indexOf('@') == -1) {
         document.getElementById("email").value = ""
         alert("Please enter valid email address")
+        return false
+    }
+
+    if(employerPhone.length !== 10) {
+        alert("Please enter valid phone number")
+        return false
+    }
+
+    if(employerPwd.length !== 6){
+        alert("Please enter valid password of length 6")
         return false
     }
     return true
@@ -149,6 +160,7 @@ async function addEmployer(employer) {
     .then((res) => {
         if (res.ok) {   
             addEmployerToEmployerTable(employer)
+            console.log(employer)
         } else {
             alert('Add failed')
         }
