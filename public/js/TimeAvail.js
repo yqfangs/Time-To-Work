@@ -61,6 +61,7 @@ function submitToServer(e) {
       }
     })
     .catch((error) => {
+      window.location.reload()
       alert('Submission is unsuccessful.')
     })
   }

@@ -88,11 +88,11 @@ router.get('/company', (req, res) => {
                 "employee": employee
               })
             }
-          }).catch((error) => {
-            log(error)
-            res.status(500).send()
           })
         }
+      }).catch((error) => {
+        log(error)
+        res.status(500).send()
       })
     }
     else {

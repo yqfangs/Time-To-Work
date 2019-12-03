@@ -67,13 +67,12 @@ router.get('/', (req, res) => {
             }
             else {
               Employee.find({companyName: company.name}).then((myEmployees) => {
-                if (myEmployees.length == 0) {
-                  log("no coworkers")
-                  res.status(404).send()
-                }
-                else {
+                // if (myEmployees.length == 0) {
+                //   res.status(404).send()
+                // }
+                // else {
                   res.send(myEmployees)
-                }
+                // }
               })
             }
           })
@@ -90,7 +89,6 @@ router.get('/', (req, res) => {
 
 
   router.patch('/', (req, res) => {
-    // const email = req.params.email
     if (req.session.user) {
       const allShifts = req.body.shifts
       const email = req.body.email

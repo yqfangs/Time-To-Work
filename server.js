@@ -221,6 +221,7 @@ app.use("/api/dashboard", require('./api/dashboardRoutes.js'))
 app.use("/api/profile", require('./api/profileRoutes.js'))
 app.use("/api/TimeAvail", require('./api/timeAvailRoutes.js'))
 app.use("/api/scheduling", require('./api/schedulingRoutes.js'))
+app.use("/api/tradeshifts", require('./api/tradeShiftsRoutes.js'))
 app.use("/api/message", require('./api/messageRoutes.js'))
 
 /*************************************************/
