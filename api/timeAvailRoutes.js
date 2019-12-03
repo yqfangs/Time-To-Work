@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
   //     res.status(500).send()
   //   })
   // })
-  
+
   router.patch('/', (req, res) => {
     // const email = req.params.email
     if (req.session.user) {
@@ -53,7 +53,6 @@ router.get('/', (req, res) => {
           }
           else {
             res.send({
-              "new availability": newAvail,
               "employee": employee
             })
           }

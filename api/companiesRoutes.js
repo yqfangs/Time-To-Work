@@ -7,17 +7,23 @@ const { TimeInterval } = require('../db/models/timeInterval')
 
 /** Routes in this file start at /api/companies */
 router.post('/', (req, res) => {
-    const interval = new TimeInterval(
-        {
-            start: req.body.start,
-            end: req.body.end
-        }
-    )
+    // const interval = new TimeInterval(
+    //     {
+    //         start: req.body.start,
+    //         end: req.body.end
+    //     }
+    // )
 
     // Create a new Company
     const company = new Company({
         name: req.body.name,
-        openHours: interval
+        // openHours: interval
+        openHours:
+        {
+          start: req.body.start,
+          end: req.body.end,
+          duration: req.body.end - req.body.start
+        }
     })
 
     // Save the Company

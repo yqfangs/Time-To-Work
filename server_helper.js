@@ -1,6 +1,5 @@
 'user strict'
 
-
 const log = console.log
 
 
@@ -26,37 +25,39 @@ const server_helper = {
       return false
     }
 
-    if (filtered.length == 7) {
-      return true
-    }
-    return false
+    return filtered.length == 7
   },
 
   // newShifts look like:
   /*
-    [
-    {
-        name: "emp1",
-        shifts: [{timeint}, {timeint}, {timeint}, ...]
-    },
-    {
-        name: "emp2",
-        shifts: [{timeint}, {timeint}, {timeint}, ...]
-    },
-    ...
-    ]
+    [{timeint}, {timeint}, {timeint}, ...]
   */
-  validate_shifts: function(newShifts) {
-    newShifts.forEach((emp) => {
-      let filtered = null
-      try {
-        filtered = emp.shifts.filter((int) => {
-          
-        })
-      }
-    })
+  validate_shifts: function(newShifts, hours) {
+    let filtered = null
+    try {
+      filtered = newShifts.filter((int, i) => {
+
+        if (!int) {
+          newShifts[i] = {}
+          return true
+        }
+        else if (int.start >= hours.start && int.end <= hours.end && int.start < int.end && int.duration == int.end-int.start) {
+          return true
+        }
+        else {
+          return false
+        }
+      })
+    } catch(err) {
+      log(err)
+      return false
+    }
+
+    return filtered.length == 7
+
   }
 
 }
+
 
 module.exports = {server_helper}

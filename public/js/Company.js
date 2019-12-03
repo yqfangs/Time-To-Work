@@ -94,3 +94,8 @@ class Company {
 		return -1
 	}
 }
+
+
+function convertToCompany(json) {
+	return new Company(json.name, convertToTimeInterval(json.openHours))
+}
