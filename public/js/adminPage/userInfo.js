@@ -213,6 +213,7 @@ function check() {
 }
 
 function checkEmployee() {
+    let positions = ["Waiter", "Waitress", "Cook", "Supervisor", "Cashier"]
     let name = document.querySelector('#name').value
     let userEmail = document.querySelector('#email').value
     let userPhoneNum = document.querySelector('#phone').value
@@ -236,6 +237,11 @@ function checkEmployee() {
     if (userEmail.indexOf('@') == -1) {
         document.getElementById("email").value = ""
         alert("Please enter valid email address")
+        return false
+    }
+
+    if (positions.includes(userPosition) === false){
+        alert("Please enter valid position {Waiter, Waitress, Cook, Supervisor, Cashier}")
         return false
     }
     return true
