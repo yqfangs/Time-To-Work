@@ -1,12 +1,12 @@
 'use strict';
 
 //load message on inbox from db
+window.addEventListener("load", loadMessage);
 
 const inboxMessages = document.querySelector('#inbox');
 inboxMessages.addEventListener("click", removeInboxMessage);
 inboxMessages.addEventListener("click", declineTrade);
-inboxMessages.addEventListener("click", accpetTrade);
-window.addEventListener("load", loadMessage);
+inboxMessages.addEventListener("click", acceptTrade);
 
 let currentUser = null
 const sidebar = document.querySelector('#sidebar');
@@ -81,6 +81,7 @@ function loadMessage(e){
 						listA.appendChild(titleDiv);
 						const messageP = document.createElement('p');
 						messageP.classList.add("mb-1");
+						messageP.setAttribute("id", "inBoxRugularMes");
 						const messageTextNode = document.createTextNode(message);
 						messageP.appendChild(messageTextNode);
 						listA.appendChild(messageP);
@@ -119,7 +120,6 @@ function loadMessage(e){
 						const titleh5 = document.createElement('h5');
 						titleh5.classList.add("mb-1");
 						titleh5.setAttribute("id", "sendBoxToEmail");
-						titleh5.setAttribute("value", email);
 						const nameTextNode = document.createTextNode("To: ");
 						const emailTextNode = document.createTextNode(email);
 						titleh5.appendChild(nameTextNode);
@@ -128,6 +128,7 @@ function loadMessage(e){
 						listA.appendChild(titleDiv);
 						const messageP = document.createElement('p');
 						messageP.classList.add("mb-1");
+						messageP.setAttribute("id", "sendBoxRugularMes");
 						const messageTextNode = document.createTextNode(message);
 						messageP.appendChild(messageTextNode);
 						listA.appendChild(messageP);
@@ -200,6 +201,7 @@ function loadMessage(e){
 						listA.appendChild(titleDiv);
 						const messageP = document.createElement('p');
 						messageP.classList.add("mb-1");
+						messageP.setAttribute("id", "inBoxTradeMes");
 						const messageTextNode = document.createTextNode("Changing shifts request:[From: " + startTime + ", To: " + endTime + ", On: " + dateTime + "]");
 						messageP.appendChild(messageTextNode);
 						listA.appendChild(messageP);
@@ -227,6 +229,9 @@ function loadMessage(e){
 						listGroup.appendChild(listA);
 
 						inboxMessages.appendChild(listGroup);
+
+						const trade_message = document.getElementById("inBoxTradeMes").textContent;
+						currentMessage.message = trade_message
 	        		}
 	        		//add to sent
 	        		else if(currentMessage.from === currentUser.email){
@@ -278,6 +283,7 @@ function loadMessage(e){
 						listA.appendChild(titleDiv);
 						const messageP = document.createElement('p');
 						messageP.classList.add("mb-1");
+						messageP.setAttribute("id", "sentBoxTradeMes");
 						const messageTextNode = document.createTextNode("Changing shifts request:[From: " + startTime + ", To: " + endTime + ", On: " + dateTime + "]");
 						messageP.appendChild(messageTextNode);
 						listA.appendChild(messageP);
@@ -304,6 +310,9 @@ function loadMessage(e){
 						listGroup.appendChild(listA);
 
 						sentMessage.appendChild(listGroup);
+
+						const trade_message = document.getElementById("sentBoxTradeMes").textContent;
+						currentMessage.message = trade_message
 	        		}
 	        	}
 	        }
@@ -323,11 +332,12 @@ function removeInboxMessage(e){
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
 		const title = document.getElementById("inBoxFromEmail").textContent;
 		const from_email = title.slice(6, title.length);
+		const message = document.getElementById("inBoxRugularMes").textContent;
 		inboxMessages.removeChild(messageToRemove);
 
 		//DB remove
 		const current_email = currentUser.email;
-		const url = '/api/message/employees/inbox/' + current_email + '/' + from_email;
+		const url = '/api/message/employees/inbox/' + current_email + '/' + from_email + '/' + message;
 
         const request = new Request(url, {method: 'delete',         
         	headers: {
@@ -348,11 +358,12 @@ function removeSentMessage(e){
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
 		const title = document.getElementById("sendBoxToEmail").textContent;
 		const to_email = title.slice(4, title.length);
+		const message = document.getElementById("sendBoxRugularMes").textContent;
 		sentMessage.removeChild(messageToRemove);
 
 		//DB remove
 		const current_email = currentUser.email;
-		const url = '/api/message/employees/sent/' + current_email + '/' + to_email;
+		const url = '/api/message/employees/sent/' + current_email + '/' + to_email + '/' + message;
 
         const request = new Request(url, {method: 'delete',         
         	headers: {
@@ -372,11 +383,12 @@ function declineTrade(e){
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
 		const title = document.getElementById("inBoxFromEmailTrade").textContent;
 		const from_email = title.slice(6, title.length);
+		const message = document.getElementById("inBoxTradeMes").textContent;
 		inboxMessages.removeChild(messageToRemove);
 
 		//DB remove
 		const current_email = currentUser.email;
-		const url = '/api/message/employees/inbox/trade/' + current_email + '/' + from_email;
+		const url = '/api/message/employees/inbox/trade/decline/' + current_email + '/' + from_email + '/' + message;
 
         const request = new Request(url, {method: 'delete',         
         	headers: {
@@ -388,19 +400,20 @@ function declineTrade(e){
 	}
 }
 
-function accpetTrade(e){
+function acceptTrade(e){
 	e.preventDefault();
 
-	if(e.target.classList.contains('accpet')){
+	if(e.target.classList.contains('accept')){
 		//DOM remove
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
-		const title = document.getElementById("sendBoxToEmail").textContent;
-		const to_email = title.slice(4, title.length);
-		sentMessage.removeChild(messageToRemove);
+		const title = document.getElementById("inBoxFromEmailTrade").textContent;
+		const from_email = title.slice(6, title.length);
+		const message = document.getElementById("inBoxTradeMes").textContent;
+		inboxMessages.removeChild(messageToRemove);
 
 		//DB remove
 		const current_email = currentUser.email;
-		const url = '/api/message/employees/sent/' + current_email + '/' + to_email;
+		const url = '/api/message/employees/inbox/trade/accept/' + current_email + '/' + from_email + '/' + message;
 
         const request = new Request(url, {method: 'delete',         
         	headers: {
@@ -408,7 +421,7 @@ function accpetTrade(e){
             'Content-Type': 'application/json'
         },});
 
-        //fetch(request).then(alert("Deleted!")).catch((error) => log(error))
+        fetch(request).then(alert("Accept the trading request!")).catch((error) => log(error))
 	}
 }
 
@@ -433,23 +446,13 @@ function addSentMessage(e){
 		return false;
 	}
 
-	// //email and name not match
-	// if(checkRecipientExist(allEmployees, allEmployers) === 0){
-	// 	//clear the input box
-	// 	document.getElementById("name").value = "";
-	// 	//pop up that password not match
-	// 	alert("Name not matched email address your enter, please try again");
-	// 	return false;
-	// }
+	if(recipientEmail === currentUser.email){
+		document.getElementById("email").value = "";
+		alert("You can not sent message to yourself");
+		return false;
+	}
 
-	// //email not exist
-	// if(checkRecipientExist(allEmployees, allEmployers) === -1){
-	// 	document.getElementById("email").value = "";
-	// 	document.getElementById("name").value = "";
-	// 	alert("Recipient not exist please check")
-	// 	return false;
-	// }
-
+    if(checkEmailExist(recipientEmail)){
 		const email = document.querySelector('#email').value;
 		const message = document.querySelector('#message').value;
 
@@ -467,6 +470,7 @@ function addSentMessage(e){
 		titleDiv.classList.add("justify-content-between");
 		const titleh5 = document.createElement('h5');
 		titleh5.classList.add("mb-1");
+		titleh5.setAttribute("id", "sendBoxToEmail");
 		const nameTextNode = document.createTextNode("To: ");
 		const emailTextNode = document.createTextNode(email);
 		titleh5.appendChild(nameTextNode);
@@ -475,6 +479,7 @@ function addSentMessage(e){
 		listA.appendChild(titleDiv);
 		const messageP = document.createElement('p');
 		messageP.classList.add("mb-1");
+		messageP.setAttribute("id", "sendBoxRugularMes");
 		const messageTextNode = document.createTextNode(message);
 		messageP.appendChild(messageTextNode);
 		listA.appendChild(messageP);
@@ -490,27 +495,23 @@ function addSentMessage(e){
 		listA.appendChild(buttonSmall);
 		listGroup.appendChild(listA);
 
-		console.log(listGroup);
 		sentForm.appendChild(listGroup);
 
 		// now let's send to server
 
 		// the URL for the request
-	    const url = '/api/message'
+	    const url = '/api/message/employees/newRegularMessage'
 
 	    // The data we are going to send in our request
 	    let data = {
 	      from: currentUser.email,
 	      to: email,
-	      name: name,
 	      message: message,
-	      isTrade: false
-
 	    }
 
 	    // Create our request constructor with all the parameters we need
 	    const request = new Request(url, {
-	      method: 'PATCH',
+	      method: 'post',
 	      body: JSON.stringify(data),
 	      headers: {
 	            'Accept': 'application/json, text/plain, */*',
@@ -522,47 +523,28 @@ function addSentMessage(e){
 	    fetch(request)
 	    .then((res) => {
 	      if (res.status === 200) {
-		    document.getElementById("name").value = "";
+	      	document.getElementById("messageText").value = "";
 			document.getElementById("email").value = "";
-			document.getElementById("message").value = "";
 	        alert("Message Send!")
 	      }
 	      else {
 	        return Promise.reject()
 	      }
-	    })
-	    .catch((error) => {
-	      alert('sending message is unsuccessful.')
-	    })
+	    }).catch((error) => {log(error)})
+    	}
+    else{
+		document.getElementById("email").value = "";
+		alert("Employee not exist by the email your enter");
+		return false;
+    }
 }
 
-
-/*
-  This function return -1 if the input for email and name are not found on the data;
-  return 0 if the email and name not match;
-  return 1 if the email and name match;
-  Also this function will get data from server, but now we get data from MockData.js
-*/
-function checkRecipientExist(employeeList, employerList){
-
-	let email = document.getElementById("email").value;
-	let name = document.getElementById("name").value;
-
-	for(let i=0; i<employeeList.length;i++){
-		if(employeeList[i].email === email && employeeList[i].name !== name){
-			return 0;
+function checkEmailExist(email){
+	const url = '/api/message/employees/' + email;
+	fetch(url).then((result) => {
+		if(result.status === 200){
+			return true;
 		}
-		if(employeeList[i].email === email && employeeList[i].name === name){
-			return 1;
-		}
-	}
-	for(let j=0; j<employerList.length; j++){
-		if(employerList[j].email === email && employerList[j].name !== name){
-			return 0;
-		}
-		if(employerList[j].email === email && employerList[j].name === name){
-			return 1;
-		}
-	}
-	return -1;
+	}).catch((error) => {log(error)})
 }
+
