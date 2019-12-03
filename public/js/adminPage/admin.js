@@ -97,9 +97,13 @@ function addCompanyToCompanyTable(company) {
 }
 
 function check() {
+    const stringOpen = document.querySelector('#openingTime').value
+    const stringClose = document.querySelector('#closingTime').value
     let companyName = document.querySelector('#name').value
-    let openTime = document.querySelector('#openingTime').value
-    let closeTime = document.querySelector('#closingTime').value
+    let openTime = parseInt(stringOpen, 10);
+    let closeTime = parseInt(stringClose, 10)
+
+    console.log(typeof openTime);
 
     //empty inputs
 
