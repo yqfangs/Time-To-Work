@@ -59,45 +59,45 @@ function loadPersonalInfo(e){
   
 }
 
-// function requestChangePassword(e){
-//   e.preventDefault();
-//   if (e.target.classList.contains('changePassword')){
-//     console.log('change password');
-//   }
-// }
-// function checkPwMatch(e){
-//   e.preventDefault();
-//   console.log('Checking');
-//   var signuppassword = document.getElementById("newPassword").value;
-//   var confirmpw = document.getElementById("cnewPassword").value;
+function requestChangePassword(e){
+  e.preventDefault();
+  if (e.target.classList.contains('changePassword')){
+    console.log('change password');
+  }
+}
+function checkPwMatch(e){
+  e.preventDefault();
+  console.log('Checking');
+  var signuppassword = document.getElementById("newPassword").value;
+  var confirmpw = document.getElementById("cnewPassword").value;
 
-//   if(signuppassword == null || signuppassword == ""){
-//     alert("Please enter your password");
-//     return false;
-//   }
-//   if(confirmpw == null || confirmpw == ""){
-//     alert("Please enter your confirm password");
-//     return false;
-//   }
-//   //password not match
-//   if(signuppassword != confirmpw){
-//     document.getElementById("newPassword").value = "";
-//     document.getElementById("cnewPassword").value = "";
-//     alert("Please make sure your password and confirm password are matching");
-//     return false;
-//   }
-//   //otherwise is valide sign up
+  if(signuppassword == null || signuppassword == ""){
+    alert("Please enter your password");
+    return false;
+  }
+  if(confirmpw == null || confirmpw == ""){
+    alert("Please enter your confirm password");
+    return false;
+  }
+  //password not match
+  if(signuppassword != confirmpw){
+    document.getElementById("newPassword").value = "";
+    document.getElementById("cnewPassword").value = "";
+    alert("Please make sure your password and confirm password are matching");
+    return false;
+  }
+  //otherwise is valide sign up
 
-//   //upload the change to the server
-//   current_user.password = signuppassword;
-//   successChange();
-//   //point to the log in page
-// }
+  //upload the change to the server
+  current_user.password = signuppassword;
+  successChange();
+  //point to the log in page
+}
 
-// function successChange(){
-//   passwordModal.innerHTML = '<p>Your password has been changed!</p>';
-//   document.getElementById('changePWFooter').innerHTML = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
-// }
+function successChange(){
+  passwordModal.innerHTML = '<p>Your password has been changed!</p>';
+  document.getElementById('changePWFooter').innerHTML = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+}
 
 // function changeProfilePic(e){
 //   e.preventDefault();
