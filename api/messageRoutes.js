@@ -129,7 +129,7 @@ router.post('/employees/newRegularMessage', (req, res) => {
 	const message = {
 		from: req.body.from,
 		to: req.body.to,
-		message: reg.body.message
+		message: req.body.message
 	}
 
 	Employee.findOne({ email: req.body.from }).then((employeeFrom) => {

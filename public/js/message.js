@@ -25,8 +25,7 @@ const messageInput = document.querySelector('#message');
 
 function loadMessage(e){
   // load inbox message from server
-    const url = '/api/message'
-    log("inbox")
+    const url = '/api/message/'
     fetch(url)
     .then((res) => {
         if (res.status === 200) {
@@ -42,12 +41,191 @@ function loadMessage(e){
         log(currentUser)
 
         //display message DOM
-        if(currentUser.messagesRecived.length === 0){
+        if(currentUser.messages.length === 0){
         	//do nothing
+        	return
         }else{
-	        const message = currentUser.messagesRecived
+	        const message = currentUser.messages
 	        for(var i = 0; i < message.length; i++){
+	        	const currentMessage = message[i];
+	        	//regular message display
+	        	if(currentMessage.isTrade === false){
+	        		//add to inbox
+	        		if(currentMessage.to === currentUser.email){
 
+						const email = currentMessage.from;
+						const message = currentMessage.message;
+
+					    //DOM
+						const listGroup = document.createElement('div');
+						listGroup.classList.add("list-group");
+						const listA = document.createElement('a');
+						listA.classList.add("list-group-item");
+						listA.classList.add("list-group-item-action");
+						listA.classList.add("flex-column");
+						listA.classList.add("align-items-start");
+						const titleDiv = document.createElement('div');
+						titleDiv.classList.add("d-flex");
+						titleDiv.classList.add("w-100");
+						titleDiv.classList.add("justify-content-between");
+						const titleh5 = document.createElement('h5');
+						titleh5.classList.add("mb-1");
+						const nameTextNode = document.createTextNode("From: ");
+						const emailTextNode = document.createTextNode(email);
+						titleh5.appendChild(nameTextNode);
+						titleh5.appendChild(emailTextNode);
+						titleDiv.appendChild(titleh5);
+						listA.appendChild(titleDiv);
+						const messageP = document.createElement('p');
+						messageP.classList.add("mb-1");
+						const messageTextNode = document.createTextNode(message);
+						messageP.appendChild(messageTextNode);
+						listA.appendChild(messageP);
+						const buttonSmall = document.createElement('small');
+						const button = document.createElement('button');
+						button.setAttribute("type", "button");
+						button.classList.add("btn");
+						button.classList.add("btn-secondary");
+						button.classList.add("delete");
+						const buttonTextNode = document.createTextNode("Delete Message");
+						button.appendChild(buttonTextNode);
+						buttonSmall.appendChild(button);
+						listA.appendChild(buttonSmall);
+						listGroup.appendChild(listA);
+
+						inboxMessages.appendChild(listGroup);
+	        		}
+	        		//add to sent
+	        		else if(currentMessage.from === currentUser.email){
+
+						const email = currentMessage.to;
+						const message = currentMessage.message;
+
+					    //DOM
+						const listGroup = document.createElement('div');
+						listGroup.classList.add("list-group");
+						const listA = document.createElement('a');
+						listA.classList.add("list-group-item");
+						listA.classList.add("list-group-item-action");
+						listA.classList.add("flex-column");
+						listA.classList.add("align-items-start");
+						const titleDiv = document.createElement('div');
+						titleDiv.classList.add("d-flex");
+						titleDiv.classList.add("w-100");
+						titleDiv.classList.add("justify-content-between");
+						const titleh5 = document.createElement('h5');
+						titleh5.classList.add("mb-1");
+						const nameTextNode = document.createTextNode("To: ");
+						const emailTextNode = document.createTextNode(email);
+						titleh5.appendChild(nameTextNode);
+						titleh5.appendChild(emailTextNode);
+						titleDiv.appendChild(titleh5);
+						listA.appendChild(titleDiv);
+						const messageP = document.createElement('p');
+						messageP.classList.add("mb-1");
+						const messageTextNode = document.createTextNode(message);
+						messageP.appendChild(messageTextNode);
+						listA.appendChild(messageP);
+						const buttonSmall = document.createElement('small');
+						const button = document.createElement('button');
+						button.setAttribute("type", "button");
+						button.classList.add("btn");
+						button.classList.add("btn-secondary");
+						button.classList.add("delete");
+						const buttonTextNode = document.createTextNode("Delete Message");
+						button.appendChild(buttonTextNode);
+						buttonSmall.appendChild(button);
+						listA.appendChild(buttonSmall);
+						listGroup.appendChild(listA);
+
+						sentMessage.appendChild(listGroup);
+
+	        		}
+	        	} 
+	        	//trade shift message 
+	        	else if(currentMessage.isTrade === true){
+	        		//add to inbox
+	        		if(currentMessage.to === currentUser.email){
+	        			const email = currentMessage.from;
+	        			const startTime = currentMessage.tradeTime.start;
+	        			const endTime = currentMessage.tradeTime.end;
+	        			const dateTime = "";
+	        			if(currentMessage.tradeWeekDay === 0){
+	        				const dateTime = "Monday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 1){
+	        				const dateTime = "Tuesday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 2){
+	        				const dateTime = "Wednesday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 3){
+	        				const dateTime = "Thursday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 4){
+	        				const dateTime = "Friday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 5){
+	        				const dateTime = "Saturday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 6){
+	        				const dateTime = "Sunday"
+	        			}
+
+						const listGroup = document.createElement('div');
+						listGroup.classList.add("list-group");
+						const listA = document.createElement('a');
+						listA.classList.add("list-group-item");
+						listA.classList.add("list-group-item-action");
+						listA.classList.add("flex-column");
+						listA.classList.add("align-items-start");
+						const titleDiv = document.createElement('div');
+						titleDiv.classList.add("d-flex");
+						titleDiv.classList.add("w-100");
+						titleDiv.classList.add("justify-content-between");
+						const titleh5 = document.createElement('h5');
+						titleh5.classList.add("mb-1");
+						const nameTextNode = document.createTextNode("From: ");
+						const emailTextNode = document.createTextNode(email);
+						titleh5.appendChild(nameTextNode);
+						titleh5.appendChild(emailTextNode);
+						titleDiv.appendChild(titleh5);
+						listA.appendChild(titleDiv);
+						const messageP = document.createElement('p');
+						messageP.classList.add("mb-1");
+						const messageTextNode = document.createTextNode("Changing shifts request:[From: " + startTime + ", To: " + endTime + ", On: " + dateTime + "]");
+						messageP.appendChild(messageTextNode);
+						listA.appendChild(messageP);
+						const buttonSmall = document.createElement('small');
+						const button = document.createElement('button');
+						button.setAttribute("type", "button");
+						button.classList.add("btn");
+						button.classList.add("btn-success");
+						button.classList.add("accept");
+						const buttonTextNode = document.createTextNode("Accept");
+						button.appendChild(buttonTextNode);
+						buttonSmall.appendChild(button);
+						const buttonSmall1 = document.createElement('small');
+						const button1 = document.createElement('button');
+						button1.setAttribute("type", "button");
+						button1.classList.add("btn");
+						button1.classList.add("btn-secondary");
+						button1.classList.add("decline");
+						const buttonTextNode1 = document.createTextNode("Decline");
+						button1.appendChild(buttonTextNode1);
+						buttonSmall1.appendChild(button1);
+
+						listA.appendChild(buttonSmall);
+						listA.appendChild(buttonSmall1);
+						listGroup.appendChild(listA);
+
+						sentMessage.appendChild(listGroup);
+	        		}
+	        		//add to sent
+	        		else if(currentMessage.from === currentUser.email){
+
+	        		}
+	        	}
 	        }
         }
 
@@ -78,11 +256,6 @@ function removeSentMessage(e){
 function addSentMessage(e){
 	e.preventDefault();
 
-	if(document.getElementById("name").value === null || document.getElementById("name").value === ""){
-		alert("Please enter recipient name");
-		return false;
-	}
-	let recipientName = document.getElementById("name").value;
 	if(document.getElementById("email").value === null || document.getElementById("email").value === ""){
 		alert("Please enter recipient email");
 		return false;
@@ -98,15 +271,6 @@ function addSentMessage(e){
 	if(recipientEmail.indexOf('@') === -1){
 		document.getElementById("email").value = "";
 		alert("Please enter valid email address");
-		return false;
-	}
-
-	//name and email not match
-	if(!checkEmailName(email, name)){
-		//clear the input box
-		name = "";
-		//pop up that password not match
-		alert("Name not matched email address your enter, please try again");
 		return false;
 	}
 
@@ -127,9 +291,6 @@ function addSentMessage(e){
 	// 	return false;
 	// }
 
-	//name and email match
-    if (checkEmailName(email, name)) {
-		const name = document.querySelector('#name').value;
 		const email = document.querySelector('#email').value;
 		const message = document.querySelector('#message').value;
 
@@ -147,12 +308,10 @@ function addSentMessage(e){
 		titleDiv.classList.add("justify-content-between");
 		const titleh5 = document.createElement('h5');
 		titleh5.classList.add("mb-1");
-		const nameTextNode = document.createTextNode("To: " + name + " ");
-		const titleSmall = document.createElement('small');
+		const nameTextNode = document.createTextNode("To: ");
 		const emailTextNode = document.createTextNode(email);
-		titleSmall.appendChild(emailTextNode);
 		titleh5.appendChild(nameTextNode);
-		titleh5.appendChild(titleSmall);
+		titleh5.appendChild(emailTextNode);
 		titleDiv.appendChild(titleh5);
 		listA.appendChild(titleDiv);
 		const messageP = document.createElement('p');
@@ -182,10 +341,10 @@ function addSentMessage(e){
 
 	    // The data we are going to send in our request
 	    let data = {
-	      from: currentUser.email
-	      to: email
-	      name: name
-	      message: message
+	      from: currentUser.email,
+	      to: email,
+	      name: name,
+	      message: message,
 	      isTrade: false
 
 	    }
@@ -216,7 +375,6 @@ function addSentMessage(e){
 	    .catch((error) => {
 	      alert('sending message is unsuccessful.')
 	    })
-    }
 }
 
 
@@ -248,8 +406,4 @@ function checkRecipientExist(employeeList, employerList){
 		}
 	}
 	return -1;
-}
-
-function checkEmailName(email, name){
-	return true
 }
