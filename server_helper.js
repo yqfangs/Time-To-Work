@@ -5,7 +5,7 @@ const log = console.log
 
 const server_helper = {
 
-  validate_avail: function(newAvail) {
+  validate_avail: function(newAvail, hours) {
     let filtered = null
     try {
       filtered = newAvail.filter((int, i) => {
@@ -13,7 +13,7 @@ const server_helper = {
           newAvail[i] = {}
           return true
         }
-        else if (int.start >= 0 && int.end <= 24 && int.start < int.end && int.duration == int.end-int.start) {
+        else if (int.start >= hours.start && int.end <= hours.end && int.start < int.end && int.duration == int.end-int.start) {
           return true
         }
         else {
