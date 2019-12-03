@@ -9,7 +9,7 @@ const { server_helper } = require('../server_helper.js')
 /** Routes in this file start at /api/scheduling */
 router.get('/user', (req, res) => {
   if (req.session.user) {
-    Employee.findById(req.session.user).then((employer) => {
+    Employer.findById(req.session.user).then((employer) => {
       if (!employer) {
         res.status(404).send()
       }
@@ -28,7 +28,7 @@ router.get('/user', (req, res) => {
 
 router.get('/company', (req, res) => {
   if (req.session.user) {
-    Employee.findById(req.session.user).then((employer) => {
+    Employer.findById(req.session.user).then((employer) => {
       if (!employer) {
         res.status(404).send()
       }
@@ -55,7 +55,7 @@ router.get('/company', (req, res) => {
 
 router.get('/', (req, res) => {
     if (req.session.user) {
-      Employee.findById(req.session.user).then((employer) => {
+      Employer.findById(req.session.user).then((employer) => {
         if (!employer) {
           res.status(404).send()
         }
@@ -95,7 +95,7 @@ router.get('/', (req, res) => {
       const allShifts = req.body.shifts
       const email = req.body.email
 
-      Employee.findById(req.session.user)
+      Employer.findById(req.session.user)
       .then((employer) => {
         if (!employer) {
           res.status(404).send()
