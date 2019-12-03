@@ -10,7 +10,7 @@ const ObjectId = mongoose.ObjectId
 
 const SALT_FACTOR = 10
 
-// ----------- Schema for message ----------- 
+// ----------- Schema for message -----------
 const MessageEmployeeSchema = new mongoose.Schema({
 	from: { //email address
 		type: String,
@@ -44,7 +44,7 @@ const MessageEmployeeSchema = new mongoose.Schema({
 })
 
 
-// ----------- Schema for employee ----------- 
+// ----------- Schema for employee -----------
 const EmployeeSchema = new mongoose.Schema({
 	name: {
 		type: String,

@@ -6,7 +6,7 @@ const express = require('express')
 const { mongoose } = require('./db/mongoose')
 const { Employee } = require('./db/models/employee')
 const { ObjectID } = require('mongodb')
-const bodyParser = require('body-parser') 
+const bodyParser = require('body-parser')
 const { User } = require('./db/models/user')
 const { Employer } = require('./db/models/employer')
 const session = require('express-session')
@@ -220,6 +220,7 @@ app.use("/api/companies", require('./api/companiesRoutes.js'))
 app.use("/api/dashboard", require('./api/dashboardRoutes.js'))
 app.use("/api/profile", require('./api/profileRoutes.js'))
 app.use("/api/TimeAvail", require('./api/timeAvailRoutes.js'))
+app.use("/api/scheduling", require('./api/schedulingRoutes.js'))
 app.use("/api/message", require('./api/messageRoutes.js'))
 
 /*************************************************/
@@ -229,7 +230,7 @@ app.listen(port, () => {
     log(`Listening on port ${port}...`)
 
 	initDbData()
-}) 
+})
 
 async function initDbData() {
 	const user = new User({
@@ -241,7 +242,7 @@ async function initDbData() {
 			if (res.length) {
 				console.log('Admin already exists')
 			} else {
-				user.save().then( res => 
+				user.save().then( res =>
 					console.log(res)
 				)
 			}
