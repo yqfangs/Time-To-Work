@@ -4,6 +4,8 @@
 
 const inboxMessages = document.querySelector('#inbox');
 inboxMessages.addEventListener("click", removeInboxMessage);
+inboxMessages.addEventListener("click", declineTrade);
+inboxMessages.addEventListener("click", accpetTrade);
 window.addEventListener("load", loadMessage);
 
 let currentUser = null
@@ -346,10 +348,6 @@ function removeSentMessage(e){
 	if(e.target.classList.contains('delete')){
 		//DOM remove
 		const messageToRemove = e.target.parentElement.parentElement.parentElement;
-		// log(messageToRemove);
-		// const html = document.getElementById("sendBoxToEmail");
-		// let email = html.textContent;
-		// log(email.slice(4, email.length));
 		const title = document.getElementById("sendBoxToEmail").textContent;
 		const to_email = title.slice(4, title.length);
 		sentMessage.removeChild(messageToRemove);
@@ -365,6 +363,54 @@ function removeSentMessage(e){
         },});
 
         fetch(request).then(alert("Deleted!")).catch((error) => log(error))
+	}
+}
+
+function declineTrade(e){
+	e.preventDefault();
+
+	if(e.target.classList.contains('decline')){
+		//DOM remove
+		const messageToRemove = e.target.parentElement.parentElement.parentElement;
+		const title = document.getElementById("inBoxFromEmailTrade").textContent;
+		const from_email = title.slice(6, title.length);
+		inboxMessages.removeChild(messageToRemove);
+
+		//DB remove
+		const current_email = currentUser.email;
+		const url = '/api/message/employees/inbox/' + current_email + '/' + from_email;
+
+        const request = new Request(url, {method: 'delete',         
+        	headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },});
+
+        fetch(request).then(alert("Declined the trading request!")).catch((error) => log(error))
+	}
+}
+
+function accpetTrade(e){
+	e.preventDefault();
+
+	if(e.target.classList.contains('accpet')){
+		//DOM remove
+		const messageToRemove = e.target.parentElement.parentElement.parentElement;
+		const title = document.getElementById("sendBoxToEmail").textContent;
+		const to_email = title.slice(4, title.length);
+		sentMessage.removeChild(messageToRemove);
+
+		//DB remove
+		const current_email = currentUser.email;
+		const url = '/api/message/employees/sent/' + current_email + '/' + to_email;
+
+        const request = new Request(url, {method: 'delete',         
+        	headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },});
+
+        //fetch(request).then(alert("Deleted!")).catch((error) => log(error))
 	}
 }
 
