@@ -8,8 +8,6 @@ class Employer {
 		this.email = email
 		this.phone = phone
 		this.companyName = companyName
-    this.messagesSend = []
-    this.messagesRecived = []
 	}
 
 	toReqBody() {
@@ -38,11 +36,13 @@ class Employer {
 }
 
 
-class employerMessage {
-  constructor(from, to, message){
-    this.from = from
-    this.to = to
-    this.message = message
-  }
 
+/*
+  This function converts the response json representative of Employee from
+  server to a corresponding Employee object.
+  Returns an employee object
+*/
+function convertToEmployer(json) {
+  const emp = new Employer(json.name, json.password, json.email, json.phone, json.companyName)
+  return emp
 }
