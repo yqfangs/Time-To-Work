@@ -32,16 +32,15 @@ function saveUserInfo(e) {
 
             const type = getUrlParameter('type')
             const user = {}
-            if (type === 'employerTable') {
-                user.name = document.querySelector(('#name')).value
-                user.password = document.querySelector(('#password')).value
-                user.email = document.querySelector(('#email')).value
-            } else if (type === 'employeeTable') {
-                user.name = document.querySelector(('#name')).value
-                user.password = document.querySelector(('#password')).value
-                user.email = document.querySelector(('#email')).value
+            user.name = document.querySelector(('#name')).value
+            user.email = document.querySelector(('#email')).value
+            user.phone = document.querySelector(('#phone')).value
+            if (type === 'employeeTable') {
                 user.position = document.querySelector(('#position')).value
                 user.phone = document.querySelector(('#phone')).value
+            }
+            if (document.querySelector(('#password')).value !== "") {
+                user.password = document.querySelector(('#password')).value
             }
 
             updateUser(user, "SAVE").then(
@@ -111,7 +110,7 @@ async function fetchEmployer(email) {
 
     return new Employer(
         employer.name, 
-        employer.password, 
+        "", 
         employer.email, 
         employer.phone, 
         employer.companyName)
@@ -135,7 +134,7 @@ async function fetchEmployee(email) {
 
     return new Employee(
         employee.name, 
-        employee.password, 
+        "", 
         employee.email, 
         employee.position, 
         employee.phone, 
@@ -188,6 +187,7 @@ function displayEmployerInfo(user) {
     const container = document.querySelector('.infoContainer')
     appendEditableInfo('Name: ', user.name, container, 'name')
     appendEditableInfo('Password: ', user.password, container, 'password')
+    appendEditableInfo('Phone: ', user.phone, container, 'phone')
     appendEditableInfo('Email: ', user.email, container, 'email')
     appendFixedInfo('Company Name: ', user.companyName, container, 'companyName')
 }
@@ -221,10 +221,16 @@ function checkEmployee() {
 
     //empty inputs
 
-    if ((name && userEmail && userPhoneNum && userPosition && userPwd) === "") {
+    if ((name && userEmail && userPhoneNum && userPosition) === "") {
         alert("Please fill all the information")
         return false
     }
+
+    if (userPwd !== "" & userPwd.length != 6) {
+        alert("Enter valid password")
+        return false
+    }
+
 
     // check correctness
     if (userEmail.indexOf('@') == -1) {
@@ -239,11 +245,17 @@ function checkEmployer() {
     let name = document.querySelector('#name').value
     let userEmail = document.querySelector('#email').value
     let userPwd = document.querySelector('#password').value
+    let userPhoneNum = document.querySelector('#phone').value
 
     //empty inputs
 
-    if ((name && userEmail && userPwd) === "") {
+    if ((name && userEmail) === "") {
         alert("Please fill all the information")
+        return false
+    }
+
+    if (userPwd !== "" & userPwd.length != 6) {
+        alert("Enter valid password (length of 6)")
         return false
     }
 
@@ -251,6 +263,11 @@ function checkEmployer() {
     if (userEmail.indexOf('@') == -1) {
         document.getElementById("email").value = ""
         alert("Please enter valid email address")
+        return false
+    }
+    
+    if(userPhoneNum.length !== 10) {
+        alert("Please enter valid phone number")
         return false
     }
     return true

@@ -56,8 +56,7 @@ function convertToEmployee(json) {
     return convertToTimeInterval(int)
   })
 
-  emp.messagesSend = json.messagesSend;
-  emp.messagesRecived = json.messagesRecived;
+  emp.messages = json.messages;
   return emp
 }
 

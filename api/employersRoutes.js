@@ -19,7 +19,7 @@ router.get('/by_company/:company',  (req, res) => {
 router.patch('/email/:email', (req, res) => {
     const email = req.params.email
     const mode = req.body.mode
-    const employee = req.body.user
+    const employer = req.body.user
     if (mode === "DELETE") {
         Employer.deleteOne({
             email: email
@@ -32,7 +32,7 @@ router.patch('/email/:email', (req, res) => {
         Employer.findOneAndUpdate({
             email: email
         }, 
-        employee, 
+        employer, 
         (err, doc) => {
             if (!doc) res.status(500).send(err)
             else res.send(doc)

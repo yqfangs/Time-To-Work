@@ -17,7 +17,7 @@ function addNewEmployer(e) {
             '000000',
             document.querySelector('#email').value,
             '1234567890',
-            document.querySelector('#company').value,
+            document.querySelector('#phone').value,
         )
 
         addEmployer(employer)
@@ -75,8 +75,8 @@ function addEmployerToEmployerTable(employer) {
     const tableRow = document.createElement('tr')
 
     const attributes = 
-        (({name, email, companyName, ..._}) => {
-       return {name, email, companyName}
+        (({name, email, phone, ..._}) => {
+       return {name, email, phone}
     })(employer)
 
     appendAllAttributesToRow(attributes, tableRow);
