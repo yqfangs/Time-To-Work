@@ -77,7 +77,7 @@ async function addCompany(company) {
         if (res.ok) {
             addCompanyToCompanyTable(company)
         } else {
-            alert('Add failed')
+            alert('Add failed (Duplicated Company Name)')
         }
     })
 }
