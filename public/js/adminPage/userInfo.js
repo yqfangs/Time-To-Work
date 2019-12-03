@@ -34,6 +34,7 @@ function saveUserInfo(e) {
             const user = {}
             user.name = document.querySelector(('#name')).value
             user.email = document.querySelector(('#email')).value
+            user.phone = document.querySelector(('#phone')).value
             if (type === 'employeeTable') {
                 user.position = document.querySelector(('#position')).value
                 user.phone = document.querySelector(('#phone')).value
@@ -186,6 +187,7 @@ function displayEmployerInfo(user) {
     const container = document.querySelector('.infoContainer')
     appendEditableInfo('Name: ', user.name, container, 'name')
     appendEditableInfo('Password: ', user.password, container, 'password')
+    appendEditableInfo('Phone: ', user.phone, container, 'phone')
     appendEditableInfo('Email: ', user.email, container, 'email')
     appendFixedInfo('Company Name: ', user.companyName, container, 'companyName')
 }
@@ -243,6 +245,7 @@ function checkEmployer() {
     let name = document.querySelector('#name').value
     let userEmail = document.querySelector('#email').value
     let userPwd = document.querySelector('#password').value
+    let userPhoneNum = document.querySelector('#phone').value
 
     //empty inputs
 
@@ -252,7 +255,7 @@ function checkEmployer() {
     }
 
     if (userPwd !== "" & userPwd.length != 6) {
-        alert("Enter valid password")
+        alert("Enter valid password (length of 6)")
         return false
     }
 
@@ -260,6 +263,11 @@ function checkEmployer() {
     if (userEmail.indexOf('@') == -1) {
         document.getElementById("email").value = ""
         alert("Please enter valid email address")
+        return false
+    }
+    
+    if(userPhoneNum.length !== 10) {
+        alert("Please enter valid phone number")
         return false
     }
     return true
