@@ -71,12 +71,12 @@ router.post('/', (req, res) => {
 
     // Save the Employee
     employee.save().then((employee) => {
-        log('alright')
         res.redirect('/login')
         // res.send(employee)
     }, (error) => {
         //res.redirect('/signup')
-        log('here')
+        //log('here')
+        log(error)
         res.status(400).redirect('/signup') // 400 for bad request
     })
 })

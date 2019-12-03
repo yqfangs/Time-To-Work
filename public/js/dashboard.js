@@ -16,6 +16,7 @@ window.addEventListener('load', loadCurrentUser);
 
 function loadCurrentUser(){
   // load personal info from server
+  log("js" + req.session.user)
     const url = '/api/dashboard'
     fetch(url)
     .then((res) => {
