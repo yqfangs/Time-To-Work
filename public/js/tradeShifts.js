@@ -163,7 +163,7 @@ function updateList() {
       if (!cw.availability[mySelectedDay]) {
         return false
       }
-      if (compareIntervals(cw.availability[mySelectedDay], currUser.shifts[mySelectedDay])) {
+      if (compareIntervals(cw.availability[mySelectedDay], currUser.shifts[mySelectedDay]) && !cw.shifts[mySelectedDay]) {
         return cw.name != currUser.name
       }
     });
