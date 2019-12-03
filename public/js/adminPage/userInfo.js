@@ -32,16 +32,14 @@ function saveUserInfo(e) {
 
             const type = getUrlParameter('type')
             const user = {}
-            if (type === 'employerTable') {
-                user.name = document.querySelector(('#name')).value
-                user.password = document.querySelector(('#password')).value
-                user.email = document.querySelector(('#email')).value
-            } else if (type === 'employeeTable') {
-                user.name = document.querySelector(('#name')).value
-                user.password = document.querySelector(('#password')).value
-                user.email = document.querySelector(('#email')).value
+            user.name = document.querySelector(('#name')).value
+            user.email = document.querySelector(('#email')).value
+            if (type === 'employeeTable') {
                 user.position = document.querySelector(('#position')).value
                 user.phone = document.querySelector(('#phone')).value
+            }
+            if (document.querySelector(('#password')).value !== "") {
+                user.password = document.querySelector(('#password')).value
             }
 
             updateUser(user, "SAVE").then(
@@ -111,7 +109,7 @@ async function fetchEmployer(email) {
 
     return new Employer(
         employer.name, 
-        employer.password, 
+        "", 
         employer.email, 
         employer.phone, 
         employer.companyName)
@@ -135,7 +133,7 @@ async function fetchEmployee(email) {
 
     return new Employee(
         employee.name, 
-        employee.password, 
+        "", 
         employee.email, 
         employee.position, 
         employee.phone, 
@@ -221,10 +219,16 @@ function checkEmployee() {
 
     //empty inputs
 
-    if ((name && userEmail && userPhoneNum && userPosition && userPwd) === "") {
+    if ((name && userEmail && userPhoneNum && userPosition) === "") {
         alert("Please fill all the information")
         return false
     }
+
+    if (userPwd !== "" & userPwd.length != 6) {
+        alert("Enter valid password")
+        return false
+    }
+
 
     // check correctness
     if (userEmail.indexOf('@') == -1) {
@@ -242,8 +246,13 @@ function checkEmployer() {
 
     //empty inputs
 
-    if ((name && userEmail && userPwd) === "") {
+    if ((name && userEmail) === "") {
         alert("Please fill all the information")
+        return false
+    }
+
+    if (userPwd !== "" & userPwd.length != 6) {
+        alert("Enter valid password")
         return false
     }
 

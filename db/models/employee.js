@@ -106,6 +106,20 @@ EmployeeSchema.pre('save', function(next) {
 	}
 })
 
+EmployeeSchema.pre('findOneAndUpdate', function(next) {
+	const update = this.getUpdate();
+	if (update.password) {
+		bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
+		bcrypt.hash(update.password, salt, (err, hash) => {
+			this.getUpdate().password = hash;
+			next();
+		})
+	})
+	} else {
+		next();
+	}
+})
+
 EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 	const Employee = this
 
