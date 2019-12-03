@@ -41,7 +41,9 @@ body {
 	/* Add properties below */
 	border-radius: 50%;
 	width: 200px;
+	height: 200px;
 	border: solid white;
 	position: absolute;
 
 }
+

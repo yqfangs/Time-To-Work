@@ -16,13 +16,14 @@
   const modal = document.querySelector('#modal');
 
   const uploadPicture = document.querySelector('#uploadPicture');
-  uploadPicture.addEventListener('submit', changeProfilePic);
+  //uploadPicture.addEventListener('submit', changeProfilePic);
 
   const sidebar = document.querySelector('#sidebar');
   window.addEventListener('load', modifySideBar(currentUser));
 
   const personalInfo = document.querySelector('#personalInfo');
   window.addEventListener('load', loadPersonalInfo);
+  window.addEventListener('load', loadProfilePic);
 
   function loadPersonalInfo(e){
       
@@ -109,8 +110,7 @@
     fetch(request)
     .then((res) => {
         if(res.status === 200){
-            //successChange();
-            failChange();
+            successChange();
         }else{
             failChange();
         }
@@ -154,12 +154,22 @@
     window.location.reload()
   }
 
-  function changeProfilePic(e){
+  function loadProfilePic(e){
     e.preventDefault();
-    var file = document.getElementById("myPic").files[0];
-    //upload the change to the server
-    log(file.name)
-    document.getElementById("pic").src = file.name;
+    const url = '/api/upload'
+    fetch(url)
+    .then((res) => {
+        if(res.status === 200){
+            return res.json()
+        }else{
+            log('error')
+        }
+    })
+    .then((json) =>{
+        document.getElementById("pic").src = json.path;
+    })
+    // const file = document.getElementById("myPic").files[0];
+    // // //upload the change to the server
 
   }
 

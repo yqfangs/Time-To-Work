@@ -53,6 +53,13 @@ function checkSignUpValid(){
 	}
 	//let position = document.querySelector('#selectPosition').value;
 
+	//email address not valid
+	if(signupemail.indexOf('@') === -1){
+		document.getElementById("email").value = "";
+		alert("Please enter valid email address");
+		return false;
+	}
+	
 	//company not exist
 	// if(!checkCompanyExist(allCompanies)){
 	// 	document.getElementById("company").value = "";
@@ -69,13 +76,6 @@ function checkSignUpValid(){
 	}
 	//alert(`Sign Up Successfully as Employee.\nName: ${newUser.name}\nEmail: ${newUser.email}\nuserID: ${newUser.userID}\nCompany: ${newUser.companyName}\nPosition: ${newUser.position}`)
 	//alert(`Sign Up Successfully`);
-
-	// //email address not valid
-	// if(signupemail.indexOf('@') === -1){
-	// 	document.getElementById("email").value = "";
-	// 	alert("Please enter valid email address");
-	// 	return false;
-	// }
 
 	// newUser = new Employee(name, signuppassword, signupemail, position, phone, company);
 	// allEmployees.push(newUser)
