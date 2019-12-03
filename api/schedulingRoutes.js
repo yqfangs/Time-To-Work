@@ -4,7 +4,7 @@ const router = express.Router();
 const { Employee } = require('../db/models/employee')
 const { Employer } = require('../db/models/employer')
 const { Company } = require('../db/models/company')
-const { server_helper } = require('../server_helper.js')
+const { server_helper } = require('../api/server_helper.js')
 
 const authenticate = (req, res, next) => {
 	if (req.session.user) {

@@ -10,7 +10,7 @@ const bodyParser = require('body-parser')
 const { User } = require('./db/models/user')
 const { Employer } = require('./db/models/employer')
 const session = require('express-session')
-const { server_helper } = require('./server_helper.js')
+const { server_helper } = require('./api/server_helper.js')
 const upload = require('./api/uploadRoutes.js')
 
 // starting the express server
