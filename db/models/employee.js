@@ -125,7 +125,8 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 
 	return Employee.findOne({ email: email }).then((employee) => {
 		if (!employee) {
-			return Promise.reject()  // a rejected promise
+			return employee
+			//return Promise.reject("No matching email")  // a rejected promise
 		}
 		return new Promise((resolve, reject) => {
 			bcrypt.compare(password, employee.password, (err, result) => {

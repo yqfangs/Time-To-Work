@@ -8,6 +8,7 @@ const { Employee } = require('./db/models/employee')
 const { ObjectID } = require('mongodb')
 const bodyParser = require('body-parser') 
 const { User } = require('./db/models/user')
+const { Employer } = require('./db/models/employer')
 const session = require('express-session')
 const { server_helper } = require('./server_helper.js')
 
@@ -42,7 +43,7 @@ const sessionChecker = (req, res, next) => {
 };
 
 // A route to login and create a session
-app.post('/employees/login', (req, res) => {
+app.post('/login', (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
@@ -54,18 +55,50 @@ app.post('/employees/login', (req, res) => {
         // by their email and password
         Employee.findByEmailPassword(email, password).then((employee) => {
             if (!employee) {
-                res.redirect('/login');
+                Employer.findByEmailPassword(email, password).then((employer) => {
+                    if (!employer) {
+                        log("no such employer")
+                        res.redirect('/login');
+                    } else {
+                // Add the user's id to the session cookie.
+                // We can check later if this exists to ensure we are logged in.
+                        req.session.user = employer._id;
+                        req.session.type = "employer"
+                        log(req.session.type)
+                        console.log(employer._id)
+                        res.redirect('/dashboard');
+                    }
+                 }).catch((error) => {
+                    log(error)
+                    res.status(400).redirect('/login');
+                 })
             } else {
                 // Add the user's id to the session cookie.
                 // We can check later if this exists to ensure we are logged in.
+                log("found employee")
                 req.session.user = employee._id;
+                req.session.type = "employee"
                 console.log(employee._id)
                 res.redirect('/dashboard');
             }
         }).catch((error) => {
-            log('login '+ error)
+            log("employee " + error)
             res.status(400).redirect('/login');
         })
+        // Employer.findByEmailPassword(email, password).then((employer) => {
+        //     if (!employer) {
+        //         res.redirect('/login');
+        //     } else {
+        //         // Add the user's id to the session cookie.
+        //         // We can check later if this exists to ensure we are logged in.
+        //         req.session.user = employer._id;
+        //         console.log(employer._id)
+        //         res.redirect('/dashboard');
+        //     }
+        // }).catch((error) => {
+        //     log('login '+ error)
+        //     res.status(400).redirect('/login');
+        // })
 
     }
 })
