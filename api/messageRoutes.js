@@ -244,4 +244,64 @@ router.delete('/employees/inbox/:current_email/:from_email', (req, res) => {
 	})
 })
 
+/// Route for decline trade message on inbox
+router.delete('/employees/inbox/trade/:current_email/:from_email', (req, res) => {
+
+	const current_email = req.params.current_email;
+	const from_email = req.params.from_email;
+
+	Employee.findOne({ email: current_email }).then((employee) => {
+		if(!employee){
+			res.status(404).send()
+		}else{
+			if(employee.messages.length === 0){
+				res.status(404).send()
+			}else{
+				let flag = false;
+				let list_cpy = employee.messages;
+				for(let i = 0; i < employee.messages.length; i++){
+					if(employee.messages[i].from === from_email){
+						list_cpy.splice(i, 1);
+						flag = true;
+						break;
+					}
+				}
+				//not find same from email
+				if(flag === false){
+					res.status(500).send("not such email")
+				}else{
+					employee.messages = list_cpy;
+				}
+			}
+			employee.save().then((result) => {
+				res.send(result)
+			}, (error) => {
+				res.status(500).send(error)
+			})
+		}
+	}, (error) => {
+		res.status(500).send(error)
+	})
+
+	Employee.findOne({ email: from_email }).then((employeeFrom) => {
+		if(!employeeFrom){
+			res.status(404).send()
+		}else{
+			if(employeeFrom.messages.length === 0){
+				res.status(404).send()
+			}else{
+				for(let j = 0; j < employeeFrom.messages.length; j++){
+					if(employeeFrom.messages[j].from === from_email){
+						employeeFrom.messages[j].tradeResponse = 'D';
+						break;
+					}
+				}
+			}
+			employeeFrom.save().then((result) => {
+				res.send(result)
+			}, (error) => {res.status(500).send(error)})
+		}
+	}, (error) => {res.status(500).send(error)})
+})
+
 module.exports = router;

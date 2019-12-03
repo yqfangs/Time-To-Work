@@ -234,7 +234,6 @@ function loadMessage(e){
 	        			const startTime = currentMessage.tradeTime.start;
 	        			const endTime = currentMessage.tradeTime.end;
 	        			let dateTime = "";
-	        			log(currentMessage.tradeWeekDay)
 	        			if(currentMessage.tradeWeekDay === 0){
 	        				dateTime = "Monday"
 	        			}
@@ -282,27 +281,26 @@ function loadMessage(e){
 						const messageTextNode = document.createTextNode("Changing shifts request:[From: " + startTime + ", To: " + endTime + ", On: " + dateTime + "]");
 						messageP.appendChild(messageTextNode);
 						listA.appendChild(messageP);
-						// const buttonSmall = document.createElement('small');
-						// const button = document.createElement('button');
-						// button.setAttribute("type", "button");
-						// button.classList.add("btn");
-						// button.classList.add("btn-success");
-						// button.classList.add("accept");
-						// const buttonTextNode = document.createTextNode("Accept");
-						// button.appendChild(buttonTextNode);
-						// buttonSmall.appendChild(button);
-						// const buttonSmall1 = document.createElement('small');
-						// const button1 = document.createElement('button');
-						// button1.setAttribute("type", "button");
-						// button1.classList.add("btn");
-						// button1.classList.add("btn-secondary");
-						// button1.classList.add("decline");
-						// const buttonTextNode1 = document.createTextNode("Decline");
-						// button1.appendChild(buttonTextNode1);
-						// buttonSmall1.appendChild(button1);
-
-						// listA.appendChild(buttonSmall);
-						// listA.appendChild(buttonSmall1);
+						//<span class="badge badge-primary">Waiting for response</span>
+						//<span class="badge badge-success">Accpeted</span>
+						//<span class="badge badge-secondary">Declined</span>
+						const span = document.createElement('span');
+						span.classList.add("badge")
+						let badgeTextNode = document.createTextNode("");
+						if(currentMessage.tradeResponse === 'W'){
+							span.classList.add("badge-primary")
+							badgeTextNode = document.createTextNode("Waiting for response");
+						}
+						if(currentMessage.tradeResponse === 'A'){
+							span.classList.add("badge-success")
+							badgeTextNode = document.createTextNode("Accpetec");
+						}
+						if(currentMessage.tradeResponse === 'D'){
+							span.classList.add("badge-secondary")
+							badgeTextNode = document.createTextNode("Declined");
+						}
+						span.appendChild(badgeTextNode);
+						listA.appendChild(span);
 						listGroup.appendChild(listA);
 
 						sentMessage.appendChild(listGroup);
@@ -378,7 +376,7 @@ function declineTrade(e){
 
 		//DB remove
 		const current_email = currentUser.email;
-		const url = '/api/message/employees/inbox/' + current_email + '/' + from_email;
+		const url = '/api/message/employees/inbox/trade/' + current_email + '/' + from_email;
 
         const request = new Request(url, {method: 'delete',         
         	headers: {
