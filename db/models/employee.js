@@ -140,25 +140,6 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 	})
 }
 
-EmployeeSchema.statics.findByEmailName = function(email, name) {
-	const Employee = this
-
-	return Employee.findOne({ email: email }).then((employee) => {
-		if (!employee) {
-			return Promise.reject()  // a rejected promise
-		}
-		return new Promise((resolve, reject) => {
-			bcrypt.compare(name, employee.name, (err, result) => {
-				if (result) {
-					resolve(employee)
-				} else {
-					reject()
-				}
-			})
-		})
-	})
-}
-
 // make a model using the User schema
 const Employee = mongoose.model('Employee', EmployeeSchema)
 const MessageEmployee = mongoose.model('MessageEmployee', MessageEmployeeSchema)

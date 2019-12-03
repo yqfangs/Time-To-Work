@@ -16,7 +16,6 @@ window.addEventListener('load', loadCurrentUser);
 
 function loadCurrentUser(){
   // load personal info from server
-  log("js" + req.session.user)
     const url = '/api/dashboard'
     fetch(url)
     .then((res) => {
@@ -27,8 +26,11 @@ function loadCurrentUser(){
         }
     })
     .then((json) => {
-        currentUser = convertToEmployee(json)
-        //log(currentUser)
+    	if(json.type == "employer"){
+    		currentUser = convertToEmployer(json.employer)
+    	}else if(json.type == "employee"){
+    		currentUser = convertToEmployee(json.employee)
+    	}
         loadSchedule();
         loadHourTable();
         modifySideBar(currentUser)
@@ -40,7 +42,6 @@ function loadCurrentUser(){
 }
 
 function loadSchedule(){
-	log('im here')
   const url = '/api/employees/by_company/' + currentUser.companyName
   fetch(url)
   .then((res) => {

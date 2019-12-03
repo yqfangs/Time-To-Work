@@ -220,11 +220,85 @@ function loadMessage(e){
 						listA.appendChild(buttonSmall1);
 						listGroup.appendChild(listA);
 
-						sentMessage.appendChild(listGroup);
+						inboxMessages.appendChild(listGroup);
 	        		}
 	        		//add to sent
 	        		else if(currentMessage.from === currentUser.email){
+	        			const email = currentMessage.to;
+	        			const startTime = currentMessage.tradeTime.start;
+	        			const endTime = currentMessage.tradeTime.end;
+	        			let dateTime = "";
+	        			log(currentMessage.tradeWeekDay)
+	        			if(currentMessage.tradeWeekDay === 0){
+	        				dateTime = "Monday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 1){
+	        				dateTime = "Tuesday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 2){
+	        				dateTime = "Wednesday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 3){
+	        				dateTime = "Thursday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 4){
+	        				dateTime = "Friday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 5){
+	        				dateTime = "Saturday"
+	        			}
+	        			else if(currentMessage.tradeWeekDay === 6){
+	        				dateTime = "Sunday"
+	        			}
 
+						const listGroup = document.createElement('div');
+						listGroup.classList.add("list-group");
+						const listA = document.createElement('a');
+						listA.classList.add("list-group-item");
+						listA.classList.add("list-group-item-action");
+						listA.classList.add("flex-column");
+						listA.classList.add("align-items-start");
+						const titleDiv = document.createElement('div');
+						titleDiv.classList.add("d-flex");
+						titleDiv.classList.add("w-100");
+						titleDiv.classList.add("justify-content-between");
+						const titleh5 = document.createElement('h5');
+						titleh5.classList.add("mb-1");
+						const nameTextNode = document.createTextNode("To: ");
+						const emailTextNode = document.createTextNode(email);
+						titleh5.appendChild(nameTextNode);
+						titleh5.appendChild(emailTextNode);
+						titleDiv.appendChild(titleh5);
+						listA.appendChild(titleDiv);
+						const messageP = document.createElement('p');
+						messageP.classList.add("mb-1");
+						const messageTextNode = document.createTextNode("Changing shifts request:[From: " + startTime + ", To: " + endTime + ", On: " + dateTime + "]");
+						messageP.appendChild(messageTextNode);
+						listA.appendChild(messageP);
+						// const buttonSmall = document.createElement('small');
+						// const button = document.createElement('button');
+						// button.setAttribute("type", "button");
+						// button.classList.add("btn");
+						// button.classList.add("btn-success");
+						// button.classList.add("accept");
+						// const buttonTextNode = document.createTextNode("Accept");
+						// button.appendChild(buttonTextNode);
+						// buttonSmall.appendChild(button);
+						// const buttonSmall1 = document.createElement('small');
+						// const button1 = document.createElement('button');
+						// button1.setAttribute("type", "button");
+						// button1.classList.add("btn");
+						// button1.classList.add("btn-secondary");
+						// button1.classList.add("decline");
+						// const buttonTextNode1 = document.createTextNode("Decline");
+						// button1.appendChild(buttonTextNode1);
+						// buttonSmall1.appendChild(button1);
+
+						// listA.appendChild(buttonSmall);
+						// listA.appendChild(buttonSmall1);
+						listGroup.appendChild(listA);
+
+						sentMessage.appendChild(listGroup);
 	        		}
 	        	}
 	        }

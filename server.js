@@ -85,20 +85,6 @@ app.post('/login', (req, res) => {
             log("employee " + error)
             res.status(400).redirect('/login');
         })
-        // Employer.findByEmailPassword(email, password).then((employer) => {
-        //     if (!employer) {
-        //         res.redirect('/login');
-        //     } else {
-        //         // Add the user's id to the session cookie.
-        //         // We can check later if this exists to ensure we are logged in.
-        //         req.session.user = employer._id;
-        //         console.log(employer._id)
-        //         res.redirect('/dashboard');
-        //     }
-        // }).catch((error) => {
-        //     log('login '+ error)
-        //     res.status(400).redirect('/login');
-        // })
 
     }
 })
