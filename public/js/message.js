@@ -149,27 +149,28 @@ function loadMessage(e){
 	        			const email = currentMessage.from;
 	        			const startTime = currentMessage.tradeTime.start;
 	        			const endTime = currentMessage.tradeTime.end;
-	        			const dateTime = "";
+	        			let dateTime = "";
+	        			log(currentMessage.tradeWeekDay)
 	        			if(currentMessage.tradeWeekDay === 0){
-	        				const dateTime = "Monday"
+	        				dateTime = "Monday"
 	        			}
 	        			else if(currentMessage.tradeWeekDay === 1){
-	        				const dateTime = "Tuesday"
+	        				dateTime = "Tuesday"
 	        			}
 	        			else if(currentMessage.tradeWeekDay === 2){
-	        				const dateTime = "Wednesday"
+	        				dateTime = "Wednesday"
 	        			}
 	        			else if(currentMessage.tradeWeekDay === 3){
-	        				const dateTime = "Thursday"
+	        				dateTime = "Thursday"
 	        			}
 	        			else if(currentMessage.tradeWeekDay === 4){
-	        				const dateTime = "Friday"
+	        				dateTime = "Friday"
 	        			}
 	        			else if(currentMessage.tradeWeekDay === 5){
-	        				const dateTime = "Saturday"
+	        				dateTime = "Saturday"
 	        			}
 	        			else if(currentMessage.tradeWeekDay === 6){
-	        				const dateTime = "Sunday"
+	        				dateTime = "Sunday"
 	        			}
 
 						const listGroup = document.createElement('div');
