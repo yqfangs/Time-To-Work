@@ -36,6 +36,12 @@ function onDetailsClick(e) {
     }
 }
 
+function logOut(e) {
+    if (e.target.classList.contains('logout')){
+        window.location.href="/employee/logout"
+    }
+}
+
 /////////////////////////////
 /// component creation
 /////////////////////////////
@@ -211,6 +217,8 @@ function getUserObject(company) {
         return company.employees.find(u => id == u.userID)
     }
 }
+
+
 /////////////////////////////
 /// Init page
 /////////////////////////////
@@ -219,7 +227,10 @@ function getUserObject(company) {
 function initPage() {
     const employerAddForm = document.getElementById('employerAddForm')
     const employerTable = document.getElementById('employerTable')
+    const logout = document.querySelector('.logout')
+
     employerAddForm.addEventListener('submit', addNewEmployer)
+    logout.addEventListener('click', logOut)
 
     fetchEmployees().then(employees => {
         employees.forEach((e) => {
