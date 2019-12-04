@@ -1,9 +1,6 @@
  # team39
 This website is optimizing the process of scheduling work shifts.
-<br>
-Notice that the pages are implemented separately but all depending on the mock data provided by MockData.js. This means that all changes made on one page will not be reflected on the other ones.
-<br>
-If you want to test out the webpages as a specific person (employee or employer), please head to the bottom of MockData.js and change the current_user attribute to another employee or employer object.
+The goal of our web app is to optimize the management of a small business, with focus on arranging work shifts of employees. The app acts as an interface between workers and their manager, as well as between coworker. This is demonstrated by functionalities such as scheduling shifts (as a manager) and trading shifts (with your fellow workers as an employee).
 <br>
 <ul>
 <li><strong>Log In Page:</strong>
@@ -27,10 +24,10 @@ In admin page, you can add companies into the table which contains existing page
 <li><strong>Submit Availability Page: </strong>
 <ul>
 <li> Log in as an employee to gain access to this page on the side menu bar. </li>
-<li> The currentUser attribute should be the same as other pages. However, we changed it to an employee so that the page can be displayed normally. (currentUser is an employer by default) </li>
 <li> Select the day of week you wish to change available work time with the grey button. </li>
-<li> Input a valid interval of available work time and submit. </li>
-<li> Successful changes can be observed by inspecting the corresponding employee object in console. </li>
+<li> Input a valid interval of available work time (within the open hours of your workplace) and click change. </li>
+<li> After changing the availability of the week, click "submit all changes" button to submit you new availability to the server via a PATCH request. </li>
+<li> A dialog box will pop up to indicate that the submission is either successful or failed. </li>
 </ul>
 </li>
 <li><strong>Scheduling Page: </strong>
@@ -39,8 +36,14 @@ In admin page, you can add companies into the table which contains existing page
 <li> Select the day of week you wish to schedule shifts on the upper left. </li>
 <li> Click on names of employees in the Daily Schedule table in order to modify their shift time or remove the shift</li>
 <li> Click on names of employees in the Availability table in order to view their status and add them to the shift schedule. </li>
-<li> Successful changes can be observed by inspecting the corresponding employee object in console. ("myEmployees" attribute) </li>
+<li> PATCH requests to server are made upon adding, removing, or modifying a shift of an employee. </li>
+<li> A dialog will pop up to show if the change is successfully submitted to the server. </li>
 </ul>
 </li>
-
+<li><strong>Trade Shifts Page: </strong>
+<ul>
+<li> Log in as an employee to gain access to this page. </li>
+<li> Select your own time slots on the left and the available coworkers for trading shifts will be displayed on the right.</li>
+<li> Match up with the coworker you could trade with, press request to review, then press confirm to submit a trade request to the server via a POST request. </li>
+</ul>
 </ul>
