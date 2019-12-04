@@ -20,9 +20,10 @@ sendNewMessageButton.addEventListener("click", addSentMessage);
 
 const sentForm = document.querySelector('#sent');
 
-const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
-const messageInput = document.querySelector('#message');
+const messageInput = document.querySelector('#messageText');
+
+let flag = false;
 
 
 function loadMessage(e){
@@ -433,11 +434,11 @@ function addSentMessage(e){
 		return false;
 	}
 	let recipientEmail = document.getElementById("email").value;
-	if(document.getElementById("message").value === null || document.getElementById("message").value === ""){
+	if(document.getElementById("messageText").value === null || document.getElementById("messageText").value === ""){
 		alert("You can not sent empty message");
 		return false;
 	}
-	let sentMessage = document.getElementById("message").value;
+	let sentMessage = document.getElementById("messageText").value;
 
 	//not valid email address
 	if(recipientEmail.indexOf('@') === -1){
@@ -452,98 +453,7 @@ function addSentMessage(e){
 		return false;
 	}
 
-	if(!checkEmailExist(recipientEmail)){
-		log(checkEmailExist(recipientEmail))
-		document.getElementById("email").value = "";
-		alert("Employee not exist by the email your enter");
-		return false;
-	}
-
-		const email = document.querySelector('#email').value;
-		const message = document.querySelector('#message').value;
-
-	    //DOM
-		const listGroup = document.createElement('div');
-		listGroup.classList.add("list-group");
-		const listA = document.createElement('a');
-		listA.classList.add("list-group-item");
-		listA.classList.add("list-group-item-action");
-		listA.classList.add("flex-column");
-		listA.classList.add("align-items-start");
-		const titleDiv = document.createElement('div');
-		titleDiv.classList.add("d-flex");
-		titleDiv.classList.add("w-100");
-		titleDiv.classList.add("justify-content-between");
-		const titleh5 = document.createElement('h5');
-		titleh5.classList.add("mb-1");
-		titleh5.setAttribute("id", "sendBoxToEmail");
-		const nameTextNode = document.createTextNode("To: ");
-		const emailTextNode = document.createTextNode(email);
-		titleh5.appendChild(nameTextNode);
-		titleh5.appendChild(emailTextNode);
-		titleDiv.appendChild(titleh5);
-		listA.appendChild(titleDiv);
-		const messageP = document.createElement('p');
-		messageP.classList.add("mb-1");
-		messageP.setAttribute("id", "sendBoxRugularMes");
-		const messageTextNode = document.createTextNode(message);
-		messageP.appendChild(messageTextNode);
-		listA.appendChild(messageP);
-		const buttonSmall = document.createElement('small');
-		const button = document.createElement('button');
-		button.setAttribute("type", "button");
-		button.classList.add("btn");
-		button.classList.add("btn-secondary");
-		button.classList.add("delete");
-		const buttonTextNode = document.createTextNode("Delete Message");
-		button.appendChild(buttonTextNode);
-		buttonSmall.appendChild(button);
-		listA.appendChild(buttonSmall);
-		listGroup.appendChild(listA);
-
-		sentForm.appendChild(listGroup);
-
-		// now let's send to server
-
-		// the URL for the request
-	    const url = '/api/message/employees/newRegularMessage'
-
-	    // The data we are going to send in our request
-	    let data = {
-	      from: currentUser.email,
-	      to: email,
-	      message: message,
-	    }
-
-	    // Create our request constructor with all the parameters we need
-	    const request = new Request(url, {
-	      method: 'post',
-	      body: JSON.stringify(data),
-	      headers: {
-	            'Accept': 'application/json, text/plain, */*',
-	            'Content-Type': 'application/json'
-	        },
-	    })
-
-	    // Send the request with fetch()
-	    fetch(request)
-	    .then((res) => {
-	      if (res.status === 200) {
-	      	document.getElementById("messageText").value = "";
-			document.getElementById("email").value = "";
-	        alert("Message Send!")
-	      }
-	      else {
-	        return Promise.reject()
-	      }
-	    }).catch((error) => {log(error)})
-
-	    return true;
-}
-
-function checkEmailExist(rec_email){
 	const url = '/api/message/employees/';
-	let flag = false;
 	fetch(url).then((result) => {
 		if(result.status === 200){
 			return result.json()
@@ -551,15 +461,99 @@ function checkEmailExist(rec_email){
 			log('error')
 		}
 	}).then((json) => {
+		let flag = false;
 		for(let i = 0; i < json.length; i++){
-			if(json[i].email === rec_email){
+			if(json[i].email === recipientEmail){
 				flag = true;
-				log(flag)
-				break;
-			}
+				//if email exist
+				const email = document.querySelector('#email').value;
+				const message = document.querySelector('#messageText').value;
+
+			    //DOM
+				const listGroup = document.createElement('div');
+				listGroup.classList.add("list-group");
+				const listA = document.createElement('a');
+				listA.classList.add("list-group-item");
+				listA.classList.add("list-group-item-action");
+				listA.classList.add("flex-column");
+				listA.classList.add("align-items-start");
+				const titleDiv = document.createElement('div');
+				titleDiv.classList.add("d-flex");
+				titleDiv.classList.add("w-100");
+				titleDiv.classList.add("justify-content-between");
+				const titleh5 = document.createElement('h5');
+				titleh5.classList.add("mb-1");
+				titleh5.setAttribute("id", "sendBoxToEmail");
+				const nameTextNode = document.createTextNode("To: ");
+				const emailTextNode = document.createTextNode(email);
+				titleh5.appendChild(nameTextNode);
+				titleh5.appendChild(emailTextNode);
+				titleDiv.appendChild(titleh5);
+				listA.appendChild(titleDiv);
+				const messageP = document.createElement('p');
+				messageP.classList.add("mb-1");
+				messageP.setAttribute("id", "sendBoxRugularMes");
+				const messageTextNode = document.createTextNode(message);
+				messageP.appendChild(messageTextNode);
+				listA.appendChild(messageP);
+				const buttonSmall = document.createElement('small');
+				const button = document.createElement('button');
+				button.setAttribute("type", "button");
+				button.classList.add("btn");
+				button.classList.add("btn-secondary");
+				button.classList.add("delete");
+				const buttonTextNode = document.createTextNode("Delete Message");
+				button.appendChild(buttonTextNode);
+				buttonSmall.appendChild(button);
+				listA.appendChild(buttonSmall);
+				listGroup.appendChild(listA);
+
+				sentForm.appendChild(listGroup);
+
+				// now let's send to server
+
+				// the URL for the request
+			    const url = '/api/message/employees/newRegularMessage'
+
+			    // The data we are going to send in our request
+			    let data = {
+			      from: currentUser.email,
+			      to: email,
+			      message: message,
+			    }
+
+			    // Create our request constructor with all the parameters we need
+			    const request = new Request(url, {
+			      method: 'post',
+			      body: JSON.stringify(data),
+			      headers: {
+			            'Accept': 'application/json, text/plain, */*',
+			            'Content-Type': 'application/json'
+			        },
+			    })
+
+			    // Send the request with fetch()
+			    fetch(request)
+			    .then((res) => {
+			      if (res.status === 200) {
+			      	document.getElementById("messageText").value = "";
+					document.getElementById("email").value = "";
+			        alert("Message Send!")
+			      }
+			      else {
+			        return Promise.reject()
+			      }
+			    }).catch((error) => {log(error)})
+			    break;
+
+		}
+		}
+		if(flag === false){
+			document.getElementById("email").value = "";
+			alert("Employee not exist by the email your enter");
 		}
 	}).catch((error) => {log(error)})
-	log(flag)
-	return flag
+
+	return true;
 }
 
