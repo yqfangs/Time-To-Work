@@ -44,5 +44,14 @@ In admin page, you can add companies into the table which contains existing page
 <li> Log in as an employee to gain access to this page. </li>
 <li> Select your own time slots on the left and the available coworkers for trading shifts will be displayed on the right.</li>
 <li> Match up with the coworker you could trade with, press request to review, then press confirm to submit a trade request to the server via a POST request. </li>
+<li> Such requests are handled in the Message page. </li>
 </ul>
+
+<li><strong>Message Page: </strong>
+<ul>
+<li> Only employees have access to the message page. </li>
+<li> The main purpose of the message page is to resolve trade requests. But employees can also send casual email-like messages to their coworkers. </li>
+<li> The inbox panel is where a logged in employee can see all incoming messages. A trade request that appears here will have all related information displayed. The user is able to choose accept or refuse for such a request. </li>
+<li> Sent messages and trade requests originated from the logged in employee are displayed in the sent panel, along with their corresponding status. </li>
+<li> Server requests are made when a message is sent or deleted, a trade request is resolved, etc. </li>
 </ul>
