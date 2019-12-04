@@ -112,6 +112,7 @@ class employeeMessage {
     this.isTrade = false
     this.tradeTime = null
     this.tradeWeekDay = null
+    this.message = null
     this.tradeResponse = 'W' // 'W' = wait 'A' = accpet 'D' = 'decline'
   }
 

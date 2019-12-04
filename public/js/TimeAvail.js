@@ -54,6 +54,7 @@ function submitToServer(e) {
     fetch(request)
     .then((res) => {
       if (res.status === 200) {
+        window.location.reload()
         alert('New availability submitted!')
       }
       else {

@@ -80,10 +80,11 @@
  					</div>
 				</div>
 				<div class='row'>
-						<form id='uploadPicture'>
+
+						<form id='uploadPicture' action='/api/upload' method= 'POST' enctype="multipart/form-data">
  							 <div class="col-12 form-group">
    								 <label for="myPic">Upload File</label>
-   								 <input type="file" class="form-control-file" id="myPic">
+   								 <input name="myImg" type="file" class="form-control-file" id="myPic">
  							 </div>
  							 <div class="col-8">
  							 <input type="submit" class='btn btn-block btn-primary uploadProfilePicBut' value="Upload Profile Picture">
@@ -98,7 +99,7 @@
 
 <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content" id="modal">
       <div class="modal-header">
         <h5 class="modal-title" id="modalTitle">Change Password</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -113,8 +114,15 @@
  			</form>
       </div>
       <div class="modal-footer" id='changePWFooter'>
-      	<button id='changePWSubmit' type="button" class="btn btn-block btn-primary">Submit</button>
-        <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Close</button>
+      	<div class="row">
+      		<button id='changePWSubmit' type="button" class="col-12 btn btn-block btn-primary">Submit</button>
+      	</div>
+      	<div class='row'>
+              <div class='col-12'>
+        <button id='pwBack'type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Close</button>
+        	</div>
+        </div>
+        </div>
       </div>
     </div>
   </div>
