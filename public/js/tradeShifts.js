@@ -129,13 +129,13 @@ function submitTradeRequest(e) {
   else if(mySelectedDay=== 6){
     dateTime = "Sunday"
   }
-  
+
   const data = {
     from: currUser.email,
     to: tradeOptionSelected.email,
     isTrade: true,
     tradeTime: currUser.shifts[mySelectedDay],
-    tradeWeekDay: mySelectedDay     // 0 = Monday, 1 = Tuesday, ...
+    tradeWeekDay: mySelectedDay,    // 0 = Monday, 1 = Tuesday, ...
     message: "Changing shifts request:[From: " + currUser.shifts[mySelectedDay].start + ", To: " + currUser.shifts[mySelectedDay].end + ", On: " + dateTime + "]",
     tradeResponse: 'W'
   }
