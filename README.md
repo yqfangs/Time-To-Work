@@ -1,5 +1,4 @@
  # team39
-This website is optimizing the process of scheduling work shifts.
 The goal of our web app is to optimize the management of a small business, with focus on arranging work shifts of employees. The app acts as an interface between workers and their manager, as well as between coworker. This is demonstrated by functionalities such as scheduling shifts (as a manager) and trading shifts (with your fellow workers as an employee).
 <br>
 <ul>
