@@ -1,0 +1,31 @@
+body {
+}
+
+table {
+  border: 2px solid #f0f0f0;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+th, td {
+  width: 12.5%;
+  border-bottom: 2px solid #ffffff;
+}
+
+#startTime, #endTime{
+  width: 100%;
+}
+
+.inputForm {
+  min-width: 70px;
+  max-width: 150px;
+}
+
+
+.container {
+  margin-top: 50px;
+}
+
+#submitAllDiv {
+  margin-top: 70px;
+}
