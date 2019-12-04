@@ -11,11 +11,17 @@ signupButton.addEventListener("click", checkSignUpValid);
 
 function checkSignUpValid(){
 	//e.preventDefault()
+
 	if(document.getElementById("email").value === null || document.getElementById("email").value === ""){
 		alert("Please enter your email address");
 		return false;
 	}
 	let signupemail = document.getElementById("email").value;
+
+	if(checkExists(signupemail)){
+		alert("The email is registered in the system, please log in, or use another email.")
+		return false
+	}
 
 	if(document.getElementById("pw").value === null || document.getElementById("pw").value === ""){
 		alert("Please enter your password");
@@ -59,13 +65,6 @@ function checkSignUpValid(){
 		alert("Please enter valid email address");
 		return false;
 	}
-	
-	//company not exist
-	// if(!checkCompanyExist(allCompanies)){
-	// 	document.getElementById("company").value = "";
-	// 	alert("Please enter corret company, the company your enter is not exist")
-	// 	return false;
-	// }
 
 	//password not match
 	if(signuppassword != confirmpw){
@@ -74,36 +73,30 @@ function checkSignUpValid(){
 		alert("Please make sure your password and confirm password are matching");
 		return false;
 	}
-	//alert(`Sign Up Successfully as Employee.\nName: ${newUser.name}\nEmail: ${newUser.email}\nuserID: ${newUser.userID}\nCompany: ${newUser.companyName}\nPosition: ${newUser.position}`)
-	//alert(`Sign Up Successfully`);
 
-	// newUser = new Employee(name, signuppassword, signupemail, position, phone, company);
-	// allEmployees.push(newUser)
-	//otherwise is valide sign up
-	//alert(`Sign Up Successfully as Employee.\nName: ${newUser.name}\nEmail: ${newUser.email}\nuserID: ${newUser.userID}\nCompany: ${newUser.companyName}\nPosition: ${newUser.position}`)
-	//point to the log in page
-	//window.location = "index.html";
 }
 
+function checkExists(email){
 
-/*
-  This function return false if user want to sign up and enter the company name which 
-  is not on the company list; and return true if the company is exists.
-  Also this function will get data companyList from server, but now we get data from MockData.js
-*/
-// function checkCompanyExist(companyList){
+	log("imhere")
+	const url = '/api/employees'
 
-// 	if(document.getElementById("company").value === null || document.getElementById("company").value === ""){
-// 		return false;
-// 	}
-
-// 	let company = document.getElementById("company").value
-// 	for(let i=0; i<companyList.length; i++){
-// 		if(companyList[i].name === company){
-// 			currentCompany = companyList[i];
-// 			return true;
-// 		}
-// 	}
-
-// 	return false;
-// }
+	fetch(url)
+	.then((res) => {
+        if(res.status === 200){
+           	return res.json()
+        }else{
+            return Promise.reject()
+        }
+    })
+    .then((json) =>{
+    	const employees = json.filter((employee)=> employee.email === email)
+    	if(employees.length > 0){
+    		return true
+    	}
+    	return false
+    })
+    .catch((error)=>{
+    	log(error)
+    })
+}
