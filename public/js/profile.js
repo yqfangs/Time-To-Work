@@ -26,7 +26,7 @@
   window.addEventListener('load', loadProfilePic);
 
   function loadPersonalInfo(e){
-      
+      log("imhere")
     // load personal info from server
       const url = '/api/profile'
       fetch(url)
