@@ -10,8 +10,7 @@ const bodyParser = require('body-parser')
 const { User } = require('./db/models/user')
 const { Employer } = require('./db/models/employer')
 const session = require('express-session')
-
-// const multer = require('multer');
+const upload = require('./api/uploadRoutes.js')
 
 // starting the express server
 const app = express();
@@ -59,28 +58,20 @@ app.post('/login', (req, res) => {
             if (!employee) {
                 Employer.findByEmailPassword(email, password).then((employer) => {
                     if (!employer) {
-                        log("no such employer")
                         res.redirect('/login');
                     } else {
-                // Add the user's id to the session cookie.
-                // We can check later if this exists to ensure we are logged in.
+                // Add the id to the session cookie.
                         req.session.user = employer._id;
                         req.session.type = "employer"
-                        log(req.session.type)
-                        console.log(employer._id)
                         res.redirect('/dashboard');
                     }
                  }).catch((error) => {
-                    log(error)
+
                     res.status(400).redirect('/login');
                  })
             } else {
-                // Add the user's id to the session cookie.
-                // We can check later if this exists to ensure we are logged in.
-                log("found employee")
                 req.session.user = employee._id;
                 req.session.type = "employee"
-                console.log(employee._id)
                 res.redirect('/dashboard');
             }
         }).catch((error) => {
@@ -197,11 +188,7 @@ app.get('/userInfo', (req, res) => {
 app.use("/css", express.static(__dirname + '/public/css'))
 app.use("/js", express.static(__dirname + '/public/js'))
 app.use("/img", express.static(__dirname + '/public/img'))
-// app.use(multer({ dest: __dirname + '/pubic/uploads/',
-//  rename: function (fieldname, filename) {
-//    return filename;
-//  },
-// }));
+
 /*********************************************************/
 /*** Declare API routes ************************************/
 
@@ -214,6 +201,7 @@ app.use("/api/TimeAvail", require('./api/timeAvailRoutes.js'))
 app.use("/api/scheduling", require('./api/schedulingRoutes.js'))
 app.use("/api/tradeshifts", require('./api/tradeShiftsRoutes.js'))
 app.use("/api/message", require('./api/messageRoutes.js'))
+app.use("/api/upload", require('./api/uploadRoutes.js'))
 
 /*************************************************/
 // Express server listening...

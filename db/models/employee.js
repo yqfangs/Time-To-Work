@@ -47,12 +47,6 @@ const MessageEmployeeSchema = new mongoose.Schema({
 
 })
 
-const profilePicSchema = new mongoose.Schema({
-	img: {
-		data: Buffer,
-		contentType: String
-	}
-})
 
 
 // ----------- Schema for employee -----------
@@ -131,20 +125,6 @@ EmployeeSchema.pre('findOneAndUpdate', function(next) {
 	}
 })
 
-// EmployeeSchema.pre('findByIdAndUpdate', function(next) {
-// 	const update = this.getUpdate();
-// 	log("change password to " + update.password)
-// 	if (update.password) {
-// 		bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
-// 		bcrypt.hash(update.password, salt, (err, hash) => {
-// 			this.getUpdate().password = hash;
-// 			next();
-// 		})
-// 	})
-// 	} else {
-// 		next();
-// 	}
-// })
 
 EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 	const Employee = this
@@ -169,4 +149,4 @@ EmployeeSchema.statics.findByEmailPassword = function(email, password) {
 // make a model using the User schema
 const Employee = mongoose.model('Employee', EmployeeSchema)
 const MessageEmployee = mongoose.model('MessageEmployee', MessageEmployeeSchema)
-module.exports = { Employee, MessageEmployee }
+module.exports = { Employee, MessageEmployee}
