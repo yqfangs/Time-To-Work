@@ -53,6 +53,16 @@ router.get('/email/:email', (req, res) =>{
     })
 })
 
+// router.get('/', (req, res) => {
+//     // Add code here
+//     Employee.find().then((employees) =>{
+//         res.send({employees})
+//     }, (error) =>{
+//         res.status(500).send(error)
+//     })
+
+// })
+
 router.post('/', (req, res) => {
 
     // Create a new EMployee
