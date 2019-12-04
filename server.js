@@ -10,8 +10,8 @@ const bodyParser = require('body-parser')
 const { User } = require('./db/models/user')
 const { Employer } = require('./db/models/employer')
 const session = require('express-session')
-const { server_helper } = require('./server_helper.js')
-const multer = require('multer');
+
+// const multer = require('multer');
 
 // starting the express server
 const app = express();
@@ -209,7 +209,7 @@ app.use("/api/employees", require('./api/employeesRoutes.js'))
 app.use("/api/employers", require('./api/employersRoutes.js'))
 app.use("/api/companies", require('./api/companiesRoutes.js'))
 app.use("/api/dashboard", require('./api/dashboardRoutes.js'))
-app.use("/api/profile", require('./api/profileRoutes.js'))
+// app.use("/api/profile", require('./api/profileRoutes.js'))
 app.use("/api/TimeAvail", require('./api/timeAvailRoutes.js'))
 app.use("/api/scheduling", require('./api/schedulingRoutes.js'))
 app.use("/api/tradeshifts", require('./api/tradeShiftsRoutes.js'))

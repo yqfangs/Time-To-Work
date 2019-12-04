@@ -4,7 +4,7 @@ const router = express.Router();
 const { Employee } = require('../db/models/employee')
 const { Employer } = require('../db/models/employer')
 const { Company } = require('../db/models/company')
-const { server_helper } = require('../server_helper.js')
+const { server_helper } = require('./server_helper.js')
 
 const authenticate = (req, res, next) => {
 	if (req.session.user) {
@@ -30,7 +30,7 @@ router.get('/user', authenticate, (req, res) => {
 })
 
 
-router.get('/company', (req, res) => {
+router.get('/company', authenticate, (req, res) => {
   Company.findOne({name: req.employer.companyName}).then((company) => {
     if (!company) {
       res.status(404).send()
@@ -40,6 +40,7 @@ router.get('/company', (req, res) => {
     }
   })
   .catch((error) => {
+    log(error)
     res.status(500).send()
   })
 })
