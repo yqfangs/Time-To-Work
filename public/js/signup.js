@@ -100,3 +100,7 @@ function checkExists(email){
     	log(error)
     })
 }
+
+function signup(){
+	const url = '/api/employees'
+}
