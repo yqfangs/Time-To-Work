@@ -107,12 +107,37 @@ function submitTradeRequest(e) {
 
   const url = '/api/message/employees/newTradeMessage'
 
+  let dateTime = "";
+  if(mySelectedDay === 0){
+    dateTime = "Monday"
+  }
+  else if(mySelectedDay === 1){
+    dateTime = "Tuesday"
+  }
+  else if(mySelectedDay === 2){
+    dateTime = "Wednesday"
+  }
+  else if(mySelectedDay === 3){
+    dateTime = "Thursday"
+  }
+  else if(mySelectedDay === 4){
+    dateTime = "Friday"
+  }
+  else if(mySelectedDay=== 5){
+    dateTime = "Saturday"
+  }
+  else if(mySelectedDay=== 6){
+    dateTime = "Sunday"
+  }
+  
   const data = {
     from: currUser.email,
     to: tradeOptionSelected.email,
     isTrade: true,
     tradeTime: currUser.shifts[mySelectedDay],
     tradeWeekDay: mySelectedDay     // 0 = Monday, 1 = Tuesday, ...
+    message: "Changing shifts request:[From: " + currUser.shifts[mySelectedDay].start + ", To: " + currUser.shifts[mySelectedDay].end + ", On: " + dateTime + "]",
+    tradeResponse: 'W'
   }
 
   const request = new Request(url, {
