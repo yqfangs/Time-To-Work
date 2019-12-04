@@ -61,20 +61,6 @@ router.get('/employees/:id', (req, res) => {
 	})
 })
 
-/// Route for getting information for one emplyee.
-router.get('/employees/:type_email', (req, res) => {
-
-    const emp_email = req.params.email;
-
-	Employee.findOne({ email: emp_email }).then((employee) => {
-		if(!employee){
-			res.status(404).send()
-		}else{
-			res.send(employee)
-		}
-	}).catch((error) => {res.status(500).send()})
-})
-
 /// Route for adding trade shift message to a particular employee.
 /* 
 Request body expects:
@@ -369,7 +355,9 @@ router.delete('/employees/inbox/trade/accept/:current_email/:from_email/:cur_mes
 				for(let j = 0; j < employeeFrom.messages.length; j++){
 					if(employeeFrom.messages[j].from === from_email && employeeFrom.messages[j].isTrade === true && employeeFrom.messages[j].message === cur_message){
 						employeeFrom.messages[j].tradeResponse = 'A';
-						employeeFrom.shifts[employeeFrom.messages[j].tradeWeekDay] = {}
+						employeeFrom.shifts[employeeFrom.messages[j].tradeWeekDay].start = null;
+						employeeFrom.shifts[employeeFrom.messages[j].tradeWeekDay].end = null;
+						employeeFrom.shifts[employeeFrom.messages[j].tradeWeekDay].duration = null;
 						break;
 					}
 				}

@@ -452,7 +452,13 @@ function addSentMessage(e){
 		return false;
 	}
 
-    if(checkEmailExist(recipientEmail)){
+	if(!checkEmailExist(recipientEmail)){
+		log(checkEmailExist(recipientEmail))
+		document.getElementById("email").value = "";
+		alert("Employee not exist by the email your enter");
+		return false;
+	}
+
 		const email = document.querySelector('#email').value;
 		const message = document.querySelector('#message').value;
 
@@ -531,20 +537,29 @@ function addSentMessage(e){
 	        return Promise.reject()
 	      }
 	    }).catch((error) => {log(error)})
-    	}
-    else{
-		document.getElementById("email").value = "";
-		alert("Employee not exist by the email your enter");
-		return false;
-    }
+
+	    return true;
 }
 
-function checkEmailExist(email){
-	const url = '/api/message/employees/' + email;
+function checkEmailExist(rec_email){
+	const url = '/api/message/employees/';
+	let flag = false;
 	fetch(url).then((result) => {
 		if(result.status === 200){
-			return true;
+			return result.json()
+		}else{
+			log('error')
+		}
+	}).then((json) => {
+		for(let i = 0; i < json.length; i++){
+			if(json[i].email === rec_email){
+				flag = true;
+				log(flag)
+				break;
+			}
 		}
 	}).catch((error) => {log(error)})
+	log(flag)
+	return flag
 }
 
