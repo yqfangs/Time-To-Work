@@ -20,9 +20,8 @@ sendNewMessageButton.addEventListener("click", addSentMessage);
 
 const sentForm = document.querySelector('#sent');
 
-const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
-const messageInput = document.querySelector('#message');
+const messageInput = document.querySelector('#messageText');
 
 
 function loadMessage(e){
@@ -433,11 +432,11 @@ function addSentMessage(e){
 		return false;
 	}
 	let recipientEmail = document.getElementById("email").value;
-	if(document.getElementById("message").value === null || document.getElementById("message").value === ""){
+	if(document.getElementById("messageText").value === null || document.getElementById("messageText").value === ""){
 		alert("You can not sent empty message");
 		return false;
 	}
-	let sentMessage = document.getElementById("message").value;
+	let sentMessage = document.getElementById("messageText").value;
 
 	//not valid email address
 	if(recipientEmail.indexOf('@') === -1){
@@ -460,7 +459,7 @@ function addSentMessage(e){
 	// }
 
 		const email = document.querySelector('#email').value;
-		const message = document.querySelector('#message').value;
+		const message = document.querySelector('#messageText').value;
 
 	    //DOM
 		const listGroup = document.createElement('div');
