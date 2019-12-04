@@ -130,7 +130,7 @@ function check() {
         return false
     }
 
-    if(employerPhone.length !== 10) {
+    if(employerPhone.length !== 10 || !(/^\d+$/.test(employerPhone))) {
         alert("Please enter valid phone number")
         return false
     }
