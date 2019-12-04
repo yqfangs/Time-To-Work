@@ -4,6 +4,10 @@ HEROKU:
 https://serene-beyond-92279.herokuapp.com/
 <br>
 <ul>
+<li><strong>Log In credentials</strong>
+	Admin: email: admin, password: admin
+	employee: email: user1@mail.com, password: 123456
+	employer: email: user2@mail.com, password: 123456
 <li><strong>Log In Page:</strong>
  After clicking log in, it will jump to the dashboard page; and use email = "admin" and password = "admin" to login as admin user and page jump to the admin page; if email and password does not match, it will reload the page. If the input of the email or password is empty, it will pop up the alert to remind the user to enter the info. After clicking "Register here" it will jump to the signup page. Clicking the "Forget Password" button, it will pop up the window to say that request sent to the email address you entered.</li>
 
