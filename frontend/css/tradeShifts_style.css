@@ -1,0 +1,16 @@
+.row {
+  margin-top: 50px;
+}
+
+#content {
+  width: 100%;
+}
+
+#tradeOptionList {
+  height: 350px;
+  overflow: auto;
+}
+
+a {
+  overflow: visible;
+}
